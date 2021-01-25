@@ -21,7 +21,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 async function run() {
   try {
     await client.connect();
-    const database = client.db("judgeJS");
+    const database = client.db("judgejs");
     const collection = database.collection("tournaments");
     // create a document to be inserted
     const doc = { name: "Red", town: "kanto" };
@@ -34,8 +34,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
