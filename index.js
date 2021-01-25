@@ -7,10 +7,15 @@ const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/ju
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   const collection = client.db("jugdeJS").collection("tournaments");
-  console.log("worked");
+  const pizzaDocument = {
+  name: "Neapolitan pizza",
+  shape: "round",
+  toppings: [ "San Marzano tomatoes", "mozzarella di bufala cheese" ],
+  };
+  const result = await pizzaCollection.insertOne(pizzaDocument);
+  console.dir(result.insertedCount); // should print 1 on successful insert
   client.close();
 });
-
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
