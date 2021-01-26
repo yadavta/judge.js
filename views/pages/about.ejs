@@ -13,15 +13,21 @@
     </div>
     <script>
       var app5 = new Vue({
-      el: '#app-5',
-      data: {
-        message: 'Hello Vue.js!'
-      },
-      methods: {
-        reverseMessage: function () {
-          this.message = this.message.split('').reverse().join('')
-        }
-      }
+	      el: '#app-5',
+	      data: {
+		message: 'Hello Vue.js!'
+	      },
+	      methods: {
+		reverseMessage: function () {
+		 // this.message = this.message.split('').reverse().join('')
+			mounted () {
+				axios
+				.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+				.then(response => (this.message = response))
+			}
+		},
+		
+	      }
       })    
     </script>
 </body>
