@@ -3,6 +3,8 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
 </head>
   
 <body>
@@ -19,7 +21,11 @@
 	      },
 	      methods: {
 		reverseMessage: function () {
-		axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response))//this.message = this.message.split('').reverse().join('')
+		axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
+		/*axios
+		.get("https://judge-js.herokuapp.com/about")
+		.then(*/
+
 		}
 	}
       })    
