@@ -24,7 +24,8 @@
 		//axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
 		axios
 		.get("https://judge-js.herokuapp.com/about")
-		.then(response => (this.message = response))
+		.then(response => (this.message = response.data))
+
 		}
 	}
       })    
