@@ -5,13 +5,13 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 </head>
   
-  <body>
+<body>
+    <%- include ("../partials/nav.ejs") %>
     <div id="app-5">
       <p>{{ message }}</p>
       <button v-on:click="reverseMessage">Reverse Message</button>
     </div>
-  </body>
-  <script>
+    <script>
       var app5 = new Vue({
       el: '#app-5',
       data: {
@@ -23,6 +23,7 @@
         }
       }
       })    
-  </script>
-  
-</html>
+    </script>
+</body>
+
+ </html>
