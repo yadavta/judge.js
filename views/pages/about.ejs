@@ -19,12 +19,7 @@
 	      },
 	      methods: {
 		reverseMessage: function () {
-		 // this.message = this.message.split('').reverse().join('')
-			mounted () {
-				axios
-				.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-				.then(response => (console.log("true")))
-			}
+		this.message = this.message.split('').reverse().join('')
 		}
 	}
       })    
