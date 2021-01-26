@@ -21,11 +21,10 @@
 	      },
 	      methods: {
 		reverseMessage: function () {
-		axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
-		/*axios
+		//axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
+		axios
 		.get("https://judge-js.herokuapp.com/about")
-		.then(*/
-
+		.then(response => (this.message = response))
 		}
 	}
       })    
