@@ -2,36 +2,27 @@
 <html>
 <head>
     <%- include ("../partials/header.ejs") %>
-    <script src="https://unpkg.com/marked@0.3.6"></script>
-    <script src="https://unpkg.com/lodash@4.16.0"></script>
-    <script src="../../dist/vue.js"></script>
-  </head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
   
   <body>
-
-    <div id="editor">
-      <textarea :value="input" @input="update"></textarea>
-      <div v-html="compiledMarkdown"></div>
+    <div id="app-5">
+      <p>{{ message }}</p>
+      <button v-on:click="reverseMessage">Reverse Message</button>
     </div>
-
-    <script>
-      new Vue({
-        el: '#editor',
-        data: {
-          input: '# hello'
-        },
-        computed: {
-          compiledMarkdown: function () {
-            return marked(this.input, { sanitize: true })
-          }
-        },
-        methods: {
-          update: _.debounce(function (e) {
-            this.input = e.target.value
-          }, 300)
-        }
-      })
-    </script>
-
   </body>
+  <script>
+      var app5 = new Vue({
+      el: '#app-5',
+      data: {
+        message: 'Hello Vue.js!'
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+      })    
+  </script>
+  
 </html>
