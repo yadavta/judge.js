@@ -53,7 +53,7 @@ app.post('/about', jsonParser, function (req, res) {
 	
 	req.on('end', function () {
 		console.log('POSTed: ' + body);
-	*/	res.send(body);
+	*/	res.send(req.body);
 	//});
 
 	})
