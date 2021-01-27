@@ -43,7 +43,7 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 app.post('/about', function (req, res) {
-	var body = "";
+/*	var body = "";
 	
 	req.on('data', function (chunk) {
 		body += chunk;
@@ -51,7 +51,7 @@ app.post('/about', function (req, res) {
 	
 	req.on('end', function () {
 		console.log('POSTed: ' + body);
-//		res.writeHead(200);
-		res.send(body);	
-	 });
+//		res.writeHead(200);*/
+		res.send(req.body);	
+	// });
 	})
