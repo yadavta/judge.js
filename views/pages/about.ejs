@@ -23,7 +23,7 @@
 		reverseMessage: function () {
 		axios
 		.post("https://judge-js.herokuapp.com/about")
-		.then(response => (this.message = response))
+		.then(response => (this.message = response.data))
 		}
 	}
       })    
