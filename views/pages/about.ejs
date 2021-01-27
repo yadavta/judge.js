@@ -21,8 +21,12 @@
 	      },
 	      methods: {
 		reverseMessage: function () {
+		//axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
 		axios
-		.post("https://judge-js.herokuapp.com/about")
+		.post("https://judge-js.herokuapp.com/about", {
+			tournamentName: 'Berkley',
+			schoolApproved: true
+		})
 		.then(response => (this.message = response.data))
 		}
 	}
@@ -30,4 +34,4 @@
     </script>
 </body>
 
- </html>
+</html>
