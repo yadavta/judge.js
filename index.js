@@ -55,4 +55,3 @@ app.post('/about', function (req, res) {
 		res.send(body);	
 	 });
 	})
-});
