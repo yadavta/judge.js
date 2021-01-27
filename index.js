@@ -35,11 +35,11 @@ async function run() {
 }
 run().catch(console.dir);
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .get('/about',(req,res)=> res.render('pages/about'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-  .get('/about', (req, res) => res.send('hello world'))
+var app = express()
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.get('/', (req, res) => res.render('pages/index'))
+app.get('/about',(req,res)=> res.render('pages/about'))
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+app.get('/about', (req, res) => res.send('hello world'))
