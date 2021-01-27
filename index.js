@@ -34,20 +34,6 @@ async function mo () {
   }
 }
 
-function parsePOST(request) {
-	var body = "";
-	
-	request.on('data', function (chunk) {
-		body += chunk;
-	});
-	
-	request.on('end', function () {
-		console.log('POSTed: ' + body);
-//		res.writeHead(200);
-	 });
-	return body;
-}
-
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -57,6 +43,13 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 app.post('/about', function (req, res) {
-	var postData = parsePOST(req);
-	res.send(postData);
-});
+	var body = "";
+	
+	req.on('data', function (chunk) {
+		body += chunk;
+	});
+	
+	req.on('end', function () {
+		console.log('POSTed: ' + body);
+	 });
+	})
