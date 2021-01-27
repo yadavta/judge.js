@@ -18,7 +18,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
   client.close();
 });*/
 
-async function run() {
+async function () {
   try {
     await client.connect();
     const database = client.db("judgejs");
@@ -33,7 +33,7 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -42,4 +42,6 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
-app.post('/about', (req, res) => res.send('hello world'))
+app.post('/about', function (req, res) {
+	res.send('hello world')
+})
