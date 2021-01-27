@@ -51,5 +51,7 @@ app.post('/about', function (req, res) {
 	
 	req.on('end', function () {
 		console.log('POSTed: ' + body);
-	 });
+		res.send(body);
+	});
+
 	})
