@@ -15,7 +15,8 @@
     "express": "^4.15.2",
     "mongodb" : "^3.6.3",
     "vue" : "^2.6.12",
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0"
   },
   "devDependencies": {
     "got": "^11.3.0",
