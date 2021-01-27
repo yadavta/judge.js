@@ -37,11 +37,11 @@ async function mo () {
 function parsePOST(request) {
 	var body = "";
 	
-	req.on('data', function (chunk) {
+	request.on('data', function (chunk) {
 		body += chunk;
 	});
 	
-	req.on('end', function () {
+	request.on('end', function () {
 		console.log('POSTed: ' + body);
 //		res.writeHead(200);
 	 });
