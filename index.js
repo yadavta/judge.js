@@ -18,7 +18,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
   client.close();
 });*/
 
-async function () {
+async mo function () {
   try {
     await client.connect();
     const database = client.db("judgejs");
@@ -42,6 +42,6 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
-app.post('/about', function f(req, res) {
+app.post('/about', function (req, res) {
 	res.send('hello world')
 });
