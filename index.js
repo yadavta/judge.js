@@ -8,17 +8,6 @@ const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/ju
 const client = new MongoClient(uri, { useNewUrlParser: true });
 var jsonParser = bodyParser.json()
 
-/*client.connect(err => {
-  const collection = client.db("jugdeJS").collection("tournaments");
-  const pizzaDocument = {
-  name: "Neapolitan pizza",
-  shape: "round",
-  toppings: [ "San Marzano tomatoes", "mozzarella di bufala cheese" ],
-  };
-  const result = await pizzaCollection.insertOne(pizzaDocument);
-  console.dir(result.insertedCount); // should print 1 on successful insert
-  client.close();
-});*/
 
 async function mo () {
   try {
@@ -45,15 +34,6 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 app.post('/about', jsonParser, function (req, res) {
-	/*var body = "";
+	res.send(req.body.tournamentName);
 	
-	req.on('data', function (chunk) {
-		body += chunk;
-	});
-	
-	req.on('end', function () {
-		console.log('POSTed: ' + body);
-	*/	res.send(req.body);
-	//});
-
-	})
+})
