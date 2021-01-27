@@ -1,10 +1,12 @@
 const express = require('express')
+var bodyParser = require('body-parser')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgeJS?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
+var jsonParser = bodyParser.json()
 
 /*client.connect(err => {
   const collection = client.db("jugdeJS").collection("tournaments");
@@ -42,8 +44,8 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
-app.post('/about', function (req, res) {
-	var body = "";
+app.post('/about', jsonParser, function (req, res) {
+	/*var body = "";
 	
 	req.on('data', function (chunk) {
 		body += chunk;
@@ -51,7 +53,7 @@ app.post('/about', function (req, res) {
 	
 	req.on('end', function () {
 		console.log('POSTed: ' + body);
-		res.send(body);
-	});
+	*/	res.send(body);
+	//});
 
 	})
