@@ -18,7 +18,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
   client.close();
 });*/
 
-async mo function () {
+async function mo () {
   try {
     await client.connect();
     const database = client.db("judgejs");
