@@ -50,12 +50,13 @@ async function listTournaments(listData) {
 		await client.connect();
 		const database = client.db("judgejs");
 		const collection = database.collection("tournaments");
-		result = await collection.find().toArray();
+		let arr =  await collection.find();
+		result = arr.toArray();
 		
 	} finally {
 	    await client.close();
  	}
-	return result;
+	return "hello world";
 }
 
 app.post('/tournament', function (req, res) {
