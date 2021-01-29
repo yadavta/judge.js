@@ -9,21 +9,20 @@
   
 <body>
     <%- include ("../partials/nav.ejs") %>
-    <div id="app-5">
+    <div id="app-4">
       <p>{{ message }}</p>
       <button v-on:click="reverseMessage">Reverse Message</button>
     </div>
     <script>
       var app5 = new Vue({
-	      el: '#app-5',
+	      el: '#app-4',
 	      data: {
 		message: 'Hello Vue.js!'
 	      },
 	      methods: {
 		reverseMessage: function () {
 		//axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
-		axios
-		.post("https://judge-js.herokuapp.com/tournament", {
+		axios.post("https://judge-js.herokuapp.com/tournament", {
 		})
 		.then(response => (this.message = response))
 		}
