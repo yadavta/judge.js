@@ -61,7 +61,6 @@ var result = "";
 		};
 	
 		result = await collection('inventory').find().toArray();
-;
 		
 	} finally {
 	    await client.close();
@@ -70,8 +69,8 @@ var result = "";
 }
 
 app.post('/tournament', function (req, res) {
-	//let returnable = listTournaments();
-	res.send("hhello world");
+	let returnable = listTournaments();
+	res.send(returnable);
 })
 
 app.post('/create', jsonParser, function (req, res) {
