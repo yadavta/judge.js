@@ -69,7 +69,7 @@ var result = "";
 	return result;
 }
 
-app.post('/tournaments', function (req, res) {
+app.post('/tournament', function (req, res) {
 	//let returnable = listTournaments();
 	res.send("hhello world");
 })
