@@ -50,11 +50,11 @@ async function listTournaments(listData) {
 }
 
 app.post('/tournaments', function (req, res) {
-	let returnable = listTournaments();
-	res.send(returnable);
+	//let returnable = listTournaments();
+	res.send("hhello world");
 })
 
 app.post('/create', jsonParser, function (req, res) {
-	let returnable = createTournament(req.body);
-	res.send(returnable);
+	//let returnable = createTournament(req.body);
+	res.send("hello world");
 })
