@@ -40,6 +40,7 @@ async function createTournament (data) {
 	} finally {
 	    await client.close();
  	}
+	return result;
 }
 
 async function editTournament() {
