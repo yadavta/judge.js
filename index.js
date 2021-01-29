@@ -63,7 +63,7 @@ async function listTournaments(listData) {
 
 app.post('/tournament', function (req, res) {
 	var returnable;
-	listTournaments().then(response => returnable = response);
+	listTournaments().then(response => (returnable = response));
 	res.send(returnable);
 })
 
