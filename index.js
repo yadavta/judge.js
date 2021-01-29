@@ -43,8 +43,15 @@ async function createTournament (data) {
 	return result;
 }
 
-async function editTournament() {
+async function listTournaments(listData) {
+	return db.collection('inventory').find().toArray();
+	
 }
+
+app.post('/tournaments', function (req, res) {
+	let returnable = listTournaments();
+	res.send(returnable);
+})
 
 app.post('/create', jsonParser, function (req, res) {
 	let returnable = createTournament(req.body);
