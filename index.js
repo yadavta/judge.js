@@ -50,17 +50,7 @@ async function listTournaments(listData) {
 		await client.connect();
 		const database = client.db("judgejs");
 		const collection = database.collection("tournaments");
-		// create a document to be inserted
-		var d = new Date();
-		var year = d.getFullYear();
-	   	const doc = {
-			"_id" : (data.tournamentName.toLowerCase() + year),
-			"name" : data.tournamentName,
-			"tabroomName" : data.tabroomName,
-			"schoolApproved" : data.schoolApproved
-		};
-	
-		result = await collection('tournaments').find().toArray();
+		result = await collection.find().toArray();
 		
 	} finally {
 	    await client.close();
