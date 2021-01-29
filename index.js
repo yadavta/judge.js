@@ -45,8 +45,28 @@ async function createTournament (data) {
 }
 
 async function listTournaments(listData) {
-	return db.collection('inventory').find().toArray();
+var result = "";
+	try {
+		await client.connect();
+		const database = client.db("judgejs");
+		const collection = database.collection("tournaments");
+		// create a document to be inserted
+		var d = new Date();
+		var year = d.getFullYear();
+	   	const doc = {
+			"_id" : (data.tournamentName.toLowerCase() + year),
+			"name" : data.tournamentName,
+			"tabroomName" : data.tabroomName,
+			"schoolApproved" : data.schoolApproved
+		};
 	
+		result = await collection('inventory').find().toArray();
+;
+		
+	} finally {
+	    await client.close();
+ 	}
+	return result;
 }
 
 app.post('/tournaments', function (req, res) {
