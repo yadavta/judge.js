@@ -60,7 +60,7 @@ async function listTournaments(listData) {
 			"schoolApproved" : data.schoolApproved
 		};
 	
-		result = await collection('inventory').find().toArray();
+		result = await collection('tournaments').find().toArray();
 		
 	} finally {
 	    await client.close();
