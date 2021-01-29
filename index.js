@@ -16,6 +16,7 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
+app.get('/tournament', (req,res)=> res.render('pages/tournament'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
