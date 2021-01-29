@@ -36,7 +36,9 @@ async function createTournament (data) {
 			"schoolApproved" : data.schoolApproved
 		};
 	
-		result = await collection.insertOne(doc);
+		await collection.insertOne(doc).then(x => {
+			result = x
+		})
 		
 	} finally {
 	    await client.close();
