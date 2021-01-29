@@ -62,7 +62,8 @@ async function listTournaments(listData) {
 }
 
 app.post('/tournament', function (req, res) {
-	let returnable = listTournaments();
+	var returnable;
+	listTournaments().then(response => returnable = response);
 	res.send(returnable);
 })
 
