@@ -25,7 +25,8 @@
 		axios
 		.post("https://judge-js.herokuapp.com/about", {
 			tournamentName: 'Berkley',
-			schoolApproved: true
+			schoolApproved: true,
+			tabroomName: "fancy prestigious annual tournament",
 		})
 		.then(response => (this.message = response.data))
 		}
