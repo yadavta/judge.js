@@ -40,11 +40,12 @@ async function createTournament (data) {
 	} finally {
 	    await client.close();
  	}
- 	return result;
 }
 
+async function editTournament() {
+}
 
-app.post('/about', jsonParser, function (req, res) {
+app.post('/create', jsonParser, function (req, res) {
 	let returnable = createTournament(req.body);
 	res.send(returnable);
 })
