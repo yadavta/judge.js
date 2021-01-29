@@ -9,17 +9,16 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 var jsonParser = bodyParser.json()
 
 
-async function mo () {
+async function testing (data) {
   try {
     await client.connect();
     const database = client.db("judgejs");
     const collection = database.collection("tournaments");
     // create a document to be inserted
-    const doc = { name: "Red", town: "kanto" };
+    const doc = {  };
     const result = await collection.insertOne(doc);
-    console.log(
-      `${result.insertedCount} documents were inserted with the _id: ${result.insertedId}`,
-    );
+    return 200;
+    
   } finally {
     await client.close();
   }
@@ -35,6 +34,5 @@ app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 app.post('/about', jsonParser, function (req, res) {
-	res.send(req.body.tournamentName);
-	
+	res.send(req.body)
 })
