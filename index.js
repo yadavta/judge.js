@@ -45,7 +45,7 @@ async function createTournament (data) {
 }
 
 async function listTournaments(listData) {
-var result = "";
+	var result = "";
 	try {
 		await client.connect();
 		const database = client.db("judgejs");
@@ -60,8 +60,7 @@ var result = "";
 			"schoolApproved" : data.schoolApproved
 		};
 	
-		await collection('inventory').find().toArray()
-		.then(response => (result = response));
+		result = await collection('inventory').find().toArray();
 		
 	} finally {
 	    await client.close();
