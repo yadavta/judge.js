@@ -11,21 +11,23 @@ var jsonParser = bodyParser.json()
 
 async function testing (data) {
   try {
+  	var result;
     await client.connect();
     const database = client.db("judgejs");
     const collection = database.collection("tournaments");
     // create a document to be inserted
+    var d = new Date();
+	var year = d.getFullYear();
    	const doc = {
-	    "_id" : data.tournamentName.toLowerCase(),
+	    "_id" : (data.tournamentName.toLowerCase() + year),
 	    "name" : data.tournamentName,
 	    "tabroomName" : data.tabroomName,
 	    "schoolApproved" : data.schoolApproved
     };
-    const result = await collection.insertOne(doc);
-    return 200;
-    
+    result = await collection.insertOne(doc);    
   } finally {
     await client.close();
+    return result;
   }
 }
 
@@ -39,5 +41,6 @@ app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 app.post('/about', jsonParser, function (req, res) {
-	return testing(req.body);
+	var x = testing(req.body);
+	res.send(x)
 })
