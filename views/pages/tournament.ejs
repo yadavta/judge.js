@@ -24,9 +24,6 @@
 		//axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
 		axios
 		.post("https://judge-js.herokuapp.com/tournament", {
-			tournamentName: 'Berkley',
-			schoolApproved: true,
-			tabroomName: "fancy prestigious annual tournament",
 		})
 		.then(response => (this.message = response))
 		}
