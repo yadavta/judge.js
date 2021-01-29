@@ -60,7 +60,8 @@ var result = "";
 			"schoolApproved" : data.schoolApproved
 		};
 	
-		result = await collection('inventory').find().toArray();
+		await collection('inventory').find().toArray()
+		.then(response => (result = response));
 		
 	} finally {
 	    await client.close();
