@@ -15,7 +15,12 @@ async function testing (data) {
     const database = client.db("judgejs");
     const collection = database.collection("tournaments");
     // create a document to be inserted
-    const doc = {  };
+   	const doc = {
+	    "_id" : data.tournamentName.toLowerCase(),
+	    "name" : data.tournamentName,
+	    "tabroomName" : data.tabroomName,
+	    "schoolApproved" : data.schoolApproved
+    };
     const result = await collection.insertOne(doc);
     return 200;
     
@@ -34,5 +39,5 @@ app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 app.post('/about', jsonParser, function (req, res) {
-	res.send(req.body)
+	return testing(req.body);
 })
