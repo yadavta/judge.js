@@ -12,7 +12,7 @@
   
 <body>
     <%- include ("../partials/nav.ejs") %>
-    <div id="tournament-table">
+    <div id="tournamentTable">
     	<table class = "ui celled table">
 		<thead>
 			<tr><th>Name</th>
@@ -35,8 +35,8 @@
     	<button> v-on:click="updateTable"> Update Table </button>
     </div>
     <script>
-    var app5 = new Vue({
-		el: '#app-4',
+    var tournamentTable = new Vue({
+		el: '#tournamentTable',
 		data: function {
 			message: 'Hello Vue.js!'
 		},
