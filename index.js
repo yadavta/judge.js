@@ -46,7 +46,7 @@ async function createTournament (data) {
 	return result;
 }
 
-async function listTournaments(listData) {
+async function listTournaments() {
 	var result = "";
 	try {
 		await client.connect();
@@ -58,13 +58,13 @@ async function listTournaments(listData) {
 	} finally {
 	    await client.close();
  	}
-	return "hello world";
+	return result;
 }
 
 app.post('/tournament', function (req, res) {
-	var returnable;
-	listTournaments().then(response => (returnable = response));
-	res.send(returnable);
+	listTournaments().then(function(result) {
+		res.send(result)
+	});	
 })
 
 app.post('/create', jsonParser, function (req, res) {
