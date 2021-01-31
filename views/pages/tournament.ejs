@@ -10,9 +10,7 @@
 
 	<%- include ("../partials/nav.ejs") %>
 	
-	<button class="ui button" onclick="myFunction()"> 
-	  Follow
-	</button>
+	<button class="ui button" onclick="updateTable()"> Update Table </button>
 	
 	 <table class="ui celled table" id="tournamentTable">
 	  <thead>
@@ -20,20 +18,12 @@
 		<th>School Approved</th>
 	  </tr></thead>
 	  <tbody>
-		<tr>
-		  <td data-label="Name">James</td>
-		  <td data-label="School Approved">24</td>
-		  </tr>
-		<tr>
-		  <td data-label="Name">Jill</td>
-		  <td data-label="School Approved">26</td>
-		</tr>
 	  </tbody>
 	</table>
 	
     <script>
     
-    function myFunction() {
+    function updateTable() {
     
     	console.log("hi");
     
