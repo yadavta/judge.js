@@ -10,6 +10,8 @@
 
 <body>
 
+  <%- include ("../partials/nav.ejs") %>
+
   <input type="text" name="daterange" value="" />
 
   <button class="ui button" onclick="dateFinalier()"> Finalize Dates </button>
@@ -25,7 +27,7 @@
           console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
       });
-      
+
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
   			tournamentName: 'Berkley',
