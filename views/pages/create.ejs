@@ -10,7 +10,9 @@
 
   <%- include ("../partials/nav.ejs") %>
 
+<!-- tournament creation form with user input -->
 <div class="ui form">
+<!-- get tournament names, both informal and formal -->
   <div class="fields">
     <div class="field">
      <label>Colluqial Tournament Name</label>
@@ -21,6 +23,7 @@
      <input type="text" placeholder="tab tourney name">
    </div>
   </div>
+<!-- get tournament dates using calendar picker -->
   <div class="two fields">
     <div class="field">
       <label>Start date</label>
@@ -40,6 +43,15 @@
         </div>
       </div>
     </div>
+  </div>
+<!-- select which circuit it is in !-->
+  <div class="field">
+    <label>Circuits</label>
+    <select multiple="" class="ui dropdown">
+      <option value="">Select Circuit</option>
+      <option value="national">National Circuit</option>
+      <option value="local"> Local Circuit </option>
+    </select>
   </div>
 </div>
 
