@@ -2,37 +2,40 @@
 <html>
 <head>
     <%- include ("../partials/header.ejs") %>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 </head>
-  
+
 <body>
-    <%- include ("../partials/nav.ejs") %>
-    <div id="app-5">
-      <p>{{ message }}</p>
-      <button v-on:click="reverseMessage">Reverse Message</button>
-    </div>
-    <script>
-      var app5 = new Vue({
-	      el: '#app-5',
-	      data: {
-		message: 'Hello Vue.js!'
-	      },
-	      methods: {
-		reverseMessage: function () {
-		//axios.get("https://api.ipify.org/?format=text").then(response => (this.message = response.data))//this.message = this.message.split('').reverse().join('')
-		axios
-		.post("https://judge-js.herokuapp.com/create", {
-			tournamentName: 'Berkley',
-			schoolApproved: true,
-			tabroomName: "fancy prestigious annual tournament",
-		})
-		.then(response => (this.message = response))
-		}
-	}
-      })    
-    </script>
+
+  <input type="text" name="daterange" value="" />
+
+  <button class="ui button" onclick="dateFinalier()"> Finalize Dates </button>
+
+  <script>
+
+    function dateFinalier() {
+
+      $(function() {
+        $('input[name="daterange"]').daterangepicker({
+          opens: 'left'
+        }, function(start, end, label) {
+          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+      });
+      
+      /*axios
+  		.post("https://judge-js.herokuapp.com/create", {
+  			tournamentName: 'Berkley',
+  			schoolApproved: true,
+  			tabroomName: "fancy prestigious annual tournament",
+  		})
+  		.then(response => (this.message = response))*/
+    }
+
+  </script>
 </body>
 
 </html>
