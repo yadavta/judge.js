@@ -10,7 +10,17 @@
 
   <%- include ("../partials/nav.ejs") %>
 
-  <div class="ui form">
+<div class="ui form">
+  <div class="fields">
+    <div class="field">
+     <label>Colluqial Tournament Name</label>
+     <input type="text" placeholder="informal tourney name">
+   </div>
+   <div class="field">
+     <label>Official Tabroom name</label>
+     <input type="text" placeholder="tab tourney name">
+   </div>
+  </div>
   <div class="two fields">
     <div class="field">
       <label>Start date</label>
@@ -31,6 +41,7 @@
       </div>
     </div>
   </div>
+</div>
 
   <button class="ui button"> Finalize Dates </button>
 
@@ -40,7 +51,7 @@
       type: 'date',
       endCalendar: $('#rangeend')
     });
-    
+
     $('#rangeend').calendar({
       type: 'date',
       startCalendar: $('#rangestart')
