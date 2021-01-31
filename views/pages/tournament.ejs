@@ -47,13 +47,13 @@
 				let tData = result.data[i];
 				
 				//school approved table column colors
-				let approved = 'class = "pink"';
+				let approvedColor = 'class = "pink"';
 				console.log(tData);
-				if (schoolApproved) {
-					approved = ' class = "true"';
+				if (tData.schoolApproved) {
+					approvedColor = ' class = "true"';
 				}
 				
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved"' + approved + '>'  + '</td>' + '</tr>';
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
