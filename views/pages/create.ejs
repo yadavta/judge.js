@@ -11,12 +11,22 @@
   <%- include ("../partials/nav.ejs") %>
 
   <div class="ui form">
+  <div class="two fields">
     <div class="field">
-      <label>Date</label>
-      <div class="ui calendar">
+      <label>Start date</label>
+      <div class="ui calendar" id="rangestart">
         <div class="ui input left icon">
           <i class="calendar icon"></i>
-          <input type="text" placeholder="Pick up a date" name="date">
+          <input type="text" placeholder="Start">
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>End date</label>
+      <div class="ui calendar" id="rangeend">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="End">
         </div>
       </div>
     </div>
@@ -26,6 +36,15 @@
 
   <script>
 
+    $('#rangestart').calendar({
+      type: 'date',
+      endCalendar: $('#rangeend')
+    });
+    
+    $('#rangeend').calendar({
+      type: 'date',
+      startCalendar: $('#rangestart')
+    });
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
   			tournamentName: 'Berkley',
