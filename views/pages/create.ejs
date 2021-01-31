@@ -62,7 +62,8 @@
 </div>
 
   <script>
-
+  // neccessary bits for form functionality
+    //calendar date picker
     $('#rangestart').calendar({
       type: 'date',
       endCalendar: $('#rangeend')
@@ -72,6 +73,11 @@
       type: 'date',
       startCalendar: $('#rangestart')
     });
+
+    //circuit checkboxes
+    $('.ui.checkbox')
+      .checkbox()
+    ;
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
   			tournamentName: 'Berkley',
