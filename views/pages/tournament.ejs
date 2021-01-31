@@ -10,7 +10,7 @@
 
 	<%- include ("../partials/nav.ejs") %>
 	
-	 <table class="ui celled table" id="hi">
+	 <table class="ui celled table" id="tournamentTable">
 	  <thead>
 		<tr><th>Name</th>
 		<th>School Approved</th>
@@ -30,12 +30,20 @@
     <script>
 	axios.post("https://judge-js.herokuapp.com/tournament")
 	.then(function(result) {
-		console.log(result);
+		let i = 0;
+		let appendable = "";
+		let thisAppendable = "";
+		while(i < results.data.length) {
+			let tData = results.data[i];
+			thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved">' + tData.schoolApproved + '</td>' + '</tr>';
+			appendable += thisAppendable;
+			i++;
+		}
+		$(document).ready(function() {
+			$('#tournamentTable tbody').append(appendable);
+		}
 	});	  
     </script>
 </body>
 
 </html>
-
-
-<!-- [ { "_id": "berkley2021", "name": "Berkley", "tabroomName": "fancy prestigious annual tournament", "schoolApproved": true } ] -->
