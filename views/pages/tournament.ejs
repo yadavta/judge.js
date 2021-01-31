@@ -45,8 +45,15 @@
 			let thisAppendable = "";
 			while(i < result.data.length) {
 				let tData = result.data[i];
+				
+				//school approved table column colors
+				let approved = 'class = "pink"';
 				console.log(tData);
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved">' + tData.schoolApproved + '</td>' + '</tr>';
+				if (schoolApproved) {
+					approved = ' class = "true"';
+				}
+				
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved"' + approved + '>'  + '</td>' + '</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
