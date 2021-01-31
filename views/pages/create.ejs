@@ -59,7 +59,17 @@
       </div>
     </div>
 
+    <div class="field">
+      <label>Country</label>
+      <select multiple="" class="ui dropdown">
+       <option value="">Select Country</option>
+       <option value="AF">Afghanistan</option>
+     </select>
+    </div>
+
 </div>
+
+
 
   <script>
   // neccessary bits for form functionality
@@ -78,6 +88,12 @@
     $('.ui.checkbox')
       .checkbox()
     ;
+
+    //multiple select
+    $('select.dropdown')
+      .dropdown()
+    ;
+
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
   			tournamentName: 'Berkley',
