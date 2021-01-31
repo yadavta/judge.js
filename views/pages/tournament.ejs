@@ -43,8 +43,8 @@
 			let i = 0;
 			let appendable = "";
 			let thisAppendable = "";
-			while(i < results.data.length) {
-				let tData = results.data[i];
+			while(i < result.data.length) {
+				let tData = result.data[i];
 				console.log(tData);
 				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved">' + tData.schoolApproved + '</td>' + '</tr>';
 				appendable += thisAppendable;
