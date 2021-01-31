@@ -2,36 +2,31 @@
 <html>
 <head>
     <%- include ("../partials/header.ejs") %>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
 </head>
   
 <body>
- <table class="ui celled table">
-  <thead>
-    <tr><th>Name</th>
-    <th>Age</th>
-    <th>Job</th>
-  </tr></thead>
-  <tbody>
-    <tr>
-      <td data-label="Name">James</td>
-      <td data-label="Age">24</td>
-      <td data-label="Job">Engineer</td>
-    </tr>
-    <tr>
-      <td data-label="Name">Jill</td>
-      <td data-label="Age">26</td>
-      <td data-label="Job">Engineer</td>
-    </tr>
-    <tr>
-      <td data-label="Name">Elyse</td>
-      <td data-label="Age">24</td>
-      <td data-label="Job">Designer</td>
-    </tr>
-  </tbody>
-</table>
+
+	<%- include ("../partials/nav.ejs") %>
+	
+	 <table class="ui celled table">
+	  <thead>
+		<tr><th>Name</th>
+		<th>School Approved</th>
+	  </tr></thead>
+	  <tbody>
+		<tr>
+		  <td data-label="Name">James</td>
+		  <td data-label="School Approved">24</td>
+		  </tr>
+		<tr>
+		  <td data-label="Name">Jill</td>
+		  <td data-label="School Approved">26</td>
+		</tr>
+	  </tbody>
+	</table>
+	
     <script>
 	axios.post("https://judge-js.herokuapp.com/tournament")
 	.then(function(result) {
@@ -41,3 +36,6 @@
 </body>
 
 </html>
+
+
+<!-- [ { "_id": "berkley2021", "name": "Berkley", "tabroomName": "fancy prestigious annual tournament", "schoolApproved": true } ] -->
