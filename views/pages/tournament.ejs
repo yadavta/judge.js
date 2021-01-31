@@ -2,30 +2,30 @@
 <html>
 <head>
     <%- include ("../partials/header.ejs") %>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
 </head>
   
 <body>
     <%- include ("../partials/nav.ejs") %>
-    <div id="app-4">
-      <p>{{ message }}</p>
-      <button v-on:click="reverseMessage">Reverse Message</button>
-    </div>
+	<table class="ui celled table" id="tournamentTable">
+	<thead>
+		<tr><th>Name</th>
+		<th>School Approved</th>
+	  </tr></thead>
+	  <tbody>
+		<tr>
+		  <td data-label="Name">James</td>
+		  <td data-label="Age">24</td>
+		  <td data-label="Job">Engineer</td>
+		</tr>
+	  </tbody>
+	</table>
     <script>
-      var app5 = new Vue({
-	      el: '#app-4',
-	      data: {
-		message: 'Hello Vue.js!'
-	      },
-	      methods: {
-		reverseMessage: function () {
-		axios.post("https://judge-js.herokuapp.com/tournament")
-		.then(response => (this.message = response.data))
-		}
-	}
-      })    
+	axios.post("https://judge-js.herokuapp.com/tournament")
+	.then(function(result) {
+		
+	});	  
     </script>
 </body>
 
