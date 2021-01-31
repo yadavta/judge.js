@@ -10,7 +10,74 @@
 
 	<%- include ("../partials/nav.ejs") %>
 	
+	<button class="ui button" onclick="myFunction()"> 
+	  Follow
+	</button>
+	
 	 <table class="ui celled table" id="tournamentTable">
+	  <thead>
+		<tr><th>Name</th>
+		<th>School Approved</th>
+	  </tr></thead>
+	  <tbody>
+		<tr>
+		  <td data-label="Name">James</td>
+		  <td data-label="School Approved">24</td>
+		  </tr>
+		<tr>
+		  <td data-label="Name">Jill</td>
+		  <td data-label="School Approved">26</td>
+		</tr>
+	  </tbody>
+	</table>
+	
+    <script>
+    
+    function myFunction() {
+    
+    	console.log("hi");
+    
+		axios.post("https://judge-js.herokuapp.com/tournament")
+		.then(function(result) {
+			console.log(result)
+			let i = 0;
+			let appendable = "";
+			let thisAppendable = "";
+			while(i < results.data.length) {
+				let tData = results.data[i];
+				console.log(tData);
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved">' + tData.schoolApproved + '</td>' + '</tr>';
+				appendable += thisAppendable;
+				i++;
+			}
+			$(document).ready(function() {
+				$('#tournamentTable tbody').append(appendable);
+			}
+		});
+	
+	}	  
+    </script>
+</body>
+
+</html>
+
+
+<!-- [ { "_id": "berkley2021", "name": "Berkley", "tabroomName": "fancy prestigious annual tournament", "schoolApproved": true } ] -->
+
+<!-- 
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include ("../partials/header.ejs") %>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+</head>
+  
+<body>
+
+	<%- include ("../partials/nav.ejs") %>
+	
+	 <table class="ui celled table" id="hi">
 	  <thead>
 		<tr><th>Name</th>
 		<th>School Approved</th>
@@ -30,21 +97,12 @@
     <script>
 	axios.post("https://judge-js.herokuapp.com/tournament")
 	.then(function(result) {
-		console.log(result)
-		let i = 0;
-		let appendable = "";
-		let thisAppendable = "";
-		while(i < results.data.length) {
-			let tData = results.data[i];
-			thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.name + '</td>' + '<td data-label="School Approved">' + tData.schoolApproved + '</td>' + '</tr>';
-			appendable += thisAppendable;
-			i++;
-		}
-		$(document).ready(function() {
-			$('#tournamentTable tbody').append(appendable);
-		}
+		console.log(result);
 	});	  
     </script>
 </body>
 
 </html>
+
+
+<!-- [ { "_id": "berkley2021", "name": "Berkley", "tabroomName": "fancy prestigious annual tournament", "schoolApproved": true } ] -->
