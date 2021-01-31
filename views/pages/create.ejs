@@ -3,8 +3,6 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 </head>
 
@@ -12,9 +10,19 @@
 
   <%- include ("../partials/nav.ejs") %>
 
-  <input type="text" name="daterange" value="" />
+  <div class="ui form">
+    <div class="field">
+      <label>Date</label>
+      <div class="ui calendar">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="Pick up a date" name="date">
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <button class="ui button" onclick="dateFinalizer()"> Finalize Dates </button>
+  <button class="ui button"> Finalize Dates </button>
 
   <script>
 
@@ -36,3 +44,5 @@
 
   </script>
 </body>
+
+</html>
