@@ -14,11 +14,9 @@
 
   <input type="text" name="daterange" value="" />
 
-  <button class="ui button" onclick="dateFinalier()"> Finalize Dates </button>
+  <button class="ui button" onclick="dateFinalizer()"> Finalize Dates </button>
 
   <script>
-
-    function dateFinalier() {
 
       $(function() {
         $('input[name="daterange"]').daterangepicker({
@@ -35,9 +33,6 @@
   			tabroomName: "fancy prestigious annual tournament",
   		})
   		.then(response => (this.message = response))*/
-    }
 
   </script>
 </body>
-
-</html>
