@@ -148,6 +148,10 @@
     $('.ui.checkbox')
       .checkbox({
         onChecked: function() {
+          if $('#natCircuitCheckbox').is(':checked') {
+            userCircuits.push("national");
+            console.log(userCircuits);
+          }
           console.log("hi")
         }
       });
