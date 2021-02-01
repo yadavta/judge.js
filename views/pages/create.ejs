@@ -128,6 +128,12 @@
   <script>
   // neccessary bits for form functionality
     //calendar date picker
+    let userTournamentName = "";
+    let userTabroomName = "";
+    let userCircuits = [];
+    let userSchoolApproved = false;
+    let userJudges = [];
+
     $('#rangestart').calendar({
       type: 'date',
       endCalendar: $('#rangeend')
@@ -140,10 +146,11 @@
 
     //circuit checkboxes
     $('.ui.checkbox')
-      .checkbox()
-      let k = $(this).find("#natCircuitCheckbox").isChecked;
-      console.log(k);
-    ;
+      .checkbox({
+        onChecked: function() {
+          console.log("hi")
+        }
+      });
 
     //multiple select
     $('select.dropdown')
