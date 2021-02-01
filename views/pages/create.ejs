@@ -73,11 +73,11 @@
   <div class="inline field">
       <p>Applicable Circuits: </p>
       <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden">
+        <input type="checkbox" tabindex="0" class="hidden" id="natCircuitCheckbox">
         <label>National Circuit</label>
       </div>
       <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden">
+        <input type="checkbox" tabindex="0" class="hidden" id="localCircuitCheckbox">
         <label>Local Circuit</label>
       </div>
   </div>
@@ -95,6 +95,7 @@
       </div>
   </div>
 
+<!-- judges needed -->
   <div class="inline field">
       <p>Target Judges: </p>
       <div class="ui checkbox">
@@ -140,6 +141,8 @@
     //circuit checkboxes
     $('.ui.checkbox')
       .checkbox()
+      let k = $(this).find("#natCircuitCheckbox").isChecked;
+      console.log(k);
     ;
 
     //multiple select
