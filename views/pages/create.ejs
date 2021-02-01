@@ -23,6 +23,13 @@
       margin-left: 1em;
     }
 
+    .ui.form .ui.toggle.checkbox {
+      margin-right: 1.5em;
+      margin-left: 1.5em;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+    }
+
   </style>
 
 <!-- tournament creation form with user input -->
@@ -73,7 +80,20 @@
         <input type="checkbox" tabindex="0" class="hidden">
         <label>Local Circuit</label>
       </div>
-    </div>
+  </div>
+
+<!-- if tourney is school approved + if going to tourney as Independent -->
+  <div>
+      <p>Formal Classifications: </p>
+      <div class="ui toggle checkbox">
+        <input type="checkbox" tabindex="0" class="hidden">
+        <label>School Approved?</label>
+      </div>
+      <div class="ui toggle checkbox">
+        <input type="checkbox" tabindex="0" class="hidden">
+        <label>As Independent?</label>
+      </div>
+  </div>
 
 <!-- select events attending -->
   <div class="field">
@@ -117,9 +137,9 @@
 
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
-  			tournamentName: 'Berkley',
-  			schoolApproved: true,
-  			tabroomName: "fancy prestigious annual tournament",
+  			tournamentName: ,
+  			schoolApproved: ,
+  			tabroomName: ,
   		})
   		.then(response => (this.message = response))*/
 
