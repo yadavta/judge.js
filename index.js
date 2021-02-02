@@ -27,9 +27,7 @@ async function createTournament (data) {
 		const database = client.db("judgejs");
 		const collection = database.collection("tournaments");
 		// create a document to be inserted
-		var d = new Date();
-		var year = d.getFullYear();
-	   	const doc = data;
+			const doc = data;
 			/*{
 			"_id" : data.tournamentName.toLowerCase() + year),
 			"name" : data.tournamentName,
@@ -38,8 +36,8 @@ async function createTournament (data) {
 		};*/
 
 		await collection.insertOne(doc).then(x => {
-			result = x
-		})
+			result = x;
+		});
 
 	} finally {
 	    await client.close();
