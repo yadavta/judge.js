@@ -37,7 +37,7 @@
       padding-right: 0.2em;
     }
 
-    .ui.secondary .button {
+    .ui.violet .button {
       margin-right: 1.5em;
       margin-left: 1.5em;
       padding-left: 0.2em;
@@ -141,7 +141,7 @@
 </form>
 
 <!-- submit button; note that this uses basic html/jquery, not semantic UI. semantic's form plugin is used only for validation and UI -->
-<button class = "ui secondary button" id="submitButton"> Create Tournament </button>
+<button class = "ui violet button" id="submitButton"> Create Tournament </button>
 
   <script>
   // neccessary bits for form functionality
@@ -177,7 +177,7 @@
     // getting user inptu via jquery
     $('#submitButton').click(function(){
       console.log($('#formalName').val());
-      console.log($('#createTournamentForm').form('get field', "informalName"));
+      console.log($('#createTournamentForm').form('get value', "informalName"));
     });
 
 
