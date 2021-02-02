@@ -8,20 +8,6 @@ const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/ju
 const client = new MongoClient(uri, { useNewUrlParser: true });
 var jsonParser = bodyParser.json();
 
-//sendiblue
-const SibApiV3Sdk = require('sib-api-v3-sdk');
-let defaultClient = SibApiV3Sdk.ApiClient.instance;
-let apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = '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';
-
-let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-
-let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-
-sendSmtpEmail.subject = "SendinBlue Test";
-sendSmtpEmail.htmlContent = "<html><body><h1>This is my first transactional email</h1></body></html>";
-sendSmtpEmail.sender = {"name":"Tanush Yadav","email":"support@cascadecommons.org"};
-sendSmtpEmail.to = [{"email":"tanushyadav@gmailcom","name":"Tanush Yadav"}];
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -76,15 +62,9 @@ async function listTournaments() {
 }
 
 app.post('/tournament', function (req, res) {
-	apiInstance.sendTransacEmail(sendSmtpEmail)
-	.then(function(data) {
-	  res.send('API called successfully. Returned data: ' + JSON.stringify(data));
-	}, function(error) {
-	  res.send(error);
-	});
-	/*listTournaments().then(function(result) {
+	listTournaments().then(function(result) {
 		res.send(result)
-	});*/
+	});
 });
 
 app.post('/create', jsonParser, function (req, res) {
