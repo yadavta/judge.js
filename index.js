@@ -64,7 +64,7 @@ async function listTournaments() {
 
 app.post('/tournament', function (req, res) {
 	listTournaments().then(function(result) {
-		res.send(result)
+		res.send(result);
 	});
 });
 
