@@ -29,12 +29,13 @@ async function createTournament (data) {
 		// create a document to be inserted
 		var d = new Date();
 		var year = d.getFullYear();
-	   	const doc = {
-			"_id" : (data.tournamentName.toLowerCase() + year),
+	   	const doc = data;
+			/*{
+			"_id" : data.tournamentName.toLowerCase() + year),
 			"name" : data.tournamentName,
 			"tabroomName" : data.tabroomName,
 			"schoolApproved" : data.schoolApproved
-		};
+		};*/
 
 		await collection.insertOne(doc).then(x => {
 			result = x
