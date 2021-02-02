@@ -77,7 +77,8 @@ async function listTournaments() {
 }
 
 app.post('/tournament', function (req, res) {
-	apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
+	apiInstance.sendTransacEmail(sendSmtpEmail)
+	.then(function(data) {
 	  res.send('API called successfully. Returned data: ' + JSON.stringify(data));
 	}, function(error) {
 	  res.send(error);
@@ -85,9 +86,9 @@ app.post('/tournament', function (req, res) {
 	/*listTournaments().then(function(result) {
 		res.send(result)
 	});*/
-})
+});
 
 app.post('/create', jsonParser, function (req, res) {
 	let returnable = createTournament(req.body);
 	res.send(returnable);
-}
+});
