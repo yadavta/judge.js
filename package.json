@@ -16,7 +16,8 @@
     "mongodb" : "^3.6.3",
     "vue" : "^2.6.12",
     "axios": "^0.21.1",
-    "body-parser": "^1.19.0"
+    "body-parser": "^1.19.0",
+    "sib-api-v3-sdk": "8.2.0"
   },
   "devDependencies": {
     "got": "^11.3.0",
