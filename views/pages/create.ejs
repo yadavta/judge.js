@@ -171,12 +171,14 @@
     let userTournamentName = "";
     let userTabroomName = "";
     let userCircuits = [];
+    let userJudges = [];
     let userSchoolApproved = false;
     let userAsIndependent = false;
-    let userJudges = [];
+    let currentYear = new Date().getFullYear();
 
     // getting user inptu via jquery
     $('#submitButton').click(function() {
+
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
 
@@ -198,15 +200,21 @@
       userSchoolApproved = $('#schoolApprovedToggleBox').prop('checked');
       userAsIndependent = $('#asIndependentToggleBox').prop('checked');
 
+
+      //axios.post("https://judge-js.herokuapp.com/create",
+      console.log({
+        _id: (userTournamentName.toLowerCase() += currentYear),
+        tournamentName: userTournamentName,
+        tabroomName: userTabroomName,
+        circuits: userCircuits,
+        judgeTypes: userJudges,
+        schoolApproved: userSchoolApproved,
+        asIndependent: userAsIndependent
+      }));
+  // .then(response => (this.message = response))*/
+
     });
 
-      /*axios
-  		.post("https://judge-js.herokuapp.com/create", {
-  			tournamentName: ,
-  			schoolApproved: ,
-  			tabroomName: ,
-  		})
-  		.then(response => (this.message = response))*/
 
   </script>
 </body>
