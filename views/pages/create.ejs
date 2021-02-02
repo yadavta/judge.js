@@ -30,10 +30,17 @@
       padding-right: 0.2em;
     }
 
+    .ui.primary .button {
+      margin-right: 1.5em;
+      margin-left: 1.5em;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+    }
+
   </style>
 
 <!-- tournament creation form with user input -->
-<div class="ui form">
+<form class="ui form">
 <!-- get tournament names, both informal and formal -->
   <div class="fields">
     <div class="field">
@@ -121,9 +128,11 @@
    </select>
   </div>
 
-</div>
+  <!-- submit button-->
+  <button class = "ui primary button" id="submitButton"> Create Tournament </button>
 
-<button class = "ui primary button" id="submitButton"> Create Tournament </button>
+</form>
+
 
 
   <script>
