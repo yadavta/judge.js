@@ -114,11 +114,11 @@
   <div class="inline field">
       <p>Target Judges: </p>
       <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden">
+        <input type="checkbox" tabindex="0" class="hidden" id="parentsJudgesCheckbox">
         <label>Parents and Volunteers</label>
       </div>
       <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden">
+        <input type="checkbox" tabindex="0" class="hidden" id="hiresJudgesCheckbox">
         <label>Hires</label>
       </div>
   </div>
@@ -185,6 +185,14 @@
       }
       if ($('#localCircuitCheckbox').prop('checked')) {
         userCircuits.push("local");
+      }
+
+      if($('#parentsJudgesCheckbox').prop('checked')) {
+        userJudges.push("parents");
+      }
+
+      if($('#hiresJudgesCheckbox').prop('checked')) {
+        userJudges.push("hires")
       }
 
     });
