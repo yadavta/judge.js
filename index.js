@@ -11,8 +11,7 @@ var jsonParser = bodyParser.json();
 //sendiblue
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 let defaultClient = SibApiV3Sdk.ApiClient.instance;
-
-let apiKey = defaultClient.authentications['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'];
+let apiKey = defaultClient.authentications['api-key'];
 apiKey.apiKey = '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';
 
 let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
