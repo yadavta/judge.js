@@ -180,12 +180,12 @@
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
 
-      if($('#natCircuitCheckbox').val()) {
+      if($('#natCircuitCheckbox').prop('checked')) {
         userCircuits.push("national");
       }
-      console.log($('#localCircuitCheckbox').prop('checked'));
-
-      console.log(userCircuits);
+      if ($('#localCircuitCheckbox').prop('checked')) {
+        userCircuits.push("local");
+      }
 
     });
 
