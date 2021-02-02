@@ -37,12 +37,12 @@
 <!-- get tournament names, both informal and formal -->
   <div class="fields">
     <div class="field">
-     <label>Colluqial Tournament Name</label>
-     <input type="text" placeholder="informal tourney name" size="30">
+     <label>Colloquial Tournament Name</label>
+     <input type="text" id="informalName" placeholder="informal tourney name" size="30">
    </div>
    <div class="field">
-     <label>Official Tabroom name</label>
-     <input type="text" placeholder="tab tourney name" size="60">
+     <label>Official Tabroom Name</label>
+     <input type="text" id="formalName" placeholder="tab tourney name" size="60">
    </div>
   </div>
 
@@ -123,16 +123,12 @@
 
 </div>
 
+<button class = "ui primary button" id="submitButton"> Create Tournament </button>
 
 
   <script>
   // neccessary bits for form functionality
     //calendar date picker
-    let userTournamentName = "";
-    let userTabroomName = "";
-    let userCircuits = [];
-    let userSchoolApproved = false;
-    let userJudges = [];
 
     $('#rangestart').calendar({
       type: 'date',
@@ -146,16 +142,25 @@
 
     //circuit checkboxes
     $('.ui.checkbox')
-      .checkbox({
-        onChecked: function() {
-          console.log("hi");
-        }
-      });
+      .checkbox();
 
     //multiple select
     $('select.dropdown')
       .dropdown()
     ;
+
+
+    // setting up basic variables
+    let userTournamentName = "";
+    let userTabroomName = "";
+    let userCircuits = [];
+    let userSchoolApproved = false;
+    let userJudges = [];
+
+    // getting user inptu via jquery
+    $('#submitButton').click(function(){
+      console.log($('#formalName').val());
+    });
 
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
