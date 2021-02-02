@@ -8,6 +8,21 @@ const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/ju
 const client = new MongoClient(uri, { useNewUrlParser: true });
 var jsonParser = bodyParser.json();
 
+//sendiblue
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+let defaultClient = SibApiV3Sdk.ApiClient.instance;
+
+let apiKey = defaultClient.authentications['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'];
+apiKey.apiKey = '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';
+
+let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+
+sendSmtpEmail.subject = "SendinBlue Test";
+sendSmtpEmail.htmlContent = "<html><body><h1>This is my first transactional email</h1></body></html>";
+sendSmtpEmail.sender = {"name":"Tanush","email":"tanushyadav@gmail.com"};
+sendSmtpEmail.to = [{"email":"example1@example1.com","name":"Jane Doe"}];
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -35,11 +50,11 @@ async function createTournament (data) {
 			"tabroomName" : data.tabroomName,
 			"schoolApproved" : data.schoolApproved
 		};
-	
+
 		await collection.insertOne(doc).then(x => {
 			result = x
 		})
-		
+
 	} finally {
 	    await client.close();
  	}
@@ -54,7 +69,7 @@ async function listTournaments() {
 		const collection = database.collection("tournaments");
 		let arr =  await collection.find();
 		result = arr.toArray();
-		
+
 	} finally {
 	    await client.close();
  	}
@@ -62,12 +77,17 @@ async function listTournaments() {
 }
 
 app.post('/tournament', function (req, res) {
-	listTournaments().then(function(result) {
+	apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
+	  res.send('API called successfully. Returned data: ' + JSON.stringify(data));
+	}, function(error) {
+	  res.send(error);
+	});
+	/*listTournaments().then(function(result) {
 		res.send(result)
-	});	
+	});*/
 })
 
 app.post('/create', jsonParser, function (req, res) {
 	let returnable = createTournament(req.body);
 	res.send(returnable);
-})
+}
