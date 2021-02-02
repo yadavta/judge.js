@@ -101,11 +101,11 @@
   <div class="inline field">
       <p>Formal Classifications: </p>
       <div class="ui toggle checkbox">
-        <input type="checkbox" tabindex="0" class="hidden">
+        <input type="checkbox" tabindex="0" class="hidden" id="schoolApprovedToggleBox">
         <label>School Approved?</label>
       </div>
       <div class="ui toggle checkbox">
-        <input type="checkbox" tabindex="0" class="hidden">
+        <input type="checkbox" tabindex="0" class="hidden" id="asIndependentToggleBox">
         <label>As Independent?</label>
       </div>
   </div>
@@ -173,6 +173,7 @@
     let userTabroomName = "";
     let userCircuits = [];
     let userSchoolApproved = false;
+    let userAsIndependent = false;
     let userJudges = [];
 
     // getting user inptu via jquery
@@ -194,7 +195,8 @@
       if($('#hiresJudgesCheckbox').prop('checked')) {
         userJudges.push("hires")
       }
-      console.log(userJudges);
+
+      console.log($('#schoolApprovedToggleBox').prop('checked'));
 
     });
 
