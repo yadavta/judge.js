@@ -176,6 +176,8 @@
     let userSchoolApproved = false;
     let userAsIndependent = false;
     let currentYear = new Date().getFullYear();
+    let userStartDate;
+    let userEndDate;
 
     // getting user inptu via jquery
     $('#submitButton').click(function() {
@@ -206,6 +208,7 @@
         userAsIndependent = true;
       }
 
+      let $('#rangestart').calendar('get date')
 
       //axios.post("https://judge-js.herokuapp.com/create",
       console.log({
@@ -215,12 +218,10 @@
         circuits: userCircuits,
         judgeTypes: userJudges,
         schoolApproved: userSchoolApproved,
-        asIndependent: userAsIndependent
+        asIndependent: userAsIndependent,
+        startDate: userStartDate.toJSON(),
+        endDate: userEndDate.toJSON()
       });
-
-      console.log("Nerd");
-      console.log($('#rangestart').calendar('get date'));
-      console.log($('#rangeend').calendar('get date'));
 
   // .then(response => (this.message = response))*/
 
