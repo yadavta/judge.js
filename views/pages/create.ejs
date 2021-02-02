@@ -208,11 +208,11 @@
         userAsIndependent = true;
       }
 
+      //dates are stored as ISO 8601 format to ensure compatibility with MongoDB query
       let userStartDate = $('#rangestart').calendar('get date').toJSON();
       let userEndDate = $('#rangeend').calendar('get date').toJSON();
 
-      //axios.post("https://judge-js.herokuapp.com/create",
-      console.log({
+      axios.post("https://judge-js.herokuapp.com/create", {
         _id: userTournamentID,
         tournamentName: userTournamentName,
         tabroomName: userTabroomName,
@@ -222,9 +222,8 @@
         asIndependent: userAsIndependent,
         startDate: userStartDate,
         endDate: userEndDate
-      });
-
-  // .then(response => (this.message = response))*/
+      })
+      .then(response => (console.log(response)));
 
     });
 
