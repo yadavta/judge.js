@@ -2,6 +2,7 @@
 
 ## Create Page
 
+### Definitions
 * **Colloquial Tournament Name** - the informal name by which everyone in the club refers to the tournament.
 
 * **Official Tabroom Name** - the full name of the tournament on Tabroom. In most cases, this official tabroom name will be significantly longer than the
@@ -16,10 +17,10 @@
 ### Examples
 The following examples are from tournaments that occurred in the 2020 to 2021 school year.
 
-### Berkley
+#### Berkley
 This example is based on the 2021 Berkley tournament, see the [Tabroom page here](https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=16917).
 
-#### Variables
+##### Variables
 Tournament ID - berkley2021
 Colloquial Tournament Name - Berkley
 Official Tabroom Name - Cal Invitational UC Berkeley
@@ -28,6 +29,4 @@ Formal Classifications - School Approved
 Target Judges - Hires
 
 
-#### Explanation
-
-##
+##### Explanation
