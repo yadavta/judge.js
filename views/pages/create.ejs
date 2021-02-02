@@ -168,6 +168,7 @@
     ;
 
     // setting up basic variables
+    let userTournamentID = "";
     let userTournamentName = "";
     let userTabroomName = "";
     let userCircuits = [];
@@ -181,6 +182,7 @@
 
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
+      userTournamentID = userTournamentID.toLowerCase() + currentYear;
 
       if($('#natCircuitCheckbox').prop('checked')) {
         userCircuits.push("national");
@@ -207,7 +209,7 @@
 
       //axios.post("https://judge-js.herokuapp.com/create",
       console.log({
-        _id: (userTournamentName.toLowerCase() += currentYear),
+        _id: (),
         tournamentName: userTournamentName,
         tabroomName: userTabroomName,
         circuits: userCircuits,
