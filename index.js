@@ -21,7 +21,7 @@ let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 sendSmtpEmail.subject = "SendinBlue Test";
 sendSmtpEmail.htmlContent = "<html><body><h1>This is my first transactional email</h1></body></html>";
 sendSmtpEmail.sender = {"name":"Tanush","email":"tanushyadav@gmail.com"};
-sendSmtpEmail.to = [{"email":"support@cascadecommons.org","name":"Jane Doe"}];
+sendSmtpEmail.to = [{"email":"tanushyadav@gmailcom","name":"Tanush Yadav"}];
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
