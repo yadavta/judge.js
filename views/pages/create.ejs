@@ -179,6 +179,16 @@
     $('#submitButton').click(function() {
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
+
+      if($('#natCircuitCheckbox').val()) {
+        userCircuits.push("national");
+      }
+      if($('#localCircuitCheckbox').val()) {
+        userCircuits.push("local");
+      }
+
+      console.log(userCircuits);
+
     });
 
       /*axios
