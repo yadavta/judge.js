@@ -29,7 +29,7 @@
 
     function tableUpdater() {
 
-    	console.log("hi");
+    console.log("hi");
 
 		axios.post("https://judge-js.herokuapp.com/tournament")
 		.then(function(result) {
@@ -55,6 +55,7 @@
 				$('#tournamentTable tbody').append(appendable);
 			});
 		});
+  }
 
     </script>
 </body>
