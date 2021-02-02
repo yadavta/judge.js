@@ -3,7 +3,6 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 </head>
 
 <body>
@@ -196,7 +195,8 @@
         userJudges.push("hires")
       }
 
-      console.log($('#schoolApprovedToggleBox').prop('checked'));
+      userSchoolApproved = $('#schoolApprovedToggleBox').prop('checked');
+      userAsIndependent = $('#asIndependentToggleBox').prop('checked');
 
     });
 
