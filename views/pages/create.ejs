@@ -65,7 +65,7 @@
   <div class="two fields">
     <div class="field">
       <label>Start date</label>
-      <div class="ui calendar" id="rangestart">
+      <div class="ui calendar" id="rangeStart">
         <div class="ui input left icon">
           <i class="calendar icon"></i>
           <input type="text" placeholder="Start">
@@ -74,7 +74,7 @@
     </div>
     <div class="field">
       <label>End date</label>
-      <div class="ui calendar" id="rangeend">
+      <div class="ui calendar" id="rangeEnd">
         <div class="ui input left icon">
           <i class="calendar icon"></i>
           <input type="text" placeholder="End">
@@ -217,6 +217,8 @@
         schoolApproved: userSchoolApproved,
         asIndependent: userAsIndependent
       });
+
+      console.log($('ui.calendar').calendar('get startDate'));
   // .then(response => (this.message = response))*/
 
     });
