@@ -36,11 +36,17 @@
       padding-left: 0.2em;
       padding-right: 0.2em;
     }
+    .ui.secondary .button {
+      margin-right: 1.5em;
+      margin-left: 1.5em;
+      padding-left: 0.2em;
+      padding-right: 0.2em;
+    }
 
   </style>
 
 <!-- tournament creation form with user input -->
-<form class="ui form">
+<form class="ui form" id="createTournamentForm">
 <!-- get tournament names, both informal and formal -->
   <div class="fields">
     <div class="field">
@@ -170,7 +176,9 @@
     // getting user inptu via jquery
     $('#submitButton').click(function(){
       console.log($('#formalName').val());
+      console.log($('#createTournamentForm').form('get field', "#informalName"));
     });
+
 
       /*axios
   		.post("https://judge-js.herokuapp.com/create", {
