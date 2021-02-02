@@ -182,7 +182,7 @@
 
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
-      userTournamentID = userTournamentID.toLowerCase() + currentYear;
+      userTournamentID = userTournamentName.toLowerCase() + currentYear;
 
       if($('#natCircuitCheckbox').prop('checked')) {
         userCircuits.push("national");
@@ -218,7 +218,9 @@
         asIndependent: userAsIndependent
       });
 
-      console.log($('ui.calendar').calendar('get startDate'));
+      console.log("Nerd");
+      console.log($('#rangestart').val())
+
   // .then(response => (this.message = response))*/
 
     });
