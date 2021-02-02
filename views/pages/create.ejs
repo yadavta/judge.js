@@ -208,7 +208,8 @@
         userAsIndependent = true;
       }
 
-      let $('#rangestart').calendar('get date')
+      let userStartDate = $('#rangestart').calendar('get date').toJSON();
+      let userEndDate = $('#rangeend').calendar('get date').toJSON();
 
       //axios.post("https://judge-js.herokuapp.com/create",
       console.log({
@@ -219,14 +220,13 @@
         judgeTypes: userJudges,
         schoolApproved: userSchoolApproved,
         asIndependent: userAsIndependent,
-        startDate: userStartDate.toJSON(),
-        endDate: userEndDate.toJSON()
+        startDate: userStartDate,
+        endDate: userEndDate
       });
 
   // .then(response => (this.message = response))*/
 
     });
-
 
   </script>
 </body>
