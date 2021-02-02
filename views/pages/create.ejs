@@ -197,8 +197,12 @@
         userJudges.push("hires")
       }
 
-      userSchoolApproved = $('#schoolApprovedToggleBox').prop('checked');
-      userAsIndependent = $('#asIndependentToggleBox').prop('checked');
+      if($('#schoolApprovedToggleBox').prop('checked')) {
+        userSchoolApproved = true;
+      }
+      if($('#asIndependentToggleBox').prop('checked')) {
+        userAsIndependent = true;
+      }
 
 
       //axios.post("https://judge-js.herokuapp.com/create",
