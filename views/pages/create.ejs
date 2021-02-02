@@ -18,6 +18,12 @@
       padding: 2em;
     }
 
+    .ui{
+      margin-left: 20%;
+      margin-right: 20%;
+      padding: 2em;
+    }
+
     .ui.form .ui.checkbox {
       margin-right: 1em;
       margin-left: 1em;
@@ -37,10 +43,10 @@
       padding-right: 0.2em;
     }
 
-    .violet.button {
-      margin-left: 22%;
-      margin-right: 22%;
-        padding-left: 0.2em;
+    .ui.violet .button {
+      margin-right: 1.5em;
+      margin-left: 1.5em;
+      padding-left: 0.2em;
       padding-right: 0.2em;
     }
 
@@ -140,7 +146,9 @@
 </form>
 
 <!-- submit button; note that this uses basic html/jquery, not semantic UI. semantic's form plugin is used only for validation and UI -->
-<button class = "ui violet button" id="submitButton"> Create Tournament </button>
+<div class = "ui">
+  <button class = "ui violet button" id="submitButton"> Create Tournament </button>
+</div>
 
   <script>
   // neccessary bits for form functionality
