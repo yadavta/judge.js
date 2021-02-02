@@ -43,10 +43,7 @@
       padding-right: 0.2em;
     }
 
-    .ui.fun .ui.violet.button {
-      margin-right: 0.5em;
-      margin-left: 0.5em;
-    }
+    .ui.fun .ui.violet.button {}
 
   </style>
 
@@ -180,8 +177,8 @@
 
     // getting user inptu via jquery
     $('#submitButton').click(function() {
-      console.log($('#formalName').val());
-      console.log($('#informalName').val());
+      userTournamentName = $('#informalName').val();
+      userTabroomName = $('#formalName').val();
     });
 
       /*axios
