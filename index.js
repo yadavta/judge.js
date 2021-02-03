@@ -53,11 +53,11 @@ async function listTournaments() {
 		const collection = database.collection("tournaments");
 		let arr =  await collection.find();
 		result = arr.toArray();
+	}
 	catch (e) {
 		result = e;
-
 	}
-	} finally {
+	finally {
 	    await client.close();
  	}
 	return result;
