@@ -21,7 +21,7 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 async function createTournament (data) {
-	var result = "";
+	/*var result = "";
 	try {
 		await client.connect();
 		const database = client.db("judgejs");
@@ -33,7 +33,7 @@ async function createTournament (data) {
 			"name" : data.tournamentName,
 			"tabroomName" : data.tabroomName,
 			"schoolApproved" : data.schoolApproved
-		};*/
+		};
 
 		await collection.insertOne(doc).then(x => {
 			result = x;
@@ -42,7 +42,8 @@ async function createTournament (data) {
 	} finally {
 	    await client.close();
  	}
-	return result;
+	return result; */
+	return data;
 }
 
 async function listTournaments() {
