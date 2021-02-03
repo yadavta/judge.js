@@ -21,7 +21,7 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 async function createTournament (hack) {
-	/*var result = "";
+	var result = "";
 	try {
 		await client.connect();
 		const database = client.db("judgejs");
