@@ -209,10 +209,10 @@
       }
 
       //dates are stored as ISO 8601 format to ensure compatibility with MongoDB query
-      let userStartDate = $('#rangestart').calendar('get date').toJSON();
-      let userEndDate = $('#rangeend').calendar('get date').toJSON();
+      let userStartDate = $('#rangestart').calendar('get date');
+      let userEndDate = $('#rangeend').calendar('get date');
 
-      axios.post("https://judge-js.herokuapp.com/create", {
+      axios.post("/createTournament", {
         _id: userTournamentID,
         tournamentName: userTournamentName,
         tabroomName: userTabroomName,
