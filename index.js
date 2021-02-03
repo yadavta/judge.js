@@ -47,7 +47,7 @@ async function createTournament (data) {
 
 async function listTournaments() {
 	var result = "";
-	try {
+	/*try {
 		await client.connect();
 		const database = client.db("judgejs");
 		const collection = database.collection("tournaments");
@@ -57,11 +57,13 @@ async function listTournaments() {
 	} finally {
 	    await client.close();
  	}
-	return result;
+	return result;*/
+	return "hello world";
 }
 
 app.post('/tournament', function (req, res) {
-	listTournaments().then(function(result) {
+	listTournaments()
+	.then(function(result) {
 		res.send(result);
 	});
 });
