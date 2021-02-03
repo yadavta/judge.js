@@ -84,3 +84,7 @@ app.post('/create', jsonParser, function (req, res) {
 	let returnable = createTournament(req.body);
 	res.send(returnable);
 });
+
+app.post('/testing/', function (req,res) {
+	res.send("yolo");
+});
