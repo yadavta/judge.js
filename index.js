@@ -71,5 +71,6 @@ app.post('/tournament', function (req, res) {
 });
 
 app.post('/createTournament', jsonParser, function (req, res) {
-	createTournament(req.body);
+	//createTournament(req.body);
+  res.send("hello world");
 });
