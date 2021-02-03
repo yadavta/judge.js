@@ -2,18 +2,25 @@
 <html>
 <head>
   <%- include ("../partials/header.ejs") %>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 
 <body>
 
   <%- include ("../partials/nav.ejs") %>
-  <div class="jumbotron text-center">
-  <div class="container">
-    <h1> judge.js </h1>
-    <p class="text-center"> The most efficient way for schools to connect with judges. </p>
-  </div>
-  </div>  
+  
+  <button class="ui button" onclick="myFunction()">
+  
+  <script>
+    function myFunction() {
+      axios.post("/testing")
+      .then(function(result) {
+        console.log(result);
+      });
+    }
+    
+  </script>
   
 </body>
 
