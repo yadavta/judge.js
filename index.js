@@ -20,7 +20,7 @@ app.get('/tournament', (req,res)=> res.render('pages/tournament'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
-async function createTournament (data) {
+async function createTournament (hack) {
 	/*var result = "";
 	try {
 		await client.connect();
@@ -43,7 +43,9 @@ async function createTournament (data) {
 	    await client.close();
  	}
 	return result; */
-	return data;
+	return hack.data;
+	console.log(hack);
+	console.log(hack.data);
 }
 
 async function listTournaments() {
