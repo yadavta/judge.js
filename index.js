@@ -24,7 +24,7 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 async function createTournament (data) {
   const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true&w=majority";
   mongoose.connect('uri', {useNewUrlParser: true, useUnifiedTopology: true});
-  const db = mongoose.connection();
+  const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
     // all mongo code goes here
