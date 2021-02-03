@@ -4,9 +4,15 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgeJS?retryWrites=true&w=majority";
+const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 var jsonParser = bodyParser.json();
+
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
 
 var app = express()
@@ -24,8 +30,7 @@ async function createTournament (hack) {
 	var result = "";
 	try {
 		await client.connect();
-		const database = client.db("judgejs");
-		const collection = database.collection("tournaments");
+		const collection = client.db("judgejs").collection("tournaments");
 		// create a document to be inserted
 			const doc = {
 				"_id" : data._id,
@@ -39,8 +44,9 @@ async function createTournament (hack) {
 				"endDate" : data.endDate
 			}
 
-		await collection.insertOne(doc).then(x => {
-			result = x;
+		await collection.insertOne(doc)
+		.then(function(response) {
+			result = response;
 		});
 
 	} finally {
@@ -53,10 +59,10 @@ async function listTournaments() {
 	var result = "";
 	try {
 		await client.connect();
-		const database = client.db("judgejs");
-		const collection = database.collection("tournaments");
-		let arr =  await collection.find();
-		result = arr.toArray();
+		const collection = client.db("judgejs").collection("tournaments");
+		collection.find().toArray(function(err,response) {
+			result = response;
+		});
 	}
 	catch (e) {
 		result = e;
