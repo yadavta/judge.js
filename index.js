@@ -27,13 +27,17 @@ async function createTournament (hack) {
 		const database = client.db("judgejs");
 		const collection = database.collection("tournaments");
 		// create a document to be inserted
-			const doc = data;
-			/*{
-			"_id" : data.tournamentName.toLowerCase() + year),
-			"name" : data.tournamentName,
-			"tabroomName" : data.tabroomName,
-			"schoolApproved" : data.schoolApproved
-		};
+			const doc = {
+				"_id" : data._id,
+				"tournamentName" : data.tournamentName,
+				"tabroomName" : data.tabroomName,
+				"circuits" : data.circuits,
+				"judgeTypes" : data.judgeTypes,
+				"schoolApproved" : data.schoolApproved,
+				"asIndependent" : data.asIndependent,
+				"startDate" : data.startDate,
+				"endDate" : data.endDate
+			}
 
 		await collection.insertOne(doc).then(x => {
 			result = x;
@@ -42,10 +46,7 @@ async function createTournament (hack) {
 	} finally {
 	    await client.close();
  	}
-	return result; */
-	return hack.data;
-	console.log(hack);
-	console.log(hack.data);
+	return result;
 }
 
 async function listTournaments() {
