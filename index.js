@@ -32,7 +32,6 @@ app.post('/createTournament', jsonParser, function(req, res) {
     //res.send("yo");
     let data = req.body;
 
-    async function() {
         const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true";
         mongoose.connect(uri, {
             useNewUrlParser: true,
@@ -42,6 +41,7 @@ app.post('/createTournament', jsonParser, function(req, res) {
             const db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
             db.once('open', async function() {
+                try{}
                 // all mongo code goes here
                 const tournamentSchema = new mongoose.Schema({
                     _id: String,
@@ -82,5 +82,4 @@ app.post('/createTournament', jsonParser, function(req, res) {
         }  catch {
             res.send("error");
         }
-    }
 });
