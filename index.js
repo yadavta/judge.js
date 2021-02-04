@@ -41,7 +41,6 @@ app.post('/createTournament', jsonParser, function(req, res) {
             const db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
             db.once('open', async function() {
-                try{}
                 // all mongo code goes here
                 const tournamentSchema = new mongoose.Schema({
                     _id: String,
