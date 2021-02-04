@@ -72,7 +72,7 @@ app.post('/tournament', function (req, res) {
 
 app.post('/createTournament', jsonParser, function (req, res) {
     let data = req.body;
-    const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true&w=majority";
+    const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgeJS?retryWrites=true";
     mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -108,10 +108,10 @@ app.post('/createTournament', jsonParser, function (req, res) {
     		endDate : data.endDate
 		});
 
-		await tourneyAtHand.save()
-    		.then(function(value) {
-        		res.send(value);
-		});
+	await tourneyAtHand.save()
+    	.then(function(value) {
+        	res.send(value);
+	});
 
-		});
+	});
 });
