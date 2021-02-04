@@ -79,7 +79,7 @@ app.post('/createTournament', jsonParser, function(req, res) {
                     });
 
             });
-        }  catch {
+        } catch (e) {
             res.send("error");
         }
 });
