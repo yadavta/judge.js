@@ -32,7 +32,7 @@ app.post('/createTournament', jsonParser, function(req, res) {
     //res.send("yo");
     let data = req.body;
 
-        const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true";
+        const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.mongodb.net/judgejs?retryWrites=true&w=majority";
         mongoose.connect(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true
