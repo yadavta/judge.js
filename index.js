@@ -54,17 +54,15 @@ async function createTournament (hack) {
 
 async function listTournaments() {
 	var result = "";
-	try {
-		await client.connect();
+
+    	await client.connect();
         const collection = client.db("judgejs").collection("tournaments");
     	collection.find().toArray(function(err,response) {
     		result = response;
         });
-	}
-    finally {
+
         await client.close();
         return result;
-    }
 }
 
 app.post('/tournament', function (req, res) {
