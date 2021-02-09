@@ -2,11 +2,12 @@ const express = require('express')
 var bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose');
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 const PORT = process.env.PORT || 5000
 
 const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri);
+//const client = new MongoClient(uri, { useNewUrlParser: true });
 
 var jsonParser = bodyParser.json();
 
@@ -54,25 +55,20 @@ async function createTournament (hack) {
 async function listTournaments() {
 	var result = "";
 	try {
-		await client.connect(function(err,db) {
-    		const collection = client.db("judgejs").collection("tournaments");
-    		collection.find().toArray(function(err,response) {
-    			result = response
-            });
+		await client.connect();
+        const collection = client.db("judgejs").collection("tournaments");
+    	collection.find().toArray(function(err,response) {
+    		result = response;
         });
-        await client.close();  
-	}
-	catch (e) {
-		result = e;
 	}
     finally {
-	       return result;
+        await client.close();
+        return result;
     }
 }
 
 app.post('/tournament', function (req, res) {
-	listTournaments()
-	.then(function(result) {
+	listTournaments().then(function(result) {
 		res.send(result);
 	});
 });
