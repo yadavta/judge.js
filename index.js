@@ -55,7 +55,7 @@ async function createTournament (hack) {
 async function listTournaments() {
 	var result = "";
         const collection = client.db("judgejs").collection("tournaments");
-    	collection.find().toArray(function(err,response) {
+    	await collection.find().toArray(function(err,response) {
     		result = response;
         });
         return result;
