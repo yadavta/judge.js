@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 5000
 
 const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
+client.connect();
 //const client = new MongoClient(uri, { useNewUrlParser: true });
-
 var jsonParser = bodyParser.json();
 
 
@@ -54,8 +54,6 @@ async function createTournament (hack) {
 
 async function listTournaments() {
 	var result = "";
-
-    	await client.connect();
         const collection = client.db("judgejs").collection("tournaments");
     	collection.find().toArray(function(err,response) {
     		result = response;
