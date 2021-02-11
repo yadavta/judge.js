@@ -58,8 +58,6 @@ async function listTournaments() {
     	collection.find().toArray(function(err,response) {
     		result = response;
         });
-
-        await client.close();
         return result;
 }
 
