@@ -34,7 +34,7 @@ async function listTournaments() {
     }
     await docClient.scan(params).promise().then(data => {
 		//console.log(data);
-		x = data;
+		x = data.Items;
 	});
 	return x;
 }
