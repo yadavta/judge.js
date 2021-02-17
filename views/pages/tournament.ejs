@@ -8,28 +8,13 @@
 
 <body>
 
-    <style type = "text/css">
-
-        .ui.button{
-            margin-left: 20%;
-            margin-right: 20%;
-            padding: 0.2em;
-        }
-        .ui.celled.table{
-            margin-left: 20%;
-            margin-right: 20%;
-            padding: 0.2em;
-        }
-
-    </style>
-
 	<%- include ("../partials/nav.ejs") %>
 
-	<button class="ui button" onclick="tableUpdater()">
+	<button class="button is-primary" onclick="tableUpdater()">
 	  Update Table
 	</button>
 
-	 <table class="ui celled table" id="tournamentTable">
+	 <table class="table is-bordered" id="tournamentTable">
 	  <thead>
 		<tr><th>Name</th>
 		<th>School Approved</th>
