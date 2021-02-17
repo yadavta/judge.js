@@ -1,16 +1,19 @@
 const express = require('express')
 var bodyParser = require('body-parser')
 const path = require('path')
-const mongoose = require('mongoose');
-const { MongoClient } = require('mongodb');
 const PORT = process.env.PORT || 5000
-
-const uri = "mongodb+srv://yadavta:J1BfJKsaB3gvP60b@judgejs.hfqca.mongodb.net/judgejs?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
-client.connect();
-//const client = new MongoClient(uri, { useNewUrlParser: true });
 var jsonParser = bodyParser.json();
 
+var AWS = require("aws-sdk");
+
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: "https://dynamodb.us-west-2.amazonaws.com",
+  accessKeyId: "AKIAZ4SPQWYIWWNK5JU6",
+  secretAccessKey: "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"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -23,51 +26,22 @@ app.get('/tournament', (req,res)=> res.render('pages/tournament'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
-async function createTournament (hack) {
-	/*var result = "";
-	try {
-		await client.connect();
-		const collection = client.db("judgejs").collection("tournaments");
-		// create a document to be inserted
-			const doc = {
-				"_id" : data._id,
-				"tournamentName" : data.tournamentName,
-				"tabroomName" : data.tabroomName,
-				"circuits" : data.circuits,
-				"judgeTypes" : data.judgeTypes,
-				"schoolApproved" : data.schoolApproved,
-				"asIndependent" : data.asIndependent,
-				"startDate" : data.startDate,
-				"endDate" : data.endDate
-			}
 
-		await collection.insertOne(doc)
-		.then(function(response) {
-			result = response;
-		});
-
-	} finally {
-	    await client.close();
- 	}
-	return result;*/
-}
-
-async function listTournaments() {
-	var result = "";
-        const collection = client.db("judgejs").collection("tournaments");
-    	await collection.find().toArray(function(err,response) {
-    		result = response;
+function listTournaments() {
+    var params = {
+        TableName : "tournaments",
+    }
+    docClient.query(params, function(err,data) {
+            return data.Items;
         });
-        return result;
+    });
 }
 
 app.post('/tournament', function (req, res) {
-	listTournaments().then(function(result) {
-		res.send(result);
-	});
+	res.send(listTournaments());
 });
 
 app.post('/create', jsonParser, function (req, res) {
-	let returnable = createTournament(req.body);
-	res.send(returnable);
+	//let returnable = createTournament(req.body);
+	res.send('returnable');
 });
