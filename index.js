@@ -27,13 +27,12 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 
-function listTournaments() {
+async function listTournaments() {
     var params = {
         TableName : "tournaments",
     }
-    docClient.query(params, function(err,data) {
+    await docClient.query(params, function(err,data) {
             return data.Items;
-        });
     });
 }
 
