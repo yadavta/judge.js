@@ -28,16 +28,21 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 async function listTournaments() {
-    var params = {
-        TableName : "tournaments",
+	let x;
+	var params = {
+        TableName : "tournaments"
     }
-    await docClient.query(params, function(err,data) {
-            return data.Items;
-    });
+    await docClient.scan(params).promise().then(data => {
+		//console.log(data);
+		x = data;
+	});
+	return x;
 }
 
 app.post('/tournament', function (req, res) {
-	res.send(listTournaments());
+    listTournaments().then(function(data){
+        res.send(data);
+    })
 });
 
 app.post('/create', jsonParser, function (req, res) {
