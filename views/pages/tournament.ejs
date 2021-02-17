@@ -23,6 +23,8 @@
     		<tr>
                 <th>Name</th>
                 <th>School Approved</th>
+                <th>Start Date</th>
+                <th>End Date</th>
             </tr>
             </thead>
             <tbody>
@@ -59,7 +61,7 @@
 					approvedColor = 'style = "background-color:palegreen"';
 				}
 
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '</tr>';
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date"' + tData.startDate + '</td>' + '</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
