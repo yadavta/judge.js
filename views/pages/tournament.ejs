@@ -53,10 +53,10 @@
 				let tData = result.data[i];
 
 				//school approved table column colors
-				let approvedColor = 'style = "background-color:red"';
+				let approvedColor = 'style = "background-color:lightcoral"';
 				console.log(tData);
 				if (tData.schoolApproved) {
-					approvedColor = ' class = "background-color:#74992e"';
+					approvedColor = 'style = "background-color:palegreen"';
 				}
 
 				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '</tr>';
