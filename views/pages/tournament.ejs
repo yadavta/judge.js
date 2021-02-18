@@ -4,11 +4,7 @@
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <script src="https://unpkg.com/browse/dayjs@1.8.21/plugin/advancedFormat.js"></script>
-    <script>
-    dayjs().format();
-    dayjs.extend(window.dayjs_plugin_advancedFormat);
-    </script>
+    <script>dayjs().format()</script>
 
 </head>
 
@@ -67,7 +63,7 @@
 					approvedColor = 'style = "background-color:palegreen"';
 				}
 
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format('MMM Do') + '</td>' +  '<td data-label="Start Date">' + tData.endDate + '</td>' + '</tr>';
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format('MMM D') + '</td>' +  '<td data-label="Start Date">' + tData.endDate + '</td>' + '</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
@@ -75,7 +71,7 @@
 				$('#tournamentTable tbody').append(appendable);
 			});
 		});
-    }
+  }
 
     </script>
 </body>
