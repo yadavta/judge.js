@@ -72,7 +72,7 @@
 					approvedColor = 'style = "background-color:palegreen"';
 				}
 
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '</tr>';
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '<td data-label="CX Slots">' + tData.slots.cx + '</td>' +'</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
