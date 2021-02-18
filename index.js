@@ -25,8 +25,6 @@ app.get('/create', (req,res)=> res.render('pages/create'))
 app.get('/tournament', (req,res)=> res.render('pages/tournament'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-
-
 async function listTournaments() {
 	let x;
 	var params = {
@@ -39,13 +37,28 @@ async function listTournaments() {
 	return x;
 }
 
+async function createTournament(newTourneyData){
+    let amazonResponse;
+    var params = {
+        TableName : "tournaments",
+        Item : newTourneyData,
+    };
+
+    await docClient.put(params).promise().then(data => {
+        amazonResponse = data;
+    })
+
+    return amazonResponse;
+}
+
 app.post('/tournament', function (req, res) {
     listTournaments().then(function(data){
         res.send(data);
     })
 });
 
-app.post('/create', jsonParser, function (req, res) {
-	//let returnable = createTournament(req.body);
-	res.send('returnable');
+app.post('/createTournament', jsonParser, function (req, res) {
+    createTournament(req.body).then(function(data){
+	       res.send(data);
+    })
 });
