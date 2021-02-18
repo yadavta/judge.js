@@ -32,6 +32,11 @@
             <label>End Date</label>
             <input type="text" name="endDateCalendar" value="" id="endDate"/>
         </div>
+        <div class="field">
+            <label>Applicable Circuits</label>
+            <input type="checkbox" id="localCircuitCheckbox" value=""> Local Circuit </input>
+            <input type="checkbox" id="natCircuitCheckbox" value=""> National Circuit </input>
+        </div>
     </form>
     </div>
 </section>
@@ -49,7 +54,7 @@
   let userStartDate = "";
   let userEndDate = "";
 
-
+  //date picker js stuff
   $(function() {
       $('input[name="startDateCalendar"]').daterangepicker({
           singleDatePicker: true,
@@ -58,7 +63,7 @@
           maxYear: 2030
       }, function(start, end, label) {
           userStartDate = start.format("YYYY-MM-DD");
-          console.log(userStartDate);
+          //console.log(userStartDate);
       });
   });
 
@@ -70,23 +75,13 @@
           maxYear: 2030
       }, function(start, end, label) {
           userEndDate = start.format("YYYY-MM-DD");
-          console.log(userEndDate);
+          //console.log(userEndDate);
       });
   });
 
   // neccessary bits for form functionality
     //calendar date picker
 /*
-
-    //circuit checkboxes
-    $('.ui.checkbox')
-      .checkbox();
-
-    //multiple select
-    $('select.dropdown')
-      .dropdown()
-    ;
-
 
     // getting user inptu via jquery
     $('#submitButton').click(function() {
