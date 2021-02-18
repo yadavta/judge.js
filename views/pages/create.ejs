@@ -93,9 +93,6 @@
       });
   });
 
-  // neccessary bits for form functionality
-    //calendar date picker
-/*
 
     // getting user inptu via jquery
     $('#submitButton').click(function() {
@@ -116,7 +113,7 @@
       }
 
       if($('#hiresJudgesCheckbox').prop('checked')) {
-        userJudges.push("hires")
+        userJudges.push("hires");
       }
 
       if($('#schoolApprovedToggleBox').prop('checked')) {
@@ -127,10 +124,9 @@
       }
 
       //dates are stored as ISO 8601 format to ensure compatibility with MongoDB query
-      let userStartDate = $('#rangestart').calendar('get date');
-      let userEndDate = $('#rangeend').calendar('get date');
 
-      axios.post("/createTournament", {
+      //axios.post("/createTournament",
+      console.log( {
         _id: userTournamentID,
         tournamentName: userTournamentName,
         tabroomName: userTabroomName,
@@ -140,15 +136,15 @@
         asIndependent: userAsIndependent,
         startDate: userStartDate,
         endDate: userEndDate
-      })
+    });/*
       .then(function (response) {
           console.log(response);
       })
       .catch(function (error) {
           console.log(error);
-      });
+      });*/
 
-  });*/
+  });
 
   </script>
 </body>
