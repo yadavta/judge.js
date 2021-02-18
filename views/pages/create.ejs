@@ -37,10 +37,10 @@
     $('input[name="theStartDate"]').daterangepicker({
       singleDatePicker: true,
       showDropdowns: true,
-      minYear: 2020,
+      minYear: 2019,
       maxYear: parseInt(moment().format('YYYY'),10)
     }, function(start, end, label) {
-      console.log(start.replace(/\//gi, "-");
+      console.log(start.replace(/\//gi, "-"));
     });
     });
 
