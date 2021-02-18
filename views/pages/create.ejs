@@ -3,6 +3,9 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body>
@@ -15,11 +18,15 @@
     <form id="createTournamentForm">
         <div class="field">
             <label>Colloquial Tournament Name</label>
-            <input class="input is-primary" id="informalName" type="text" placeholder="informal tourney name">
+            <input class="input is-primary is-rounded" id="informalName" type="text" placeholder="informal tourney name">
         </div>
         <div class="field">
           <label>Official Tabroom Name</label>
-          <input class= "input is-primary"  id="formalName" type="text" placeholder="tab tourney name">
+          <input class= "input is-primary is-rounded"  id="formalName" type="text" placeholder="tab tourney name">
+        </div>
+        <div class="field">
+            <label>Start Date</label>
+            <input type="text" name="datefilter" value="" id="startDate"/>
         </div>
     </form>
     </div>
