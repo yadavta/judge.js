@@ -26,7 +26,7 @@
         </div>
         <div class="field">
             <label>Start Date</label>
-            <input type="text" name="datefilter" value="" id="startDate"/>
+            <input type="text" name="theStartDate" value="" id="startDate"/>
         </div>
     </form>
     </div>
@@ -34,23 +34,16 @@
 
   <script>
   $(function() {
+    $('input[name="theStartDate"]').daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      minYear: 2020,
+      maxYear: parseInt(moment().format('YYYY'),10)
+    }, function(start, end, label) {
+      console.log(start.replace(/\//gi, "-");
+    });
+    });
 
-      $('input[name="datefilter"]').daterangepicker({
-          autoUpdateInput: false,
-          locale: {
-              cancelLabel: 'Clear'
-          }
-      });
-
-      $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-          $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      });
-
-      $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-          $(this).val('');
-      });
-
-  });
   // neccessary bits for form functionality
     //calendar date picker
 
