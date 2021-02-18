@@ -44,7 +44,7 @@
           minYear: 2019,
           maxYear: 2030
       }, function(start, end, label) {
-          console.log(start)
+          console.log(start.format("YYYY-MM-DD"));
       });
   });
 
@@ -61,16 +61,7 @@
 
   // neccessary bits for form functionality
     //calendar date picker
-
-    /*$('#rangestart').calendar({
-      type: 'date',
-      endCalendar: $('#rangeend')
-    });
-
-    $('#rangeend').calendar({
-      type: 'date',
-      startCalendar: $('#rangestart')
-    });
+/*
 
     //circuit checkboxes
     $('.ui.checkbox')
