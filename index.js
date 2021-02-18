@@ -42,11 +42,11 @@ async function createTournament(newTourneyData){
     var params = {
         TableName : "tournaments",
         Item : newTourneyData,
-    };
+    }
 
     await docClient.put(params).promise().then(data => {
         amazonResponse = data;
-    })
+    });
 
     return amazonResponse;
 }
