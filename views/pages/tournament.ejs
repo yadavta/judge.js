@@ -82,13 +82,13 @@
                     displayableCircuit = "Local";
                 }
                 else if (tData.circuits.includes("national")) {
-                    displayCircuit = "National";
+                    displayableCircuit = "National";
                 }
                 else {
-                    let displayCircuit = "";
+                    let displayableCircuit = "";
                 }
 
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="Circuits">' + displayCircuit + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '<td data-label="CX Slots">' + tData.slots.cx + '</td>' +'</tr>';
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="Circuits">' + displayableCircuit + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '<td data-label="CX Slots">' + tData.slots.cx + '</td>' +'</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
