@@ -1,64 +1,151 @@
-const express = require('express')
-var bodyParser = require('body-parser')
-const path = require('path')
-const PORT = process.env.PORT || 5000
-var jsonParser = bodyParser.json();
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include ("../partials/header.ejs") %>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
 
-var AWS = require("aws-sdk");
+<body>
 
-AWS.config.update({
-  region: "us-west-2",
-  endpoint: "https://dynamodb.us-west-2.amazonaws.com",
-  accessKeyId: "AKIAZ4SPQWYIWWNK5JU6",
-  secretAccessKey: "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"
-});
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+  <%- include ("../partials/nav.ejs") %>
 
-var app = express()
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-app.get('/', (req, res) => res.render('pages/index'))
-app.get('/about',(req,res)=> res.render('pages/about'))
-app.get('/create', (req,res)=> res.render('pages/create'))
-app.get('/tournament', (req,res)=> res.render('pages/tournament'))
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+<section class="section">
+    <div class="container">
+    <div class="block">
+    <form id="createTournamentForm">
+        <div class="field">
+            <label>Colloquial Tournament Name</label>
+            <input class="input is-primary is-rounded" id="informalName" type="text" placeholder="informal tourney name">
+        </div>
+        <div class="field">
+          <label>Official Tabroom Name</label>
+          <input class= "input is-primary is-rounded"  id="formalName" type="text" placeholder="tab tourney name">
+        </div>
+        <div class="field">
+            <label>Start Date</label>
+            <input type="text" name="startDateCalendar" value="" id="startDate"/>
 
-async function listTournaments() {
-	let x;
-	var params = {
-        TableName : "tournaments"
-    }
-    await docClient.scan(params).promise().then(data => {
-		//console.log(data);
-		x = data.Items;
-	});
-	return x;
-}
+            <label>End Date</label>
+            <input type="text" name="endDateCalendar" value="" id="endDate"/>
+        </div>
+        <div class="field">
+            <label style="margin-right:2rem">Applicable Circuits:</label>
+            <input type="checkbox" id="localCircuitCheckbox" value="" style="margin-left:1rem"> Local Circuit </input>
+            <input type="checkbox" id="natCircuitCheckbox" value="" style="margin-left:1rem"> National Circuit </input>
+        </div>
+        <div class="field">
+            <label style="margin-right:2rem">Formal Classifications:</label>
+            <input type="checkbox" id="schoolApprovedToggleBox" value="" style="margin-left:1rem"> School Approved? </input>
+            <input type="checkbox" id="asIndependentToggleBox" value="" style="margin-left:1rem"> As Independent? </input>
+        </div>
+        <div class="field">
+            <label style="margin-right:2rem">Target Judges:</label>
+            <input type="checkbox" id="parentsJudgesCheckbox" value="" style="margin-left:1rem"> Parent / Volunteers </input>
+            <input type="checkbox" id="hiresJudgesCheckbox" value="" style="margin-left:1rem"> Hires </input>
+        </div>
+    </form>
+    </div>
+    <div class="block">
+        <button class="button is-primary" id="submitButton">Submit</button>
+    </div>
+    </div>
+</section>
 
-async function createTournament(newTourneyData){
-    let amazonResponse;
-    var params = {
-        TableName : "tournaments",
-        Item : newTourneyData,
-    }
+  <script>
+  // setting up basic variables
+  let userTournamentID = "";
+  let userTournamentName = "";
+  let userTabroomName = "";
+  let userCircuits = [];
+  let userJudges = [];
+  let userSchoolApproved = false;
+  let userAsIndependent = false;
+  let currentYear = new Date().getFullYear();
+  let userStartDate = "";
+  let userEndDate = "";
 
-    await docClient.put(params).promise().then(data => {
-        amazonResponse = data;
-    });
+  //date picker js stuff
+  $(function() {
+      $('input[name="startDateCalendar"]').daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: true,
+          minYear: 2019,
+          maxYear: 2030
+      }, function(start, end, label) {
+          userStartDate = start.format("YYYY-MM-DD");
+          //console.log(userStartDate);
+      });
+  });
 
-    return amazonResponse;
-}
+  $(function() {
+      $('input[name="endDateCalendar"]').daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: true,
+          minYear: 2019,
+          maxYear: 2030
+      }, function(start, end, label) {
+          userEndDate = start.format("YYYY-MM-DD");
+          //console.log(userEndDate);
+      });
+  });
 
-app.post('/tournament', function (req, res) {
-    listTournaments().then(function(data){
-        res.send(data);
+
+    // getting user inptu via jquery
+    $('#submitButton').click(function() {
+
+      userTournamentName = $('#informalName').val();
+      userTabroomName = $('#formalName').val();
+      userTournamentID = userTournamentName.toLowerCase() + currentYear;
+
+      if($('#natCircuitCheckbox').prop('checked')) {
+        userCircuits.push("national");
+      }
+      if ($('#localCircuitCheckbox').prop('checked')) {
+        userCircuits.push("local");
+      }
+
+      if($('#parentsJudgesCheckbox').prop('checked')) {
+        userJudges.push("parents");
+      }
+
+      if($('#hiresJudgesCheckbox').prop('checked')) {
+        userJudges.push("hires");
+      }
+
+      if($('#schoolApprovedToggleBox').prop('checked')) {
+        userSchoolApproved = true;
+      }
+      if($('#asIndependentToggleBox').prop('checked')) {
+        userAsIndependent = true;
+      }
+
+      //dates are stored as ISO 8601 format to ensure compatibility with MongoDB query
+
+      /*axios.post("/createTournament", {
+        tournamentId: userTournamentID,
+        tournamentName: userTournamentName,
+        tabroomName: userTabroomName,
+        circuits: userCircuits,
+        judgeTypes: userJudges,
+        schoolApproved: userSchoolApproved,
+        asIndependent: userAsIndependent,
+        startDate: userStartDate,
+        endDate: userEndDate
     })
-});
+      .then(function (response) {
+          console.log(response);
+      })
+      .catch(function (error) {
+          console.log(error);
+      })*/
 
-app.post('/createTournament', jsonParser, function (req, res) {
-    createTournament(req.body).then(function(data){
-	       res.send(data);
-    })
-});
+  });
+
+  </script>
+</body>
+
+</html>
