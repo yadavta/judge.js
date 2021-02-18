@@ -1,19 +1,45 @@
+<nav class="navbar" role="navigation" aria-label="Main Navigation Bar">
+    <!--left side, always visible-->
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://judge-js.herokuapp.com">
+            <img src="/public/mic.svg">
+        </a>
+
+        <!--three lines on mobile device to toggle brand-->
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+         <span aria-hidden="true"></span>
+         <span aria-hidden="true"></span>
+         <span aria-hidden="true"></span>
+       </a>
+   </div>
+
+   <!-- the other actual navbar stuff -->
+   <div class="navbar-menu">
+       <!-- sticks to left side -->
+       <div class="navbar-start">
+           <a class="navbar-item">Home</a>
+           <a class="navbar-item">Tournaments</a>
+           <a class="navbar-item">Create</a>
+       </div>
+       <!-- sticks to the right side -->
+       <div class="navbar-end">
+           <div class="navbar-item">
+               <div class="buttons">
+                   <a class="button-is-primary"><strong>Sign Up</strong></a>
+                   <a class="button-is-light">Log In</a>
+               </div>
+           </div>
+       </div>
+   </div>
+</nav>
+
+
+
 <div class="ui menu">
   <a class="active item" href="/"> Home </a>
   <a class="item" href="/about"> About </a>
   <a class="item" href="/create"> Create </a>
   <a class="item" href="/tournament"> Tournaments </a>
-</div>
 
-<style type = "text/css">
-  .ui.menu {
-    padding: 1em;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-  }
-  .ui.menu .item {
-    
-  }
-</style>
+
+</div>
