@@ -37,7 +37,7 @@ async function listTournaments() {
 	return x;
 }
 
-async function createTournament(newTourneyData){
+async function createTournaments(newTourneyData){
     let amazonResponse;
     var params = {
         TableName : "tournaments",
@@ -58,7 +58,7 @@ app.post('/tournament', function (req, res) {
 });
 
 app.post('/createTournament', jsonParser, function (req, res) {
-    createTournament(req.body).then(function(data){
+    createTournaments(req.body).then(function(data){
 	       res.send(data);
     })
 });
