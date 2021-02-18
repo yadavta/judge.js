@@ -125,8 +125,7 @@
 
       //dates are stored as ISO 8601 format to ensure compatibility with MongoDB query
 
-      axios.post("/createTournament",
-      console.log( {
+      axios.post("/createTournament", {
         tournamentId: userTournamentID,
         tournamentName: userTournamentName,
         tabroomName: userTabroomName,
@@ -136,7 +135,7 @@
         asIndependent: userAsIndependent,
         startDate: userStartDate,
         endDate: userEndDate
-    });
+    })
       .then(function (response) {
           console.log(response);
       })
