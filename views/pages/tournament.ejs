@@ -31,6 +31,7 @@
                 <th>School Approved</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Circuits</th>
                 <th>LD Slots</th>
                 <th>PF Slots</th>
                 <th>CX Slots</th>
@@ -72,7 +73,22 @@
 					approvedColor = 'style = "background-color:palegreen"';
 				}
 
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '<td data-label="CX Slots">' + tData.slots.cx + '</td>' +'</tr>';
+                //circuits in displayable format
+                let displayableCircuit;
+                if(tData.circuits.includes("local") && tData.circuits.includes("national")) {
+                    displayableCircuit = "National, Local";
+                }
+                else if (tData.circuits.includes("local")) {
+                    displayableCircuit = "Local";
+                }
+                else if (tData.circuits.includes("national")) {
+                    displayCircuit = "National";
+                }
+                else {
+                    let displayCircuit = "";
+                }
+
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="Circuits">' + displayCircuit + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '<td data-label="CX Slots">' + tData.slots.cx + '</td>' +'</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
