@@ -20,8 +20,12 @@
     <div class="block">
     <form id="createTournamentForm">
         <div class="field">
-            <label>Colloquial Tournament Name</label>
-            <input class="input is-primary is-rounded" id="informalName" type="text" placeholder="informal tourney name">
+            <div class="field-label is-normal">
+                <label>Colloquial Tournament Name</label>
+            </div>
+             <div class="field-body">
+                 <input class="input is-primary is-rounded" id="informalName" type="text" placeholder="informal tourney name">
+            </div>
         </div>
         <div class="field">
           <label>Official Tabroom Name</label>
@@ -49,6 +53,7 @@
             <input type="checkbox" id="parentsJudgesCheckbox" value="" style="margin-left:1rem"> Parent / Volunteers </input>
             <input type="checkbox" id="hiresJudgesCheckbox" value="" style="margin-left:1rem"> Hires </input>
         </div>
+
         <div class="field is-horizontal">
             <div class="field-label is-normal">
                 <label class="label"> Slots</label>
@@ -58,13 +63,14 @@
                   <input class="input" type="text" id="ldSlots" placeholder="Number of LD Slots">
               </div>
               <div class="field">
-                <input class="input" type="text" id="pfSlots" placeholder="Number of PF Slots">
+                  <input class="input" type="text" id="pfSlots" placeholder="Number of PF Slots">
               </div>
-            <div class="field">
-              <input class="input" type="text" id="cxSlots" placeholder="Number of CX Slots">
+              <div class="field">
+                  <input class="input" type="text" id="cxSlots" placeholder="Number of CX Slots">
+              </div>
             </div>
-        </div>
       </div>
+
     </form>
     </div>
     <div class="block">
