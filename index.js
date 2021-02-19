@@ -38,7 +38,7 @@ app.use(session({
 app.use(oidc.router)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
+app.get('/protected/', oidc.ensureAuthenticated(), (req, res) => {
   res.send(JSON.stringify(req.userContext.userinfo));
 });
 app.get('/', (req, res) => res.render('pages/index'))
