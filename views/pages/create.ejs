@@ -139,7 +139,7 @@
         endDate: userEndDate
     })
       .then(function (response) {
-          toastr.success("The tournament" + res.config.data.tournamentName + "has been added.", "Success", {
+          toastr.success("The tournament" + response.config.data.tournamentName + "has been added.", "Success", {
               "closeButton": true,
               "timeOut": "0",
               "positionClass": "toast-bottom-left",
