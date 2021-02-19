@@ -6,6 +6,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></script>
 </head>
 
 <body>
@@ -137,7 +139,11 @@
         endDate: userEndDate
     })
       .then(function (response) {
-          console.log(response);
+          toastr.success("The tournament" + res.config.data.tournamentName + "has been added.", "Success", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-bottom-left",
+          });
       })
       .catch(function (error) {
           console.log(error);
