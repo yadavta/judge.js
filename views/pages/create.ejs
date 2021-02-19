@@ -139,7 +139,7 @@
         endDate: userEndDate
     })
       .then(function (response) {
-          toastr.success("The tournament" + response.config.data.tournamentName + "has been added.", "Success", {
+          toastr.success("The tournament has been added.", "Success", {
               "closeButton": true,
               "timeOut": "0",
               "positionClass": "toast-bottom-left",
@@ -147,8 +147,12 @@
       })
       .catch(function (error) {
           console.log(error);
+          toastr.error("There was an error serving your requeset to the database", "Request Error", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-bottom-left",
+          });
       })
-
   });
 
   </script>
