@@ -69,6 +69,7 @@
   let currentYear = new Date().getFullYear();
   let userStartDate = "";
   let userEndDate = "";
+  let userSlots = {'ld': "&infin;", 'pf': "&infin;", 'cx': "&infin;"}
 
   //date picker js stuff
   $(function() {
@@ -139,7 +140,7 @@
         endDate: userEndDate
     })
       .then(function (response) {
-          toastr.success("The tournament has been added.", "Success", {
+          toastr.success("The tournament has been added", "Success", {
               "closeButton": true,
               "timeOut": "0",
               "positionClass": "toast-bottom-left",
