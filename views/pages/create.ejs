@@ -49,6 +49,24 @@
             <input type="checkbox" id="parentsJudgesCheckbox" value="" style="margin-left:1rem"> Parent / Volunteers </input>
             <input type="checkbox" id="hiresJudgesCheckbox" value="" style="margin-left:1rem"> Hires </input>
         </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">LD Slots</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                  <input class="input" type="text" id="ldSlots" placeholder="Number of LD Slots">
+              </div>
+          </div>
+          <div class="field-label is-normal">
+              <label class="label">PF Slots</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+                <input class="input" type="text" id="pfSlots" placeholder="Number of LD Slots">
+            </div>
+        </div>
+        </div>
     </form>
     </div>
     <div class="block">
@@ -103,6 +121,7 @@
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
       userTournamentID = userTournamentName.toLowerCase() + currentYear;
+      userSlots
 
       if($('#natCircuitCheckbox').prop('checked')) {
         userCircuits.push("national");
