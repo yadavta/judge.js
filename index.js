@@ -18,12 +18,6 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 //okta auth below
-app.use(session({
-    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
-    resave: true,
-    saveUninitialized: false
-}));
-
 
 const oidc = new ExpressOIDC({
   appBaseUrl: "https://judge-js.herokuapp.com",
@@ -36,6 +30,11 @@ const oidc = new ExpressOIDC({
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(session({
+    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+    resave: true,
+    saveUninitialized: false
+}));
 app.use(oidc.router)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
