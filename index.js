@@ -36,9 +36,6 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
-  res.send(JSON.stringify(req.userContext.userinfo));
-});
 
 const oidc = new ExpressOIDC({
   issuer: 'https://dev-15164454.okta.com/oauth2/default',
@@ -49,6 +46,10 @@ const oidc = new ExpressOIDC({
 });
 
 app.use(oidc.router);
+
+app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
+  res.send(JSON.stringify(req.userContext.userinfo));
+});
 
 async function listTournaments() {
 	let x;
