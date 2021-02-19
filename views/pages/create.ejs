@@ -100,7 +100,7 @@
   let currentYear = new Date().getFullYear();
   let userStartDate = "";
   let userEndDate = "";
-  let userSlots = {'ld': "&infin;", 'pf': "&infin;", 'cx': "&infin;"}
+  let userSlots = {'ld': "&infin;", 'pf': "&infin;", 'cx': "&infin;"};
 
   //date picker js stuff
   $(function() {
@@ -134,7 +134,9 @@
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
       userTournamentID = userTournamentName.toLowerCase() + currentYear;
-      userSlots
+      userSlots.ld = $('#ldSlots').val();
+      userSlots.pf = $('#pfSlots').val();
+      userSlots.cx = $('#cxSlots').val();
 
       if($('#natCircuitCheckbox').prop('checked')) {
         userCircuits.push("national");
