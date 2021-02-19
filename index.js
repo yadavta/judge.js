@@ -38,6 +38,7 @@ app.use(session({
 
 
 const oidc = new ExpressOIDC({
+  appBaseUrl: "https://judge-js.herokuapp.com",
   issuer: 'https://dev-15164454.okta.com/oauth2/default',
   client_id: '0oa7cm5l2ceG2gSfn5d6',
   client_secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
