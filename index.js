@@ -1,6 +1,8 @@
-const express = require('express')
-var bodyParser = require('body-parser')
-const path = require('path')
+const express = require('express');
+var bodyParser = require('body-parser');
+const path = require('path');
+const session = require('express-session');
+const { ExpressOIDC } = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
 
@@ -23,7 +25,30 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
 app.get('/tournament', (req,res)=> res.render('pages/tournament'))
+app.get('/login', (req,res)=>res.render('pages/login'))
+app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+//okta auth below
+app.use(session({
+    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+    resave: true,
+    saveUninitialized: false
+}));
+
+app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
+  res.send(JSON.stringify(req.userContext.userinfo));
+});
+
+const oidc = new ExpressOIDC({
+  issuer: 'https://dev-15164454.okta.com/oauth2/default',
+  client_id: '0oa7cm5l2ceG2gSfn5d6',
+  client_secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+  redirect_uri: 'https://judge-js.herokuapp.com/authorization-code/callback',
+  scope: 'openid profile'
+});
+
+app.use(oidc.router);
 
 async function listTournaments() {
 	let x;
