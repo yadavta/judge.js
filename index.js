@@ -5,7 +5,6 @@ const session = require('express-session');
 const { ExpressOIDC } = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
-require('dotenv').config()
 
 var AWS = require("aws-sdk");
 
@@ -42,15 +41,19 @@ const oidc = new ExpressOIDC({
 
 app.use(oidc.router);
 
-app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
-  res.send(JSON.stringify(req.userContext.userinfo));
+app.get('/protected/testing', oidc.ensureAuthenticated(), (req, res) => {
+  res.render('pages/testing');
+});
+
+app.post('/api/auth', oidc.ensureAuthenticated(), (req,res) => {
+    res.send(JSON.stringify(req.userContext.userinfo));
 });
 
 app.get('/login', (req,res)=>res.render('pages/login'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
 app.get('/tournament', (req,res)=> res.render('pages/tournament'))
-app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
+//app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
