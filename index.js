@@ -5,6 +5,7 @@ const session = require('express-session');
 const { ExpressOIDC } = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
+require('dotenv').config()
 
 var AWS = require("aws-sdk");
 
