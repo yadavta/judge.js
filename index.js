@@ -17,30 +17,10 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-//okta auth below
-
-const oidc = new ExpressOIDC({
-  appBaseUrl: "https://judge-js.herokuapp.com",
-  issuer: 'https://dev-15164454.okta.com/oauth2/default',
-  client_id: '0oa7cm5l2ceG2gSfn5d6',
-  client_secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
-  redirect_uri: 'https://judge-js.herokuapp.com/authorization-code/callback',
-  scope: 'openid profile'
-});
-
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({
-    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
-    resave: true,
-    saveUninitialized: false
-}));
-app.use(oidc.router)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.get('/protected/', oidc.ensureAuthenticated(), (req, res) => {
-  res.send(JSON.stringify(req.userContext.userinfo));
-});
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
@@ -49,6 +29,28 @@ app.get('/login', (req,res)=>res.render('pages/login'))
 app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+//okta auth below
+app.use(session({
+    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+    resave: true,
+    saveUninitialized: false
+}));
+
+
+const oidc = new ExpressOIDC({
+  appBaseUrl: "https://judge-js.herokuapp.com",
+  issuer: 'https://dev-15164454.okta.com/oauth2/default',
+  client_id: process.env.OKTA_CLIENT_ID,
+  client_secret: process.env.OKTA_CLIENT_SECRET,
+  redirect_uri: 'https://judge-js.herokuapp.com/authorization-code/callback',
+  scope: 'openid profile'
+});
+
+app.use(oidc.router);
+
+app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
+  res.send(JSON.stringify(req.userContext.userinfo));
+});
 
 async function listTournaments() {
 	let x;
