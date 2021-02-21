@@ -4,13 +4,18 @@
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
+<body onload="myFunction()">
 <form method="get" action="/login">
   <button type="submit">Log In</button>
 </form>
 
 <script>
-axios.post("https://judge-js.herokuapp.com/api/auth").then(function(result){console.log(result)});
+myFunction() {
+    axios.post("https://judge-js.herokuapp.com/api/auth")
+    .then(function(result){
+        console.log(result)
+    });
+}
 </script>
 
 </body>
