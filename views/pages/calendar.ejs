@@ -9,7 +9,10 @@
 </head>
 
 <body>
-  <div id='calendar'></div>
+  <%- include ("../partials/nav.ejs") %>
+  <div class="block">
+    <div id='calendar'></div>
+  </div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -19,6 +22,7 @@
       calendar.render();
     });
   </script>
+
 </body>
 
 </html>
