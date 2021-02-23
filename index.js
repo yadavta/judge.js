@@ -1,28 +1,60 @@
-const express = require('express')
-var bodyParser = require('body-parser')
-const path = require('path')
+const express = require('express');
+var bodyParser = require('body-parser');
+const path = require('path');
+const session = require('express-session');
+const { ExpressOIDC } = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
+require('dotenv').config()
 
 var AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
   endpoint: "https://dynamodb.us-west-2.amazonaws.com",
-  accessKeyId: "AKIAZ4SPQWYIWWNK5JU6",
-  secretAccessKey: "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"
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient();
+
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
+
+app.use(session({
+    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+    resave: true,
+    saveUninitialized: false
+}));
+
+const oidc = new ExpressOIDC({
+  appBaseUrl: "https://judge-js.herokuapp.com",
+  issuer: 'https://dev-15164454.okta.com/oauth2/default',
+  client_id: process.env.OKTA_CLIENT_ID,
+  client_secret: process.env.OKTA_CLIENT_SECRET,
+  redirect_uri: 'https://judge-js.herokuapp.com/authorization-code/callback',
+  scope: 'openid profile'
+});
+
+app.use(oidc.router);
+
+app.get('/protected/testing', oidc.ensureAuthenticated(), (req, res) => {
+  res.render('pages/testing');
+});
+
+app.post('/api/auth', oidc.ensureAuthenticated(), (req,res) => {
+    res.send(JSON.stringify(req.userContext.userinfo));
+});
+
+app.get('/login', (req,res)=>res.render('pages/login'))
 app.get('/about',(req,res)=> res.render('pages/about'))
 app.get('/create', (req,res)=> res.render('pages/create'))
 app.get('/tournament', (req,res)=> res.render('pages/tournament'))
+//app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
@@ -39,13 +71,28 @@ async function listTournaments() {
 	return x;
 }
 
+async function createTournaments(newTourneyData){
+    let amazonResponse;
+    var params = {
+        TableName : "tournaments",
+        Item : newTourneyData,
+    }
+
+    await docClient.put(params).promise().then(data => {
+        amazonResponse = data;
+    });
+
+    return amazonResponse;
+}
+
 app.post('/tournament', function (req, res) {
     listTournaments().then(function(data){
         res.send(data);
     })
 });
 
-app.post('/create', jsonParser, function (req, res) {
-	//let returnable = createTournament(req.body);
-	res.send('returnable');
+app.post('/createTournament', jsonParser, function (req, res) {
+    createTournaments(req.body).then(function(data){
+	       res.send(data);
+    })
 });

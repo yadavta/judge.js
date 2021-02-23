@@ -3,50 +3,59 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/plugin/advancedFormat.js"></script>
+    <script>
+    dayjs().format();
+    dayjs.extend(window.dayjs_plugin_advancedFormat);
+    </script>
 
 </head>
 
 <body>
 
-    <style type = "text/css">
-
-        .ui.button{
-            margin-left: 20%;
-            margin-right: 20%;
-            padding: 0.2em;
-        }
-        .ui.celled.table{
-            margin-left: 20%;
-            margin-right: 20%;
-            padding: 0.2em;
-        }
-
-    </style>
-
 	<%- include ("../partials/nav.ejs") %>
+    <section class="section">
+    <div class="container">
+        <div class="block">
+    	<!--<button class="button is-primary" onclick="tableUpdater()">
+    	  Update Table
+      </button> -->
+        </div>
 
-	<button class="ui button" onclick="tableUpdater()">
-	  Update Table
-	</button>
+        <div class="block">
+        <table class="table is-bordered" id="tournamentTable">
+    	    <thead>
+    		<tr>
+                <th>Name</th>
+                <th>School Approved</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Circuits</th>
+                <th>LD Slots</th>
+                <th>PF Slots</th>
+                <th>CX Slots</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+    	</table>
+        </div>
+    </section>
 
-	 <table class="ui celled table" id="tournamentTable">
-	  <thead>
-		<tr><th>Name</th>
-		<th>School Approved</th>
-	  </tr></thead>
-	  <tbody>
-	  </tbody>
-	</table>
+    </div>
 
     <script>
+
+    let tableDateDisplayFormat = "MMM Do"
 
     function tableUpdater() {
 
         console.log("hi");
 
-        $(document).ready(function() {
+        //$(document).ready(function() {
             $('#tournamentTable tbody').empty();
-        });
+        //});
 
 		axios.post("https://judge-js.herokuapp.com/tournament")
 		.then(function(result) {
@@ -58,21 +67,40 @@
 				let tData = result.data[i];
 
 				//school approved table column colors
-				let approvedColor = 'class = "pink"';
+				let approvedColor = 'style = "background-color:lightcoral"';
 				console.log(tData);
 				if (tData.schoolApproved) {
-					approvedColor = ' class = "green"';
+					approvedColor = 'style = "background-color:palegreen"';
 				}
 
-				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '</tr>';
+                //circuits in displayable format
+                let displayableCircuit;
+                if(tData.circuits.includes("local") && tData.circuits.includes("national")) {
+                    displayableCircuit = "National, Local";
+                }
+                else if (tData.circuits.includes("local")) {
+                    displayableCircuit = "Local";
+                }
+                else if (tData.circuits.includes("national")) {
+                    displayableCircuit = "National";
+                }
+                else {
+                    displayableCircuit = "";
+                }
+
+				thisAppendable = '<tr>' +  '<td data-label="Name">' + tData.tournamentName + '</td>' + '<td data-label="School Approved"' + approvedColor + '>'  + '</td>' + '<td data-label="Start Date">' + (dayjs(tData.startDate).format(tableDateDisplayFormat)) + '</td>' +  '<td data-label="Start Date">' + (dayjs(tData.endDate).format(tableDateDisplayFormat)) + '</td>' + '<td data-label="Circuits">' + displayableCircuit + '</td>' + '<td data-label="LD Slots">' + tData.slots.ld + '</td>' + '<td data-label="PF Slots">' + tData.slots.pf + '</td>' + '<td data-label="CX Slots">' + tData.slots.cx + '</td>' +'</tr>';
 				appendable += thisAppendable;
 				i++;
 			}
-            $(document).ready(function() {
+            //$(document).ready(function() {
 				$('#tournamentTable tbody').append(appendable);
-			});
+			//});
 		});
-  }
+    }
+
+    //$(document).ready(function() {
+        tableUpdater();
+    //});
 
     </script>
 </body>

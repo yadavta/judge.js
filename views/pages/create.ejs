@@ -3,181 +3,130 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></script>
 </head>
 
 <body>
 
+
   <%- include ("../partials/nav.ejs") %>
 
-  <style type = "text/css">
-
-    .ui.form{
-      margin-left: 20%;
-      margin-right: 20%;
-      padding: 2em;
-    }
-
-    .ui.fun{
-      margin-left: 20%;
-      margin-right: 20%;
-      padding: 2em;
-    }
-
-    .ui.form .ui.checkbox {
-      margin-right: 1em;
-      margin-left: 1em;
-    }
-
-    .ui.form .ui.toggle.checkbox {
-      margin-right: 1.5em;
-      margin-left: 1.5em;
-      padding-left: 0.2em;
-      padding-right: 0.2em;
-    }
-
-    .ui.primary .button {
-      margin-right: 1.5em;
-      margin-left: 1.5em;
-      padding-left: 0.2em;
-      padding-right: 0.2em;
-    }
-
-    .ui.fun .ui.violet.button {}
-
-  </style>
-
-<!-- tournament creation form with user input -->
-<form class="ui form" id="createTournamentForm">
-<!-- get tournament names, both informal and formal -->
-  <div class="fields">
-    <div class="field">
-     <label>Colloquial Tournament Name</label>
-     <input type="text" id="informalName" placeholder="informal tourney name" size="30">
-   </div>
-   <div class="field">
-     <label>Official Tabroom Name</label>
-     <input type="text" id="formalName" placeholder="tab tourney name" size="60">
-   </div>
-  </div>
-
-
-<!-- get tournament dates using calendar picker -->
-  <div class="two fields">
-    <div class="field">
-      <label>Start date</label>
-      <div class="ui calendar" id="rangestart">
-        <div class="ui input left icon">
-          <i class="calendar icon"></i>
-          <input type="text" placeholder="Start">
+<section class="section">
+    <div class="container">
+    <div class="block">
+    <form id="createTournamentForm">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Colloquial Tournament Name</label>
+            </div>
+            <div class="field-body">
+            <div class="field">
+                 <input class="input is-primary is-rounded" id="informalName" type="text" placeholder="informal tourney name">
+            </div>
+            </div>
+            <div class="field-label is-normal">
+                <label class="label">Official Tabroom Name</label>
+            </div>
+            <div class="field-body">
+            <div class="field">
+                <input class= "input is-primary is-rounded"  id="formalName" type="text" placeholder="tab tourney name">
+            </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="field">
-      <label>End date</label>
-      <div class="ui calendar" id="rangeend">
-        <div class="ui input left icon">
-          <i class="calendar icon"></i>
-          <input type="text" placeholder="End">
         </div>
+        <div class="field is-horizontal">
+        <div class="field">
+            <label class="label">Start Date</label>
+            <input type="text" name="startDateCalendar" value="" id="startDate"/>
+        </div>
+        <div class="field">
+            <label class="label">End Date</label>
+            <input type="text" name="endDateCalendar" value="" id="endDate"/>
+        </div>
+        </div>
+        <div class="field">
+            <label style="margin-right:2rem">Applicable Circuits:</label>
+            <input type="checkbox" id="localCircuitCheckbox" value="" style="margin-left:1rem"> Local Circuit </input>
+            <input type="checkbox" id="natCircuitCheckbox" value="" style="margin-left:1rem"> National Circuit </input>
+        </div>
+        <div class="field">
+            <label style="margin-right:2rem">Formal Classifications:</label>
+            <input type="checkbox" id="schoolApprovedToggleBox" value="" style="margin-left:1rem"> School Approved? </input>
+            <input type="checkbox" id="asIndependentToggleBox" value="" style="margin-left:1rem"> As Independent? </input>
+        </div>
+        <div class="field">
+            <label style="margin-right:2rem">Target Judges:</label>
+            <input type="checkbox" id="parentsJudgesCheckbox" value="" style="margin-left:1rem"> Parent / Volunteers </input>
+            <input type="checkbox" id="hiresJudgesCheckbox" value="" style="margin-left:1rem"> Hires </input>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label"> Slots</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                  <input class="input" type="text" id="ldSlots" placeholder="Number of LD Slots">
+              </div>
+              <div class="field">
+                  <input class="input" type="text" id="pfSlots" placeholder="Number of PF Slots">
+              </div>
+              <div class="field">
+                  <input class="input" type="text" id="cxSlots" placeholder="Number of CX Slots">
+              </div>
+            </div>
       </div>
+
+    </form>
+    <div class="block">
+        <button class="button is-primary" id="submitButton">Submit</button>
     </div>
-  </div>
-
-  <!-- select which circuit it is in -->
-  <div class="inline field">
-      <p>Applicable Circuits: </p>
-      <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden" id="natCircuitCheckbox">
-        <label>National Circuit</label>
-      </div>
-      <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden" id="localCircuitCheckbox">
-        <label>Local Circuit</label>
-      </div>
-  </div>
-
-<!-- if tourney is school approved + if going to tourney as Independent -->
-  <div class="inline field">
-      <p>Formal Classifications: </p>
-      <div class="ui toggle checkbox">
-        <input type="checkbox" tabindex="0" class="hidden" id="schoolApprovedToggleBox">
-        <label>School Approved?</label>
-      </div>
-      <div class="ui toggle checkbox">
-        <input type="checkbox" tabindex="0" class="hidden" id="asIndependentToggleBox">
-        <label>As Independent?</label>
-      </div>
-  </div>
-
-<!-- judges needed -->
-  <div class="inline field">
-      <p>Target Judges: </p>
-      <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden" id="parentsJudgesCheckbox">
-        <label>Parents and Volunteers</label>
-      </div>
-      <div class="ui checkbox">
-        <input type="checkbox" tabindex="0" class="hidden" id="hiresJudgesCheckbox">
-        <label>Hires</label>
-      </div>
-  </div>
-
-<!-- select events attending -->
-  <div class="field">
-    <label>Events Attending</label>
-    <select multiple="" class="ui dropdown">
-     <option value="">Select Events</option>
-     <option value="ld">Lincoln Douglas</option>
-     <option value="cx">Policy</option>
-     <option value="pf">Public Forum</option>
-     <option value="cong">Congress</option>
-     <option value="speech">Speech</option>
-   </select>
-  </div>
-
-  <!-- form validation button
-  <button class = "ui primary button" id="validationButton"> Validate Inputs </button>-->
-</form>
-
-<!-- submit button; note that this uses basic html/jquery, not semantic UI. semantic's form plugin is used only for validation and UI -->
-<div class = "ui fun">
-  <button class = "ui violet button" id="submitButton"> Create Tournament </button>
-</div>
+    </div>
+</section>
 
   <script>
-  // neccessary bits for form functionality
-    //calendar date picker
+  // setting up basic variables
+  let userTournamentID = "";
+  let userTournamentName = "";
+  let userTabroomName = "";
+  let userCircuits = [];
+  let userJudges = [];
+  let userSchoolApproved = false;
+  let userAsIndependent = false;
+  let currentYear = new Date().getFullYear();
+  let userStartDate = "";
+  let userEndDate = "";
+  let userSlots = {'ld': "&infin;", 'pf': "&infin;", 'cx': "&infin;"};
 
-    $('#rangestart').calendar({
-      type: 'date',
-      endCalendar: $('#rangeend')
-    });
+  //date picker js stuff
+  $(function() {
+      $('input[name="startDateCalendar"]').daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: true,
+          minYear: 2019,
+          maxYear: 2030
+      }, function(start, end, label) {
+          userStartDate = start.format("YYYY-MM-DD");
+          //console.log(userStartDate);
+      });
+  });
 
-    $('#rangeend').calendar({
-      type: 'date',
-      startCalendar: $('#rangestart')
-    });
+  $(function() {
+      $('input[name="endDateCalendar"]').daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: true,
+          minYear: 2019,
+          maxYear: 2030
+      }, function(start, end, label) {
+          userEndDate = start.format("YYYY-MM-DD");
+          //console.log(userEndDate);
+      });
+  });
 
-    //circuit checkboxes
-    $('.ui.checkbox')
-      .checkbox();
-
-    //multiple select
-    $('select.dropdown')
-      .dropdown()
-    ;
-
-    // setting up basic variables
-    let userTournamentID = "";
-    let userTournamentName = "";
-    let userTabroomName = "";
-    let userCircuits = [];
-    let userJudges = [];
-    let userSchoolApproved = false;
-    let userAsIndependent = false;
-    let currentYear = new Date().getFullYear();
-    let userStartDate = "";
-    let userEndDate = "";
 
     // getting user inptu via jquery
     $('#submitButton').click(function() {
@@ -185,6 +134,9 @@
       userTournamentName = $('#informalName').val();
       userTabroomName = $('#formalName').val();
       userTournamentID = userTournamentName.toLowerCase() + currentYear;
+      userSlots.ld = $('#ldSlots').val();
+      userSlots.pf = $('#pfSlots').val();
+      userSlots.cx = $('#cxSlots').val();
 
       if($('#natCircuitCheckbox').prop('checked')) {
         userCircuits.push("national");
@@ -198,7 +150,7 @@
       }
 
       if($('#hiresJudgesCheckbox').prop('checked')) {
-        userJudges.push("hires")
+        userJudges.push("hires");
       }
 
       if($('#schoolApprovedToggleBox').prop('checked')) {
@@ -209,11 +161,9 @@
       }
 
       //dates are stored as ISO 8601 format to ensure compatibility with MongoDB query
-      let userStartDate = $('#rangestart').calendar('get date');
-      let userEndDate = $('#rangeend').calendar('get date');
 
       axios.post("/createTournament", {
-        _id: userTournamentID,
+        tournamentId: userTournamentID,
         tournamentName: userTournamentName,
         tabroomName: userTabroomName,
         circuits: userCircuits,
@@ -221,16 +171,25 @@
         schoolApproved: userSchoolApproved,
         asIndependent: userAsIndependent,
         startDate: userStartDate,
-        endDate: userEndDate
-      })
+        endDate: userEndDate,
+        slots: userSlots
+    })
       .then(function (response) {
-          console.log(response);
+          toastr.success("The tournament has been added", "Success", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-bottom-left",
+          });
       })
       .catch(function (error) {
           console.log(error);
-      });
-
-    });
+          toastr.error("There was an error serving your requeset to the database", "Request Error", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-bottom-left",
+          });
+      })
+  });
 
   </script>
 </body>
