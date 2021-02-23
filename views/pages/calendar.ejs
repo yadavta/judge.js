@@ -6,6 +6,8 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css" rel="stylesheet" />
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script>dayjs().format()</script>
 </head>
 
 <body>
@@ -17,11 +19,11 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       function addDay(str) {
-        let x = str.split("-");
+        /*let x = str.split("-");
         let day = parseInt(x[2], 10);
         day++;
         let final = x[0] + "-" + x[1] + "-" + day;
-        return final;
+        return final;*/
       }
 
       let dbEvents = [];
@@ -34,7 +36,7 @@
             let appendable = {
               title: tData.tournamentName,
               start: tData.startDate,
-              end: addDay(tData.endDate),
+              end: dayjs(tData.endDate).add(1, 'day').format('YYYY-MM-DD'),
               allDay: true,
               display: 'auto'
             };
