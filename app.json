@@ -1,7 +1,7 @@
 {
   "name": "judge.js",
-  "description": "easing judge hiring",
+  "description": "easy tournament managing",
   "repository": "https://github.com/yadavta/judge.js",
-  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "logo": "",
   "keywords": ["node", "express", "heroku"],
 }

@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
+  "name": "judge-js-app",
+  "version": "0.2.0",
+  "description": "The easiest way for schools to internally manage tournaments.",
   "engines": {
     "node": "14.x"
   },

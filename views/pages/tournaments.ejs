@@ -57,7 +57,7 @@
             $('#tournamentTable tbody').empty();
         //});
 
-		axios.post("https://judge-js.herokuapp.com/tournament")
+		axios.get("https://judge-js.herokuapp.com/tournament")
 		.then(function(result) {
 			console.log(result);
 			let i = 0;

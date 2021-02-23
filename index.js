@@ -2,7 +2,7 @@ const express = require('express');
 var bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const { ExpressOIDC } = require('@okta/oidc-middleware');
+const {ExpressOIDC} = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
 require('dotenv').config()
@@ -45,52 +45,52 @@ app.get('/protected/testing', oidc.ensureAuthenticated(), (req, res) => {
   res.render('pages/testing');
 });
 
-app.post('/api/auth', oidc.ensureAuthenticated(), (req,res) => {
-    res.send(JSON.stringify(req.userContext.userinfo));
+app.post('/api/auth', oidc.ensureAuthenticated(), (req, res) => {
+  res.send(JSON.stringify(req.userContext.userinfo));
 });
 
-app.get('/login', (req,res)=>res.render('pages/login'))
-app.get('/about',(req,res)=> res.render('pages/about'))
-app.get('/create', (req,res)=> res.render('pages/create'))
-app.get('/tournament', (req,res)=> res.render('pages/tournament'))
+app.get('/login', (req, res) => res.render('pages/login'))
+app.get('/about', (req, res) => res.render('pages/about'))
+app.get('/create', (req, res) => res.render('pages/create'))
+app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 
 async function listTournaments() {
-	let x;
-	var params = {
-        TableName : "tournaments"
-    }
-    await docClient.scan(params).promise().then(data => {
-		//console.log(data);
-		x = data.Items;
-	});
-	return x;
+  let x;
+  var params = {
+    TableName: "tournaments"
+  }
+  await docClient.scan(params).promise().then(data => {
+    //console.log(data);
+    x = data.Items;
+  });
+  return x;
 }
 
-async function createTournaments(newTourneyData){
-    let amazonResponse;
-    var params = {
-      TableName : "tournaments",
-      Item : newTourneyData,
-    }
+async function createTournaments(newTourneyData) {
+  let amazonResponse;
+  var params = {
+    TableName: "tournaments",
+    Item: newTourneyData,
+  }
 
-    await docClient.put(params).promise().then(data => {
-      amazonResponse = data;
-    });
+  await docClient.put(params).promise().then(data => {
+    amazonResponse = data;
+  });
 
-    return amazonResponse;
+  return amazonResponse;
 }
 
-app.post('/tournament', function (req, res) {
-    listTournaments().then(function(data){
-        res.send(data);
-    })
+app.get('/api/tournaments', function(req, res) {
+  listTournaments().then(function(data) {
+    res.send(data);
+  })
 });
 
-app.post('/createTournament', jsonParser, function (req, res) {
+app.post('/api/tournaments', jsonParser, function(req, res) {
 
   /*createTournaments(req.body).then(function(data){
     res.send(data);
