@@ -18,7 +18,6 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
@@ -26,9 +25,9 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 
 app.use(session({
-    secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
-    resave: true,
-    saveUninitialized: false
+  secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+  resave: true,
+  saveUninitialized: false
 }));
 
 const oidc = new ExpressOIDC({
@@ -74,12 +73,12 @@ async function listTournaments() {
 async function createTournaments(newTourneyData){
     let amazonResponse;
     var params = {
-        TableName : "tournaments",
-        Item : newTourneyData,
+      TableName : "tournaments",
+      Item : newTourneyData,
     }
 
     await docClient.put(params).promise().then(data => {
-        amazonResponse = data;
+      amazonResponse = data;
     });
 
     return amazonResponse;
@@ -92,9 +91,11 @@ app.post('/tournament', function (req, res) {
 });
 
 app.post('/createTournament', jsonParser, function (req, res) {
-    createTournaments(req.body).then(function(data){
-	       res.send(data);
-    })
+
+  /*createTournaments(req.body).then(function(data){
+    res.send(data);
+  })*/
+
 });
 
 console.log("Github Integration is working");
