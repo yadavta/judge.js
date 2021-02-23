@@ -25,7 +25,9 @@
             let appendable = {
               title: tData.tournamentName,
               start: tData.startDate,
-              end: tData.endDate
+              end: tData.endDate,
+              allDay: true,
+              display: 'background'
             };
             dbEvents.push(appendable);
             i++;
@@ -40,6 +42,7 @@
         initialView: 'dayGridMonth',
         events: dbEvents
       });
+      console.log("made calendar object")
 
       calendar.render();
 
