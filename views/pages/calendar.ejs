@@ -27,11 +27,12 @@
               start: tData.startDate,
               end: tData.endDate,
               allDay: true,
-              display: 'background'
+              display: 'auto'
             };
             dbEvents.push(appendable);
             i++;
           }
+
           console.log("the events array is:");
           console.log(dbEvents);
           var calendarEl = document.getElementById('calendar');
