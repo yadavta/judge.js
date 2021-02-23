@@ -34,19 +34,18 @@
           }
           console.log("the events array is:");
           console.log(dbEvents);
+          var calendarEl = document.getElementById('calendar');
+
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: dbEvents
+          });
+          console.log("made calendar object")
+
+          calendar.render();
+
+          console.log(calendar.getEvents())
         });
-
-      var calendarEl = document.getElementById('calendar');
-
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: dbEvents
-      });
-      console.log("made calendar object")
-
-      calendar.render();
-
-      console.log(calendar.getEvents())
 
     });
 
