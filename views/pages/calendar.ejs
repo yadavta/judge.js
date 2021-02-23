@@ -5,7 +5,7 @@
   <%- include ("../partials/header.ejs") %>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
-  <link href="..public/fullcalendar/main.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css" rel="stylesheet" />
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   <script>dayjs().format()</script>
 </head>
@@ -13,7 +13,7 @@
 <body>
   <%- include ("../partials/nav.ejs") %>
   <div class="section">
-    <div id='calendar'></div>
+    <div id='calendar' style="padding-left:5em; padding-right:5em;"></div>
   </div>
   <script>
 
