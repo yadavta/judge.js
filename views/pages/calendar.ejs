@@ -15,12 +15,36 @@
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      let dbEvents = [];
+      axios.get("api/tournaments")
+        .then(function(result) {
+          console.log(result);
+          let i = 0;
+          while (i < result.data.length) {
+            let tData = result.data[i];
+            let appendable = {
+              title: tData.tournamentName,
+              start: tData.startDate,
+              end: tData.endDate
+            };
+            dbEvents.push(appendable);
+            i++;
+          }
+          console.log("the events array is:");
+          console.log(dbEvents);
+        });
+
       var calendarEl = document.getElementById('calendar');
+
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
+        initialView: 'dayGridMonth',
+        events: dbEvents
       });
+
       calendar.render();
+
     });
+
   </script>
 
 </body>
