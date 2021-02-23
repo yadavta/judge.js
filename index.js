@@ -96,3 +96,5 @@ app.post('/createTournament', jsonParser, function (req, res) {
 	       res.send(data);
     })
 });
+
+console.log("Github Integration is working");
