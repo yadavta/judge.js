@@ -98,3 +98,4 @@ app.post('/createTournament', jsonParser, function (req, res) {
 });
 
 console.log("Github Integration is working");
+console.log("moved local git repository");
