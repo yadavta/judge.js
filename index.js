@@ -56,7 +56,7 @@ app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
 app.get('/event', function(req,res) {
   let tournament_id = req.param('id');
-  res.send(user_id);
+  res.send("hi");
 });
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
