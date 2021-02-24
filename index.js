@@ -2,7 +2,9 @@ const express = require('express');
 var bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const {ExpressOIDC} = require('@okta/oidc-middleware');
+const {
+  ExpressOIDC
+} = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
 require('dotenv').config()
@@ -54,7 +56,9 @@ app.get('/about', (req, res) => res.render('pages/about'))
 app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
-app.get('/event', (req,res) => res.render('pages/event', {user_id:'wassup'}))
+app.get('/event', (req, res) => res.render('pages/event', {
+  user_id: 'wassup'
+}))
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
@@ -120,39 +124,46 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   });
 });*/
 
-async function awsSendEmail (params) {
+async function awsSendEmail(params) {
   let e;
-  await AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise().then(data => {
+  var ses = new AWS.SES({
+    apiVersion: '2010-12-01'
+  })
+  await ses.sendEmail(params).promise().then(data => {
     e = data;
-  });
+    console.log(data);
+  }).catch(error => {
+    console.log(error);
+  })
   return e;
 }
 
-app.post('/api/emails', function(req,res) {
+app.post('/api/emails', function(req, res) {
   var emailParams = {
-      Destination: {
-        ToAddresses: ['tanushyadav@gmail.com']
-      },
-      Message: {
-      Body: { /* required */
+    Destination: {
+      ToAddresses: ['tanushyadav@gmail.com']
+    },
+    Message: {
+      Body: {
+        /* required */
         Html: {
-         Charset: "UTF-8",
-         Data: "HTML_FORMAT_BODY"
+          Charset: "UTF-8",
+          Data: "HTML_FORMAT_BODY"
         },
         Text: {
-         Charset: "UTF-8",
-         Data: "TEXT_FORMAT_BODY"
+          Charset: "UTF-8",
+          Data: "TEXT_FORMAT_BODY"
         }
       },
-       Subject: {
+      Subject: {
         Charset: 'UTF-8',
         Data: 'Test email'
-       }
-      },
-      Source: 'test@tanushyadav.me'
-    };
+      }
+    },
+    Source: 'test@tanushyadav.me'
+  };
 
-  awsSendEmail(emailParams).then(function(data){
+  awsSendEmail(emailParams).then(function(data) {
     res.send(data)
   });
 });
