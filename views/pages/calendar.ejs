@@ -7,16 +7,17 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css" rel="stylesheet" />
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-  <script>dayjs().format()</script>
+  <script>
+    dayjs().format()
+  </script>
 </head>
 
 <body>
   <%- include ("../partials/nav.ejs") %>
-  <div class="section" style="padding-left:6.5rem; padding-right:6.5rem;">
+  <div class="section" style="padding-left:6.5em; padding-right:6.5rem;">
     <div id='calendar'></div>
   </div>
   <script>
-
     document.addEventListener('DOMContentLoaded', function() {
       function addDay(str) {
         /*let x = str.split("-");
@@ -27,7 +28,7 @@
       }
 
       let dbEvents = [];
-      axios.get("api/tournaments")
+      axios.get("api/tournaments/calendar")
         .then(function(result) {
           console.log(result);
           let i = 0;
@@ -59,9 +60,6 @@
 
           console.log(calendar.getEvents())
         });
-
-
-
 
     });
   </script>

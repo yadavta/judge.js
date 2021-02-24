@@ -71,6 +71,20 @@ async function listTournaments() {
   return x;
 }
 
+async function calendarTournaments(){
+  let c;
+  var params = {
+    TableName: "tournaments",
+    Select: "SPECIFIC_ATTRIBUTES",
+    ProjectionExpression: "tournamentId, tournamentName, startDate, endDate"
+  };
+  await docClient.scan(params).promise().then(data => {
+    //console.log(data);
+    c = data.Items;
+  });
+  return c;
+}
+
 async function createTournaments(newTourneyData) {
   let amazonResponse;
   var params = {
@@ -97,6 +111,12 @@ app.post('/api/tournaments', jsonParser, function(req, res) {
     res.send(data);
   })*/
 
+});
+
+app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
+  calendarTournaments().then(function(data){
+      res.send(data);
+  });
 });
 
 console.log("Github Integration is working");
