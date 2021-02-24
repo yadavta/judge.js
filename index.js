@@ -142,14 +142,16 @@ app.post('/api/emails', function(req,res) {
     Source: 'test@tanushyadav.me'
   };
 
-  var sendPromise = AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+  /* var sendPromise = AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
   sendPromise.then(
     function(data) {
       res.send(data);
     }).catch(
       function(err) {
       res.send(err);
-    });
+    });*/
+
+    res.send("hi");
 });
 
 console.log("Github Integration is working");
