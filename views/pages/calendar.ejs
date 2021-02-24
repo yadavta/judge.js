@@ -40,7 +40,7 @@
               end: dayjs(tData.endDate).add(1, 'day').format('YYYY-MM-DD'),
               allDay: true,
               display: 'auto',
-              url: 'https://judge-js.herokuapp.com/event?id=' + tData.tournamentId
+              url: ('https://judge-js.herokuapp.com/event?id=' + tData.tournamentId)
             };
             dbEvents.push(appendable);
             i++;
