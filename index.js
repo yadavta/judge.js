@@ -120,8 +120,16 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   });
 });
 
+async function awsSendEmail (params) {
+  let e;
+  await AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise().then(data => {
+    e = data;
+  });
+  return e;
+}
+
 app.post('/api/emails', function(req,res) {
-  var params = {
+  var emailParams = {
     Destination: {
       ToAddresses: ['tanushyadav@gmail.com']
     },
@@ -142,16 +150,10 @@ app.post('/api/emails', function(req,res) {
     Source: 'test@tanushyadav.me'
   };
 
-  /* var sendPromise = AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-  sendPromise.then(
-    function(data) {
-      res.send(data);
-    }).catch(
-      function(err) {
-      res.send(err);
-    });*/
+  awsSendEmail(emailParams).then(function(data){
+    res.send(data)
+  });
 
-    res.send("hi");
 });
 
 console.log("Github Integration is working");
