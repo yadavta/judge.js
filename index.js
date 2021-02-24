@@ -32,10 +32,10 @@ app.use(session({
 
 const oidc = new ExpressOIDC({
   appBaseUrl: "https://judge-js.herokuapp.com",
-  issuer: 'https://dev-15164454.okta.com/oauth2/default',
+  issuer: process.env.OKTA_ISSUER,
   client_id: process.env.OKTA_CLIENT_ID,
   client_secret: process.env.OKTA_CLIENT_SECRET,
-  redirect_uri: 'https://judge-js.herokuapp.com/authorization-code/callback',
+  redirect_uri: process.env.OKTA_REDIRECT_URI,
   scope: 'openid profile'
 });
 
