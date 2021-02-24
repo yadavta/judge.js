@@ -54,7 +54,7 @@ app.get('/about', (req, res) => res.render('pages/about'))
 app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
-app.get('/event/?:id', (req, res) => res.send(req.params.id))
+app.get('/event', (req, res) => res.send("hellow world"))
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
