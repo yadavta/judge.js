@@ -130,30 +130,31 @@ async function awsSendEmail (params) {
 
 app.post('/api/emails', function(req,res) {
   var emailParams = {
-    Destination: {
-      ToAddresses: ['tanushyadav@gmail.com']
-    },
-    Message: {
-      Body: {
-        Charset: "UTF-8",
-        Data: "HTML_FORMAT_BODY"
+      Destination: {
+        ToAddresses: ['tanushyadav@gmail.com']
       },
-      Text: {
-        Charset: "UTF-8",
-        Data: "TEXT_FORMAT_BODY"
+      Message: {
+      Body: { /* required */
+        Html: {
+         Charset: "UTF-8",
+         Data: "HTML_FORMAT_BODY"
+        },
+        Text: {
+         Charset: "UTF-8",
+         Data: "TEXT_FORMAT_BODY"
+        }
       },
-      Subject: {
+       Subject: {
         Charset: 'UTF-8',
         Data: 'Test email'
-      }
-    },
-    Source: 'test@tanushyadav.me'
-  };
+       }
+      },
+      Source: 'test@tanushyadav.me'
+    };
 
   awsSendEmail(emailParams).then(function(data){
     res.send(data)
   });
-
 });
 
 console.log("Github Integration is working");
