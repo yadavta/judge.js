@@ -120,5 +120,37 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   });
 });
 
+app.post('/api/emails', function(req,res) {
+  var params = {
+    Destination: {
+      ToAddresses: ['tanushyadav@gmail.com']
+    },
+    Message: {
+      Body: {
+        Charset: "UTF-8",
+        Data: "HTML_FORMAT_BODY"
+      },
+      Text: {
+        Charset: "UTF-8",
+        Data: "TEXT_FORMAT_BODY"
+      },
+      Subject: {
+        Charset: 'UTF-8',
+        Data: 'Test email'
+      }
+    },
+    Source: 'test@tanushyadav.me'
+  };
+
+  var sendPromise = AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+  sendPromise.then(
+    function(data) {
+      res.send(data);
+    }).catch(
+      function(err) {
+      res.send(err);
+    });
+});
+
 console.log("Github Integration is working");
 console.log("moved local git repository");
