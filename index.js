@@ -16,7 +16,7 @@ AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+//var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -60,7 +60,7 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 
-async function listTournaments() {
+/*async function listTournaments() {
   let x;
   var params = {
     TableName: "tournaments"
@@ -110,7 +110,7 @@ app.post('/api/tournaments', jsonParser, function(req, res) {
 
   /*createTournaments(req.body).then(function(data){
     res.send(data);
-  })*/
+  })
 
 });
 
@@ -118,7 +118,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   calendarTournaments().then(function(data){
       res.send(data);
   });
-});
+});*/
 
 async function awsSendEmail (params) {
   let e;
