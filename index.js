@@ -92,6 +92,7 @@ async function eventTournament(specificTourneyData) {
   let e;
   var params = {
     TableName: 'tournaments',
+    KeyConditionExpress: 'tournamentId=' + specificTourneyData.tournamentId
 
   }
 }
@@ -132,7 +133,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
 });
 
 app.get('api/tournaments/event', jsonParser, function(req,res) {
-  res.send(req.body);
+  res.send('hi');
 });
 
 /*async function awsSendEmail(params) {
