@@ -93,8 +93,15 @@ async function eventTournament(specificTourneyData) {
   var params = {
     TableName: 'tournaments',
     KeyConditionExpress: 'tournamentId=' + specificTourneyData.tournamentId
-
   }
+
+  await docClient.query(params).promise().then(data => {
+    console.log(data);
+    e = data.Items;
+  });
+  return e;
+
+
 }
 
 async function createTournaments(newTourneyData) {
@@ -133,7 +140,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
 });
 
 app.get('/api/tournaments/event', jsonParser, function(req,res) {
-  res.send(req.body);
+  res.send(req.body.tournamentId);
 });
 
 /*async function awsSendEmail(params) {
