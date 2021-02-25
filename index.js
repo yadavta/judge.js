@@ -141,7 +141,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
 app.post('/api/tournaments/event', jsonParser, function(req,res) {
   console.log(req.body);
   //res.send(req.body.tournamentId);
-  eventTournaments().then(function(data){
+  eventTournaments(req.body).then(function(data){
       res.send(data);
   });
 });
