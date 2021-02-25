@@ -92,7 +92,7 @@ async function eventTournament(specificTourneyData) {
   let e;
   var params = {
     TableName: 'tournaments',
-    
+
   }
 }
 
