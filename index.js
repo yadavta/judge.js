@@ -13,12 +13,12 @@ var AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
-  //endpoint: "https://dynamodb.us-west-2.amazonaws.com",
+  endpoint: "https://dynamodb.us-west-2.amazonaws.com",
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-//var docClient = new AWS.DynamoDB.DocumentClient();
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -110,7 +110,7 @@ app.get('/api/tournaments', function(req, res) {
 
 app.post('/api/tournaments', jsonParser, function(req, res) {
 
-  /*createTournaments(req.body).then(function(data){
+  createTournaments(req.body).then(function(data){
     res.send(data);
   })
 
@@ -120,7 +120,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   calendarTournaments().then(function(data){
       res.send(data);
   });
-});*/
+});
 
 /*async function awsSendEmail(params) {
   let e;
