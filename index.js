@@ -89,7 +89,11 @@ async function calendarTournaments(){
 }
 
 async function eventTournament(specificTourneyData) {
-
+  let e;
+  var params = {
+    TableName: 'tournaments',
+    
+  }
 }
 
 async function createTournaments(newTourneyData) {
