@@ -3,17 +3,20 @@
 
 <head>
   <%- include ("../partials/header.ejs") %>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
   <%- include ("../partials/nav.ejs") %>
   <script>
   const urlParams = new URLSearchParams(window.location.search);
-  console.log('all params:');
-  console.log(urlParams);
-  console.log('filter -- x- x- ');
-  console.log('tourneyid param: ')
-  console.log(urlParams.get('tournamentId'));
+  const redirectedTournamentId = urlParams.get('tournamentId');
+  console.log('will retrieve information for the following tournament: ' + redirectedTournamentId);
+
+  axios.get('/api/tournaments/event', {
+    tournamentId: redirectedTournamentId
+  });
+
   </script>
 </body>
 

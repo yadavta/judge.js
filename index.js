@@ -88,6 +88,10 @@ async function calendarTournaments(){
   return c;
 }
 
+async function eventTournament(specificTourneyData) {
+
+}
+
 async function createTournaments(newTourneyData) {
   let amazonResponse;
   var params = {
@@ -101,6 +105,7 @@ async function createTournaments(newTourneyData) {
 
   return amazonResponse;
 }
+
 
 app.get('/api/tournaments', function(req, res) {
   listTournaments().then(function(data) {
@@ -120,6 +125,10 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   calendarTournaments().then(function(data){
       res.send(data);
   });
+});
+
+app.get('api/tournaments/event', jsonParser, function(req,res) {
+  res.send(req.body);
 });
 
 /*async function awsSendEmail(params) {
