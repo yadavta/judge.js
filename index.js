@@ -140,6 +140,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
 });
 
 app.get('/api/tournaments/event', jsonParser, function(req,res) {
+  console.log(req.body);
   res.send(req.body.tournamentId);
 });
 
