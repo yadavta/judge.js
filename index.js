@@ -92,8 +92,14 @@ async function eventTournaments(specificTourneyData) {
   let e;
   var params = {
     TableName: 'tournaments',
-    KeyConditionExpression: ('tournamentId=' + specificTourneyData.tournamentId)
-  }
+    KeyConditionExpression: '#tournId = :tourneyId',
+    ExpressionAttributeNames: {
+      "#tournId": "tournamentId"
+    },
+    ExpressionAttributeValues: {
+      ":tourneyId": specificTourneyData.tournamentId
+    }
+  };
 
   await docClient.query(params).promise().then(data => {
     console.log(data);
