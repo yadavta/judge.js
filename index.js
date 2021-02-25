@@ -88,7 +88,7 @@ async function calendarTournaments(){
   return c;
 }
 
-async function eventTournament(specificTourneyData) {
+async function eventTournaments(specificTourneyData) {
   let e;
   var params = {
     TableName: 'tournaments',
@@ -100,7 +100,6 @@ async function eventTournament(specificTourneyData) {
     e = data.Items;
   });
   return e;
-
 
 }
 
@@ -141,7 +140,10 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
 
 app.post('/api/tournaments/event', jsonParser, function(req,res) {
   console.log(req.body);
-  res.send(req.body.tournamentId);
+  //res.send(req.body.tournamentId);
+  eventTournaments().then(function(data){
+      res.send(data);
+  });
 });
 
 /*async function awsSendEmail(params) {
