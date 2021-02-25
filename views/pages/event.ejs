@@ -6,8 +6,14 @@
 </head>
 
 <body>
-  <%=user_id%>
+  <%- include ("../partials/nav.ejs") %>
   <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  console.log('all params:');
+  console.log(urlParams);
+  console.log('filter -- x- x- ');
+  console.log('tourneyid param: ')
+  console.log(urlParams.get('tournamentId'));
   </script>
 </body>
 

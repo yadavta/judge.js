@@ -56,15 +56,13 @@ app.get('/about', (req, res) => res.render('pages/about'))
 app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
-app.get('/event', (req, res) => res.render('pages/event', {
-  user_id: 'wassup'
-}))
+app.get('/event', (req, res) => res.render('pages/event'));
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 
-/*async function listTournaments() {
+async function listTournaments() {
   let x;
   var params = {
     TableName: "tournaments"
@@ -124,7 +122,7 @@ app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
   });
 });*/
 
-async function awsSendEmail(params) {
+/*async function awsSendEmail(params) {
   let e;
   var ses = new AWS.SES({
     apiVersion: '2010-12-01'
@@ -145,7 +143,6 @@ app.post('/api/emails', function(req, res) {
     },
     Message: {
       Body: {
-        /* required */
         Html: {
           Charset: "UTF-8",
           Data: "HTML_FORMAT_BODY"
@@ -166,7 +163,7 @@ app.post('/api/emails', function(req, res) {
   awsSendEmail(emailParams).then(function(data) {
     res.send(data)
   });
-});
+});*/
 
 console.log("Github Integration is working");
 console.log("moved local git repository");
