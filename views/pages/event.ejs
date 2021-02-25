@@ -13,7 +13,7 @@
   const redirectedTournamentId = urlParams.get('tournamentId');
   console.log('will retrieve information for the following tournament: ' + redirectedTournamentId);
 
-  axios.get('api/tournaments/event', {
+  axios.post('api/tournaments/event', {
     tournamentId: redirectedTournamentId
   }).then(function(result){
     console.log(result);
