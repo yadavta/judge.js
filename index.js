@@ -2,7 +2,7 @@ const express = require('express');
 var bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const {ExpressOIDC} = require('@okta/oidc-middleware');
+const { ExpressOIDC } = require('@okta/oidc-middleware');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
 require('dotenv').config();
@@ -57,9 +57,9 @@ app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
 app.get('/event', (req, res) => res.render('pages/event'));
-app.get('/socket', (req,res) => res.render('pages/socket'))
+app.get('/socket', (req, res) => res.render('pages/socket'))
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
@@ -75,7 +75,7 @@ async function listTournaments() {
   return x;
 }
 
-async function calendarTournaments(){
+async function calendarTournaments() {
   let c;
   var params = {
     TableName: "tournaments",
@@ -124,32 +124,61 @@ async function createTournaments(newTourneyData) {
   return amazonResponse;
 }
 
+async function alertTournament(specificTourneyData) {
+  let a;
+  var params = {
+    TableName: "tournaments",
+    Select: "SPECIFIC_ATTRIBUTES",
+    ProjectionExpression: "tournamentId, tournamentName, startDate, endDate, adminAlerts", 
+    KeyConditionExpression: '#tournId = :tourneyId',
+    ExpressionAttributeNames: {
+      "#tournId": "tournamentId"
+    },
+    ExpressionAttributeValues: {
+      ":tourneyId": specificTourneyData.tournamentId
+    }
+  };
+  await docClient.query(params).promise().then(data => {
+    //console.log(data);
+    a = data.Items;
+  });
+  return a;
+}
 
-app.get('/api/tournaments', function(req, res) {
-  listTournaments().then(function(data) {
+
+app.get('/api/tournaments', function (req, res) {
+  listTournaments().then(function (data) {
     res.send(data);
   })
 });
 
-app.post('/api/tournaments', jsonParser, function(req, res) {
+app.post('/api/tournaments', jsonParser, function (req, res) {
 
-  createTournaments(req.body).then(function(data){
+  createTournaments(req.body).then(function (data) {
     res.send(data);
   })
 
 });
 
-app.get('/api/tournaments/calendar', jsonParser, function(req,res) {
-  calendarTournaments().then(function(data){
-      res.send(data);
+app.get('/api/tournaments/calendar', jsonParser, function (req, res) {
+  calendarTournaments().then(function (data) {
+    res.send(data);
   });
 });
 
-app.post('/api/tournaments/event', jsonParser, function(req,res) {
+app.post('/api/tournaments/event', jsonParser, function (req, res) {
   console.log(req.body);
   //res.send(req.body.tournamentId);
-  eventTournaments(req.body).then(function(data){
-      res.send(data);
+  eventTournaments(req.body).then(function (data) {
+    res.send(data);
+  });
+});
+
+app.post('/api/tournaments/cards', jsonParser, function (req, res) {
+  console.log(req.body);
+  alertTournament(req.body).then(function (data) {
+    console.log(data);
+    res.send(data);
   });
 });
 
