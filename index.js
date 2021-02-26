@@ -21,7 +21,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express();
 
-//const http = require('http').createServer(app);
+const http = require('http').Server(app);
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
@@ -64,7 +64,7 @@ app.get('/socket', (req,res) => res.render('pages/socket'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 //socket io
-const io = socketIO(app);
+const io = socketIO(http);
 
 io.on('connection', (socket) => {
   console.log('a user successfully connected!');
