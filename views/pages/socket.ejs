@@ -7,17 +7,19 @@
 <body>
   <button class="button" onclick="addMessage()">Send Message</button>
   <script>
-    var socket = io();
+    var socket = io('https://judge-js.herokuapp.com/');
     
-    const theMessage = "Hello World!"
+    const theMessage = "Hello World!";
+
+    socket.on('chat message', function(msg){
+      console.log(msg);
+    });
 
     function addMessage() {
       socket.emit('chat message', theMessage);
     }
     
-    socket.on('chat message', function(msg){
-      console.log(msg);
-    });
+
     
   </script>
 
