@@ -3,48 +3,12 @@
 <head>
     <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
 </head>
   
 <body>
-    <%- include ("../partials/nav.ejs") %>
-    <div id="tournamentTable">
-    	<table class = "ui celled table">
-		<thead>
-			<tr><th>Name</th>
-			<th>Age</th>
-			<th>Job</th>
-		</tr></thead>
-		<tbody>
-			<tr>
-			  <td data-label="Name">{{message}}</td>
-			  <td data-label="Age">24</td>
-			  <td data-label="Job">Engineer</td>
-			</tr>
-			<tr>
-			  <td data-label="Name">Jill</td>
-			  <td data-label="Age">26</td>
-			  <td data-label="Job">Engineer</td>
-			</tr>
-			</tbody>
-		</table>
-    	<button> v-on:click="updateTable"> Update Table </button>
-    </div>
-    <script>
-    var tournamentTable = new Vue({
-		el: '#tournamentTable',
-		data: function {
-			message: 'Hello Vue.js!'
-		},
-		methods: {
-			
-		}
-	})
-    </script>
+  <%- include ("../partials/nav.ejs") %>
 </body>
 
 </html>

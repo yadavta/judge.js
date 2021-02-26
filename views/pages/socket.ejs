@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ("../partials/header.ejs") %>
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@3.1.1/dist/socket.io.min.js"></script>
+</head>
+<body>
+  <button class="button" onclick="addMessage()">Send Message</button>
+  <script>
+    var socket = io();
+    
+    const theMessage = "Hello World!"
+
+    function addMessage() {
+      socket.emit('chat message', theMessage);
+    }
+    
+    socket.on('chat message', function(msg){
+      console.log(msg);
+    });
+    
+  </script>
+
+</body>
+</html>

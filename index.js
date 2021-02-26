@@ -2,12 +2,11 @@ const express = require('express');
 var bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const {
-  ExpressOIDC
-} = require('@okta/oidc-middleware');
+const {ExpressOIDC} = require('@okta/oidc-middleware');
+const socketIO = require('socket.io');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
-require('dotenv').config()
+require('dotenv').config();
 
 var AWS = require("aws-sdk");
 
@@ -20,7 +19,10 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-var app = express()
+var app = express();
+
+//const http = require('http').createServer(app);
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -57,8 +59,19 @@ app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
 app.get('/event', (req, res) => res.render('pages/event'));
+app.get('/socket', (req,res) => res.render('pages/socket'))
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+//socket io
+const io = socketIO(app);
+
+io.on('connection', (socket) => {
+  console.log('a user successfully connected!');
+  socket.on('chat message', msg => {
+    io.emit('chat message', msg);
+  });
+})
 
 
 
