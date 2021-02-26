@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const {ExpressOIDC} = require('@okta/oidc-middleware');
-const socketIO = require('socket.io');
 const PORT = process.env.PORT || 5000
 var jsonParser = bodyParser.json();
 require('dotenv').config();
@@ -21,7 +20,6 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express();
 
-const http = require('http').Server(app);
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
@@ -63,19 +61,6 @@ app.get('/socket', (req,res) => res.render('pages/socket'))
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-//socket io
-const io = socketIO(http);
-
-io.on('connection', (socket) => {
-  console.log('a user successfully connected!');
-  socket.on('chat message', msg => {
-    io.emit('chat message', msg);
-  });
-})
-
-http.listen(PORT, () => {
-  console.log(`Socket.IO server running at http://localhost:${port}/`);
-});
 
 
 async function listTournaments() {
