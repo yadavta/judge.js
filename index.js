@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
   });
 })
 
-http.listen(port, () => {
+http.listen(PORT, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
 
