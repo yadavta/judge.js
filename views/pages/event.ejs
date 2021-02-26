@@ -7,76 +7,73 @@
 </head>
 
 <body>
-  <%- include ("../partials/nav.ejs") %>
+  <%- include("../partials/nav.ejs") %>
 
-    <%- include("../partials/nav.ejs") %>
-
-      <div class="section" style="padding-left: 10rem; padding-right: 10em;">
-        <div class="columns">
-          <div class="column is-7 has-background-info-light">
-            <div class="content">
-              <h1 class="title">Tournament Information</h1>
-              <h2 id="tournament-name-stanford-invitational">Tournament Name: Stanford Invitational</h2>
-              <h2 id="tournament-dates-2-6-2-8">Tournament Dates: 2/6 - 2/8</h2>
-              <h3 id="judging-information">Judging Information</h3>
-              <p>Judges must be hired.</p>
-              <p>Rounds Needed:</p>
-              <ul>
-                <li>LD - 6</li>
-                <li>PF - 12</li>
-              </ul>
-              <h3 id="competitor-slots">Competitor Slots</h3>
-              <ul>
-                <li>LD - 4</li>
-              </ul>
-              <button class="button" onclick="getCards()">Add Cards</button>
-            </div>
-
-          </div>
-          <div class="column is-5 has-background-warning-light">
-            <div class="content">
-              <h1 class="title">Notes from Officers</h1>
-
-              <div class="block">
-                <p id="fillerText" style="text-align: right">Good Luck.</p>
-              </div>
-
-            </div>
+    <div class="section" style="padding-left: 10rem; padding-right: 10em;">
+      <div class="columns">
+        <div class="column is-7 has-background-info-light">
+          <div class="content">
+            <h1 class="title">Tournament Information</h1>
+            <h2 id="tournament-name-stanford-invitational">Tournament Name: Stanford Invitational</h2>
+            <h2 id="tournament-dates-2-6-2-8">Tournament Dates: 2/6 - 2/8</h2>
+            <h3 id="judging-information">Judging Information</h3>
+            <p>Judges must be hired.</p>
+            <p>Rounds Needed:</p>
+            <ul>
+              <li>LD - 6</li>
+              <li>PF - 12</li>
+            </ul>
+            <h3 id="competitor-slots">Competitor Slots</h3>
+            <ul>
+              <li>LD - 4</li>
+            </ul>
+            <button class="button">Add Cards</button>
           </div>
 
         </div>
+        <div class="column is-5 has-background-warning-light">
+          <div class="content">
+            <h1 class="title">Notes from Officers</h1>
+
+            <div class="block">
+              <p id="fillerText" style="text-align: right">Good Luck.</p>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+    </div>
 
-      <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectedTournamentId = urlParams.get('tournamentId');
-        console.log('will retrieve information for the following tournament: ' + redirectedTournamentId);
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectedTournamentId = urlParams.get('tournamentId');
+      console.log('will retrieve information for the following tournament: ' + redirectedTournamentId);
 
-        function addCards(cardHeader, cardContent) {
-          $('#fillerText').before('<div class="block"> <div class="card"> <div class="card-header"> <p class="card-header-title">' + cardHeader + '</p> </div> <div class="card-content"> <p>' + cardContent + '</p> </div> </div> </div>')
-        }
-        function getCards() {
+      function addCards(cardHeader, cardContent) {
+        $('#fillerText').before('<div class="block"> <div class="card"> <div class="card-header"> <p class="card-header-title">' + cardHeader + '</p> </div> <div class="card-content"> <p>' + cardContent + '</p> </div> </div> </div>')
+      }
 
-          axios.post('/api/tournaments/cards', { tournamentId: 'berkley2021' }).then(function (results) {
-            console.log(results);
+      //function getCards() {
 
-            if (results.data.length == 0) {
-              console.log("there are no cards");
-            } else if (results.data.length == 1) {
-              let n = 0;
-              for (n = 0; n < results.data[0].adminAlerts.length; n++) {
-                let x = results.data[0].adminAlerts[n];
-                console.log(x);
-                addCards(x.alertHeader, x.alertContent);
-              }
-            } else {
-              console.log("multiple tournaments are associated with this ID");
+        axios.post('/api/tournaments/cards', { tournamentId: 'berkley2021' }).then(function (results) {
+          console.log(results);
+
+          if (results.data.length == 0) {
+            console.log("there are no cards");
+          } else if (results.data.length == 1) {
+            let n = 0;
+            for (n = 0; n < results.data[0].adminAlerts.length; n++) {
+              let x = results.data[0].adminAlerts[n];
+              console.log(x);
+              addCards(x.alertHeader, x.alertContent);
             }
-          });
-        }
-
-
-      </script>
+          } else {
+            console.log("multiple tournaments are associated with this ID");
+          }
+        });
+      
+    </script>
 </body>
 
 </html>
