@@ -55,7 +55,7 @@
 
       //function getCards() {
 
-        axios.post('/api/tournaments/cards', { tournamentId: 'berkley2021' }).then(function (results) {
+        axios.post('/api/tournaments/cards', { tournamentId: redirectedTournamentId }).then(function (results) {
           console.log(results);
 
           if (results.data.length == 0) {
