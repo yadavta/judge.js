@@ -4,6 +4,7 @@
 <head>
   <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/dayjs.min.js"></script>
 </head>
 
 <body>
@@ -14,19 +15,6 @@
         <div class="column is-7 has-background-info-light">
           <div class="content">
             <h1 class="title">Tournament Information</h1>
-            <h2 id="tournament-name-stanford-invitational">Tournament Name: Stanford Invitational</h2>
-            <h2 id="tournament-dates-2-6-2-8">Tournament Dates: 2/6 - 2/8</h2>
-            <h3 id="judging-information">Judging Information</h3>
-            <p>Judges must be hired.</p>
-            <p>Rounds Needed:</p>
-            <ul>
-              <li>LD - 6</li>
-              <li>PF - 12</li>
-            </ul>
-            <h3 id="competitor-slots">Competitor Slots</h3>
-            <ul>
-              <li>LD - 4</li>
-            </ul>
           </div>
 
         </div>
@@ -55,23 +43,34 @@
 
       //function getCards() {
 
-        axios.post('/api/tournaments/cards', { tournamentId: redirectedTournamentId }).then(function (results) {
-          console.log(results);
+      axios.post('/api/tournaments/cards', { tournamentId: redirectedTournamentId }).then(function (results) {
+        console.log(results);
 
-          if (results.data.length == 0) {
-            console.log("there are no cards");
-          } else if (results.data.length == 1) {
-            let n = 0;
-            for (n = 0; n < results.data[0].adminAlerts.length; n++) {
-              let x = results.data[0].adminAlerts[n];
-              console.log(x);
-              addCards(x.alertHeader, x.alertContent);
-            }
-          } else {
-            console.log("multiple tournaments are associated with this ID");
+        if (results.data.length == 0) {
+          console.log("there are no cards");
+        } else if (results.data.length == 1) {
+
+          const tData = results.data[0];
+
+          let n = 0;
+
+          for (n = 0; n < tData.adminAlerts.length; n++) {
+            let x = tData.adminAlerts[n];
+            console.log(x);
+            addCards(x.alertHeader, x.alertContent);
           }
-        });
-      
+
+          // add generic tournament data
+          let appendable = '<h2 id="tournament-name">Tournament Name: ' + tData.tournamentName + '</h2> <h2 id="tournament-dates">Tournament Dates: ' + (dayjs(tData.startDate).format("M/D") + ' - ' + dayjs(tData.endDate).format("M/D")) + '</h2> <h3 id="judging-information">Judging Information</h3> <ul> ' + '<li> hi </li>' + '</ul> <h3 id = "competitor-slots" > Competitor Slots</h3> <ul> <li>LD - 4</li> </ul> <h3 id="bid-information">Bid Information</h3> <h3 id="general-information">General Tournament Information</h3>';
+
+          $('#tournament-information-title').after(appendable);
+          console.log("added");
+
+        } else {
+          console.log("multiple tournaments are associated with this ID");
+        }
+      });
+
     </script>
 </body>
 

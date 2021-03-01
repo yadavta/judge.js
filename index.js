@@ -128,8 +128,8 @@ async function alertTournament(specificTourneyData) {
   let a;
   var params = {
     TableName: "tournaments",
-    Select: "SPECIFIC_ATTRIBUTES",
-    ProjectionExpression: "tournamentId, tournamentName, startDate, endDate, adminAlerts", 
+    //Select: "SPECIFIC_ATTRIBUTES",
+    //ProjectionExpression: "tournamentId, tournamentName, startDate, endDate, adminAlerts", 
     KeyConditionExpression: '#tournId = :tourneyId',
     ExpressionAttributeNames: {
       "#tournId": "tournamentId"
