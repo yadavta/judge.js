@@ -97,10 +97,12 @@
   let userJudges = [];
   let userSchoolApproved = false;
   let userAsIndependent = false;
+  let userClubApproved = false;
   let currentYear = new Date().getFullYear();
   let userStartDate = "";
   let userEndDate = "";
   let userSlots = {'ld': "&infin;", 'pf': "&infin;", 'cx': "&infin;"};
+  let adminAlerts = [{'adminHeader': "Automatically Generated Note", 'alertContent': "Please ensure that you have paid all fees previously assessed to your account."}];
 
   //date picker js stuff
   $(function() {
@@ -172,7 +174,8 @@
         asIndependent: userAsIndependent,
         startDate: userStartDate,
         endDate: userEndDate,
-        slots: userSlots
+        slots: userSlots,
+        clubApproved: userClubApproved
     })
       .then(function (response) {
           toastr.success("The tournament has been added", "Success", {
