@@ -4,8 +4,13 @@
 <head>
   <%- include ("../partials/header.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/dayjs.min.js"></script>
-    <script>dayjs.format()</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    </script>
+
 </head>
 
 <body>
@@ -47,9 +52,7 @@
       axios.post('/api/tournaments/cards', { tournamentId: redirectedTournamentId }).then(function (results) {
         console.log(results);
 
-        if (results.data.length == 0) {
-          console.log("there are no cards");
-        } else if (results.data.length == 1) {
+        if (results.data.length == 1) {
 
           const tData = results.data[0];
 
@@ -67,9 +70,35 @@
           $('#tournament-information-title').after(appendable);
           console.log("added");
 
-        } else {
+        } 
+        
+        else if (results.data.length == 0 || redirectedTournamentId === null || redirectedTournamentId === undefined ) {
+          console.log("there are no cards");
+          toastr.warning("no tournament was found. please go to the calendar page and click on a tournament to see the relevant event page.", "Request Error", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-top-right",
+          });
+        } 
+        
+        else if (results.data.length > 1) {
           console.log("multiple tournaments are associated with this ID");
+          toastr.warning("multiple tournaments with the same ID were found. please contact your team's admins", "Data Error", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-top-right",
+          });
         }
+
+        else {
+          toastr.error("Something went wrong!", "Error", {
+              "closeButton": true,
+              "timeOut": "0",
+              "positionClass": "toast-top-right",
+          });
+        }
+
+
       });
 
     </script>
