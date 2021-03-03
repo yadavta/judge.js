@@ -40,66 +40,78 @@
 
     <script>
       const urlParams = new URLSearchParams(window.location.search);
-      const redirectedTournamentId = urlParams.get('tournamentId');
-      console.log('will retrieve information for the following tournament: ' + redirectedTournamentId);
 
-      function addCards(cardHeader, cardContent) {
-        $('#fillerText').before('<div class="block"> <div class="card"> <div class="card-header"> <p class="card-header-title">' + cardHeader + '</p> </div> <div class="card-content"> <p>' + cardContent + '</p> </div> </div> </div>')
-      }
+      if (!urlParams.has('tournamentId')) {
+        console.log("there are no cards");
+        toastr.warning("no tournament was found. please go to the calendar page and click on a tournament to see the relevant event page.", "Request Error", {
+          "closeButton": true,
+          "timeOut": "0",
+          "positionClass": "toast-top-right",
+        });
+      } else {
 
-      //function getCards() {
+        const redirectedTournamentId = urlParams.get('tournamentId');
 
-      axios.post('/api/tournaments/cards', { tournamentId: redirectedTournamentId }).then(function (results) {
-        console.log(results);
 
-        if (results.data.length == 1) {
+        console.log('will retrieve information for the following tournament: ' + redirectedTournamentId);
 
-          const tData = results.data[0];
+        function addCards(cardHeader, cardContent) {
+          $('#fillerText').before('<div class="block"> <div class="card"> <div class="card-header"> <p class="card-header-title">' + cardHeader + '</p> </div> <div class="card-content"> <p>' + cardContent + '</p> </div> </div> </div>')
+        }
 
-          let n = 0;
+        //function getCards() {
 
-          for (n = 0; n < tData.adminAlerts.length; n++) {
-            let x = tData.adminAlerts[n];
-            console.log(x);
-            addCards(x.alertHeader, x.alertContent);
+        axios.post('/api/tournaments/cards', { tournamentId: redirectedTournamentId }).then(function (results) {
+          console.log(results);
+
+          if (results.data.length == 1) {
+
+            const tData = results.data[0];
+
+            let n = 0;
+
+            for (n = 0; n < tData.adminAlerts.length; n++) {
+              let x = tData.adminAlerts[n];
+              console.log(x);
+              addCards(x.alertHeader, x.alertContent);
+            }
+
+            // add generic tournament data
+            let appendable = '<h2 id="tournament-name">Tournament Name: ' + tData.tournamentName + '</h2> <h2 id="tournament-dates">Tournament Dates: ' + (dayjs(tData.startDate).format("M/D") + ' - ' + dayjs(tData.endDate).format("M/D")) + '</h2> <h3 id="judging-information">Judging Information</h3> <ul> ' + '<li> hi </li>' + '</ul> <h3 id = "competitor-slots" > Competitor Slots</h3> <ul> <li>LD - 4</li> </ul> <h3 id="bid-information">Bid Information</h3> <h3 id="general-information">General Tournament Information</h3>';
+
+            $('#tournament-information-title').after(appendable);
+            console.log("added");
+
           }
 
-          // add generic tournament data
-          let appendable = '<h2 id="tournament-name">Tournament Name: ' + tData.tournamentName + '</h2> <h2 id="tournament-dates">Tournament Dates: ' + (dayjs(tData.startDate).format("M/D") + ' - ' + dayjs(tData.endDate).format("M/D")) + '</h2> <h3 id="judging-information">Judging Information</h3> <ul> ' + '<li> hi </li>' + '</ul> <h3 id = "competitor-slots" > Competitor Slots</h3> <ul> <li>LD - 4</li> </ul> <h3 id="bid-information">Bid Information</h3> <h3 id="general-information">General Tournament Information</h3>';
-
-          $('#tournament-information-title').after(appendable);
-          console.log("added");
-
-        } 
-        
-        else if (results.data.length == 0 || redirectedTournamentId === null || redirectedTournamentId === undefined ) {
-          console.log("there are no cards");
-          toastr.warning("no tournament was found. please go to the calendar page and click on a tournament to see the relevant event page.", "Request Error", {
+          else if (results.data.length == 0 || redirectedTournamentId === null || redirectedTournamentId === undefined) {
+            console.log("there are no cards");
+            toastr.warning("no tournament was found. please go to the calendar page and click on a tournament to see the relevant event page.", "Request Error", {
               "closeButton": true,
               "timeOut": "0",
               "positionClass": "toast-top-right",
-          });
-        } 
-        
-        else if (results.data.length > 1) {
-          console.log("multiple tournaments are associated with this ID");
-          toastr.warning("multiple tournaments with the same ID were found. please contact your team's admins", "Data Error", {
+            });
+          }
+
+          else if (results.data.length > 1) {
+            console.log("multiple tournaments are associated with this ID");
+            toastr.warning("multiple tournaments with the same ID were found. please contact your team's admins", "Data Error", {
               "closeButton": true,
               "timeOut": "0",
               "positionClass": "toast-top-right",
-          });
-        }
+            });
+          }
 
-        else {
-          toastr.error("Something went wrong!", "Error", {
+          else {
+            toastr.error("Something went wrong!", "Error", {
               "closeButton": true,
               "timeOut": "0",
               "positionClass": "toast-top-right",
-          });
-        }
+            });
+          }
+        });
 
-
-      });
+      }
 
     </script>
 </body>
