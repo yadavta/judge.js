@@ -27,7 +27,7 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 
 app.use(session({
-  secret: 'DJf_y1MMsVXFysw_7YVLvkxrQ_1j8z1mNqrEDgFQ',
+  secret: proccess.env.OKTA_SECRET,
   resave: true,
   saveUninitialized: false
 }));
