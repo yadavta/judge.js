@@ -1,0 +1,8 @@
+{
+  "Template": {
+    "TemplateName": "ConfirmationEmail",
+    "SubjectPart": "Confirm your JudgeJS Account",
+    "TextPart": "Dear {{userName}}, \n Please navigate to the following link in your browser to confirm your email: {{confirmationLink}}.",
+    "HtmlPart": "<p style=\"color:black\"> Dear {{userName}}, <br><br> Please navigate to the following link in your browser to confirm your email: {{confirmationLink}}.</p>"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "Template": {
+    "TemplateName": "FeeReminder",
+    "SubjectPart": "Fee Reminder for {{tournamentName}}",
+    "TextPart": "Dear {{userName}}, \n This is a reminder that you have an oustanding fee for {{tournamentName}} due by {{cleanFeeDueDate}}. For security reasons, the fee information is not included in this message. Please login to JudgeJS to see your fee information.",
+    "HtmlPart": "<p style=\"color:black\"> Dear {{userName}}, <br><br> This is a reminder that you have an oustanding fee for the <strong>{{tournamentName}} due by {{cleanFeeDueDate}}</strong>. For security reasons, the fee information is not included in this message. Please login to JudgeJS to see your fee information.<br><br>Thank you</p>"
+  }
+}

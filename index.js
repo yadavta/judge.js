@@ -1,11 +1,25 @@
+//npm imports
 const express = require('express');
-var bodyParser = require('body-parser');
 const path = require('path');
-const session = require('express-session');
-const { ExpressOIDC } = require('@okta/oidc-middleware');
-const PORT = process.env.PORT || 5000
-var jsonParser = bodyParser.json();
 require('dotenv').config();
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+
+//local node modules
+const reminderEmails = require('./utils/emails/reminder.js');
+
+//set up npm modules
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("DB Connected!"));
+
+const Heroku = require("heroku-client");
+const heroku = new Heroku({ token: process.env.HEROKU_API_TOKEN });
+
+
+const PORT = process.env.PORT || 5000
+
+/* CURRENTLY SWITCHING FROM AMAZON DYNAMODB TO MONGODB
 
 var AWS = require("aws-sdk");
 
@@ -16,42 +30,24 @@ AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+var docClient = new AWS.DynamoDB.DocumentClient();*/
 
 var app = express();
+const authRoute = require('./routes/auth');
+const privateRoute = require('./routes/private');
+app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
+app.use(express.json());
+app.use(cookieParser());
+app.use('/auth', authRoute);
+app.use('/private', privateRoute);
 app.get('/', (req, res) => res.render('pages/index'))
 
-app.use(session({
-  secret: process.env.OKTA_SECRET,
-  resave: true,
-  saveUninitialized: false
-}));
 
-const oidc = new ExpressOIDC({
-  appBaseUrl: "https://judge-js.herokuapp.com",
-  issuer: process.env.OKTA_ISSUER,
-  client_id: process.env.OKTA_CLIENT_ID,
-  client_secret: process.env.OKTA_CLIENT_SECRET,
-  redirect_uri: process.env.OKTA_REDIRECT_URI,
-  scope: 'openid profile'
-});
-
-app.use(oidc.router);
-
-app.get('/protected/testing', oidc.ensureAuthenticated(), (req, res) => {
-  res.render('pages/testing');
-});
-
-app.post('/api/auth', oidc.ensureAuthenticated(), (req, res) => {
-  res.send(JSON.stringify(req.userContext.userinfo));
-});
-
-app.get('/login', (req, res) => res.render('pages/login'))
+app.get('/login', (req, res) => res.render('pages/login'));
+app.get('/signup', (req, res) => res.render('pages/signup')); 
 app.get('/about', (req, res) => res.render('pages/about'))
 app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
@@ -62,6 +58,8 @@ app.get('/socket', (req, res) => res.render('pages/socket'))
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
+
+/* CURRENTLY SWITCHING FROM AMAZON TO MONGO
 
 async function listTournaments() {
   let x;
@@ -143,8 +141,54 @@ async function alertTournament(specificTourneyData) {
     a = data.Items;
   });
   return a;
+}*/
+
+async function alertTournament(specificTourneyData) {
+  let a;
+  var params = {
+    TableName: "tournaments",
+    //Select: "SPECIFIC_ATTRIBUTES",
+    //ProjectionExpression: "tournamentId, tournamentName, startDate, endDate, adminAlerts",
+    KeyConditionExpression: '#tournId = :tourneyId',
+    ExpressionAttributeNames: {
+      "#tournId": "tournamentId"
+    },
+    ExpressionAttributeValues: {
+      ":tourneyId": specificTourneyData.tournamentId
+    }
+  };
+  await docClient.query(params).promise().then(data => {
+    //console.log(data);
+    a = data.Items;
+  });
+  return a;
 }
 
+const transitionMessage = "currently transitioning to Mongo, this service unavailable";
+
+async function createTournaments(){
+  return transitionMessage;
+}
+
+async function listTournaments() {
+  return transitionMessage;
+}
+
+async function calendarTournaments() {
+  return transitionMessage;
+}
+
+async function eventTournaments() {
+  return transitionMessage;
+}
+
+app.post('/api/tournaments/cards', jsonParser, function (req, res) {
+  console.log(req.body);
+  alertTournament(req.body).then(function (data) {
+    console.log(data.adminAlerts);
+    res.send(data);
+  });
+});
 
 app.get('/api/tournaments', function (req, res) {
   listTournaments().then(function (data) {
@@ -181,49 +225,3 @@ app.post('/api/tournaments/cards', jsonParser, function (req, res) {
     res.send(data);
   });
 });
-
-/*async function awsSendEmail(params) {
-  let e;
-  var ses = new AWS.SES({
-    apiVersion: '2010-12-01'
-  })
-  await ses.sendEmail(params).promise().then(data => {
-    e = data;
-    console.log(data);
-  }).catch(error => {
-    console.log(error);
-  })
-  return e;
-}
-
-app.post('/api/emails', function(req, res) {
-  var emailParams = {
-    Destination: {
-      ToAddresses: ['tanushyadav@gmail.com']
-    },
-    Message: {
-      Body: {
-        Html: {
-          Charset: "UTF-8",
-          Data: "HTML_FORMAT_BODY"
-        },
-        Text: {
-          Charset: "UTF-8",
-          Data: "TEXT_FORMAT_BODY"
-        }
-      },
-      Subject: {
-        Charset: 'UTF-8',
-        Data: 'Test email'
-      }
-    },
-    Source: 'test@tanushyadav.me'
-  };
-
-  awsSendEmail(emailParams).then(function(data) {
-    res.send(data)
-  });
-});*/
-
-console.log("Github Integration is working");
-console.log("moved local git repository");
