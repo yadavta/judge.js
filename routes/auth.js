@@ -112,7 +112,7 @@ router.post('/login', async (req, res) => {
 
                 const savedEmailConfirmation = await newEmailConfirmation.save();
 
-                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('http://localhost:5000/auth/confirmEmail/' + currentUser._id + '/' + newToken));
+                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('https://judge-js.herokuapp.com/' + 'auth/confirmEmail/' + currentUser._id + '/' + newToken));
 
               }
 
@@ -126,7 +126,7 @@ router.post('/login', async (req, res) => {
                 let updatedToken = cryptoRandomString({ length: 32, type: 'url-safe' });
                 let updatedConfirmation = await EmailConfirmation.findOneAndUpdate({ _id: results._id }, { confirmationToken: updatedToken, expires: dayjs(new Date()).add(20, 'minute').toDate() });
 
-                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('http://localhost:5000/auth/confirmEmail/' + currentUser._id + '/' + updatedToken));
+                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('https://judge-js.herokuapp.com/' + 'auth/confirmEmail/' + currentUser._id + '/' + updatedToken));
 
               }
 
