@@ -164,7 +164,8 @@ router.post('/login', async (req, res) => {
                 toRedirct += req.query.redirect.substring(1);
               }
               res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) });
-              res.redirect(toRedirect);
+              //still have to debug redirect so temporarily doing this
+              res.redirect('/private/testing');
             }
             else {
               //console.log('hi');
@@ -172,7 +173,7 @@ router.post('/login', async (req, res) => {
                 toRedirect = toRedirect + req.query.redirect.substring(1);
               }
               res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) });
-              res.redirect(toRedirect);
+              res.redirect('/private/testing');
             }
           });
         }
