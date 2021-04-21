@@ -1,10 +1,3 @@
 # Judge JS
 
-An easy way for schools to manage tournaments.
-
-## Documentation
-
-### API Structure
-
-* GET `/tournaments` => return a list of tournaments, for use with the Tournament page
-* POST `/tournaments` => creates a tournament, for use with the Create page
+An easy way for schools to manage tournaments. This is a **work-in-progress** and not ready for use. I am currently shifting from using Amazon's DynamoDB to using MongoDB, so some features are offline.
