@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
 //local node modules
-const reminderEmails = require('./utils/emails/reminder.js');
+const reminderEmails = require('./utils/emails/reminder.cjs');
 
 //set up npm modules
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("DB Connected!"));
@@ -33,8 +33,8 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();*/
 
 var app = express();
-const authRoute = require('./routes/auth');
-const privateRoute = require('./routes/private');
+const authRoute = require('./routes/auth.cjs');
+const privateRoute = require('./routes/private.cjs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));

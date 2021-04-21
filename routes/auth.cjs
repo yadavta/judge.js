@@ -14,7 +14,7 @@ dayjs.extend(isSameOrBefore);
 const User = require('../utils/models/User');
 const Session = require('../utils/models/Session');
 const EmailConfirmation = require('../utils/models/EmailConfirmation');
-const Confirmations = require('../utils/emails/accountConfirmation.js');
+const Confirmations = require('../utils/emails/accountConfirmation.cjs');
 
 //validation function
 const joiUserSchema = Joi.object({
