@@ -166,9 +166,9 @@ async function alertTournament(specificTourneyData) {
   return a;
 }
 
-const transitionMessage = "currently transitioning to Mongo, this service unavailable";
+//const transitionMessage = "currently transitioning to Mongo, this service unavailable";
 
-async function createTournaments(){
+/*async function createTournaments(){
   return transitionMessage;
 }
 
@@ -182,7 +182,7 @@ async function calendarTournaments() {
 
 async function eventTournaments() {
   return transitionMessage;
-}
+}*/
 
 app.post('/api/tournaments/cards', jsonParser, function (req, res) {
   console.log(req.body);
