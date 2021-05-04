@@ -30,6 +30,8 @@ AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
+console.log("AWS DB Connected!");
+
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express();
