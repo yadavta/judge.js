@@ -19,7 +19,7 @@ const heroku = new Heroku({ token: process.env.HEROKU_API_TOKEN });
 
 const PORT = process.env.PORT || 5000
 
-/* CURRENTLY SWITCHING FROM AMAZON DYNAMODB TO MONGODB
+//CURRENTLY SWITCHING FROM AMAZON DYNAMODB TO MONGODB
 
 var AWS = require("aws-sdk");
 
@@ -30,7 +30,7 @@ AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();*/
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 var app = express();
 const authRoute = require('./routes/auth.cjs');
@@ -59,7 +59,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
-/* CURRENTLY SWITCHING FROM AMAZON TO MONGO
+//CURRENTLY SWITCHING FROM AMAZON TO MONGO
 
 async function listTournaments() {
   let x;
@@ -141,7 +141,7 @@ async function alertTournament(specificTourneyData) {
     a = data.Items;
   });
   return a;
-}*/
+}
 
 async function alertTournament(specificTourneyData) {
   let a;
