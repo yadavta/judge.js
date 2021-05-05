@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2021 Tanush Yadav <tanushyadav@gmail.com>
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+*/
+
 //npm imports
 const router = require('express').Router();
 const cookieParser = require('cookie-parser');
@@ -173,7 +191,7 @@ router.post('/login', async (req, res) => {
                 toRedirect = toRedirect + req.query.redirect.substring(1);
               }
               res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) });
-              res.redirect('/private/testing');
+              //res.redirect('/private/testing');
             }
           });
         }
