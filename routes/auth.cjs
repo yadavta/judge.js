@@ -157,6 +157,7 @@ router.post('/login', async (req, res) => {
           res.status(403).send("Error: Please confirm your email");
         }
         else {//if the password is correct, create a new session token
+          console.log("correct pw");
           newSessionToken = cryptoRandomString({ length: 60, type: 'url-safe' });
           let sessionTempJS = ({
             valid: true,
@@ -165,6 +166,7 @@ router.post('/login', async (req, res) => {
             expires: dayjs().add(14, 'day').toDate()
           });
 
+          console.log("tryna add to mongo");
           //try to add the session token to mongo
           await Session.findOneAndReplace({ userId: currentUser._id }, sessionTempJS, { new: true }, function (err, result) {
             let toRedirect = "/";
@@ -173,25 +175,18 @@ router.post('/login', async (req, res) => {
               res.status(501).send("Error: Sessions Inaccessible");
             }
             else if (result === null) {
+              console.log("no session");
               const sessionTemp = new Session(sessionTempJS);
               async function hhh() {
                 const newSession = await sessionTemp.save();
               }
               hhh();
               console.log("entirely new session created");
-              if (req.query.hasOwnProperty("redirect")) {
-                toRedirct += req.query.redirect.substring(1);
-              }
-              res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) });
-              //still have to debug redirect so temporarily doing this
-              res.redirect('/private/testing');
+              res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) }).send(200);
             }
             else {
-              //console.log('hi');
-              if (req.query.hasOwnProperty("redirect")) {
-                toRedirect = toRedirect + req.query.redirect.substring(1);
-              }
-              res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) });
+              console.log("session exists lets go");
+              res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) }).send(200);
               //res.redirect('/private/testing');
             }
           });
@@ -199,6 +194,7 @@ router.post('/login', async (req, res) => {
 
       } else {
         // inform of wrong email/pw
+        console.log("wrong pw");
         res.status(401).send("Error: Invalid Email or Password");
       }
     }
