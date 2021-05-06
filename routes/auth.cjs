@@ -99,7 +99,7 @@ router.post('/register', async (req, res) => {
 
 //endpoint for user to login
 router.post('/login', async (req, res) => {
-  //console.log("login request received");
+  console.log("login request received");
   // search mongo for user with existing email
   try {
     let currentUser = await User.findOne({ email: req.body.email }).exec();
@@ -109,6 +109,7 @@ router.post('/login', async (req, res) => {
     }
     //otherwise, use bcrypt to check client-password with db-stored password
     else {
+      console.log("Checking password");
       let bcryptResult = bcrypt.compareSync(req.body.password, currentUser.password);
       if (bcryptResult === true) {
 
@@ -139,7 +140,7 @@ router.post('/login', async (req, res) => {
               //send email
               //make more informative error code
             } else {
-
+              console.log("doing the email confirmation shit");
               async function updateEmailConfirmation() {
                 let updatedToken = cryptoRandomString({ length: 32, type: 'url-safe' });
                 let updatedConfirmation = await EmailConfirmation.findOneAndUpdate({ _id: results._id }, { confirmationToken: updatedToken, expires: dayjs(new Date()).add(20, 'minute').toDate() });
@@ -148,7 +149,7 @@ router.post('/login', async (req, res) => {
 
               }
 
-              updateEmailConfirmation();
+              updateEmailConfirmation().then(err => console.log(err));
 
             }
           });
