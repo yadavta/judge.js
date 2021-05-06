@@ -55,4 +55,8 @@ router.get('/testing', (req, res) => {
   res.render('../views/pages/privates/testing');
 });
 
+router.get('/homepage', (req, res) => {
+  res.render('../views/pages/privates/homepage')
+});
+
 module.exports = router;
