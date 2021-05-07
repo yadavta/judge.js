@@ -34,7 +34,10 @@ async function sendConfirmationEmail(recipientEmail, recipientName, tokenURI) {
   let sendPromise = new AWS.SES({apiVersion: '2010-12-01', region:'us-west-2'}).sendTemplatedEmail(params).promise();
   sendPromise.then(data => {
     //return(true);
+    console.log("params");
     console.log(params);
+    console.log("--------");
+    console.log()
     console.log(data);
   }).catch(err => {
     //return(false);
