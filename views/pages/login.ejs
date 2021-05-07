@@ -63,7 +63,7 @@ TO-DO LIST:
         let passwordErrorHTML = '<article id="passwordError" class="message is-warning is-normal login-error" style="margin-top: 2rem"> <div class="message-header"><p>Input Error</p></div><div class="message-body">The password you entered was not 6 characters long!</div></article>';
         let serverErrorHTML = '<article id="serverError" class="message is-danger is-normal login-error" style="margin-top: 2rem"> <div class="message-header"><p>Input Error</p></div><div class="message-body">An error occurred on our servers! Please wait a few minutes then try again. If the issue persists, please contact support.</div></article>';
         let unknownErrorHTML = '<article id="unknownError" class="message is-danger is-normal login-error" style="margin-top: 2rem"> <div class="message-header"><p>Input Error</p></div><div class="message-body">An unidentifiable error occurred! Please wait a few minutes then try again. If the issue persists, please contact support.</div></article>';
-        let successHTML = '<article id="unknownError" class="message is-success is-normal" style="margin-top: 2rem"> <div class="message-header"><p>Auth Success</p></div><div class="message-body">You are now logged in. I\'m still working on getting the redirects to work :|</div></article>';
+        let successHTML = '<article id="unknownError" class="message is-success is-normal" style="margin-top: 2rem"> <div class="message-header"><p>Auth Success</p></div><div class="message-body">Successfully logged in. Redirecting you now....</div></article>';
 
         if (!validator.isEmail(userEmail)) {
           $('#loginButton').after(emailErrorHTML);
@@ -90,6 +90,7 @@ TO-DO LIST:
           }).then(response => {
             $('.login-error').remove();
             $('#loginButton').after(successHTML);
+            window.location.replace("https://judge-js.herokuapp.com/private/homepage");
           }).catch(error => {
             
             console.log(error.response);

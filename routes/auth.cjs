@@ -169,7 +169,6 @@ router.post('/login', async (req, res) => {
           console.log("tryna add to mongo");
           //try to add the session token to mongo
           await Session.findOneAndReplace({ userId: currentUser._id }, sessionTempJS, { new: true }, function (err, result) {
-            let toRedirect = "/";
             if (err) {
               console.log("error " + err);
               res.status(501).send("Error: Sessions Inaccessible");
@@ -187,7 +186,6 @@ router.post('/login', async (req, res) => {
             else {
               console.log("session exists lets go");
               res.cookie('sessionToken', newSessionToken, { expires: new Date(Date.now() + 999999999) }).send(200);
-              //res.redirect('/private/testing');
             }
           });
         }
