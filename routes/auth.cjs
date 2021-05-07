@@ -32,7 +32,7 @@ dayjs.extend(isSameOrBefore);
 const User = require('../utils/models/User');
 const Session = require('../utils/models/Session');
 const EmailConfirmation = require('../utils/models/EmailConfirmation');
-const Confirmations = require('../utils/emails/accountConfirmation.cjs');
+const Confirmations = require('../utils/emails/accountConfirmation');
 
 //validation function
 const joiUserSchema = Joi.object({
@@ -131,7 +131,7 @@ router.post('/login', async (req, res) => {
 
                 const savedEmailConfirmation = await newEmailConfirmation.save();
 
-                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('https://judge-js.herokuapp.com/' + 'auth/confirmEmail/' + currentUser._id + '/' + newToken));
+                await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('https://judge-js.herokuapp.com/' + 'auth/confirmEmail/' + currentUser._id + '/' + newToken)).then(console.log(result)).catch(console.log(err));
 
               }
 
@@ -144,7 +144,7 @@ router.post('/login', async (req, res) => {
               async function updateEmailConfirmation() {
                 let updatedToken = cryptoRandomString({ length: 32, type: 'url-safe' });
                 let updatedConfirmation = await EmailConfirmation.findOneAndUpdate({ _id: results._id }, { confirmationToken: updatedToken, expires: dayjs(new Date()).add(20, 'minute').toDate() });
-
+                console.log(currentUser);
                 let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('https://judge-js.herokuapp.com/' + 'auth/confirmEmail/' + currentUser._id + '/' + updatedToken));
 
               }

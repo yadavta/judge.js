@@ -39,9 +39,9 @@ async function sendConfirmationEmail(recipientEmail, recipientName, tokenURI) {
   }).catch(err => {
     //return(false);
     console.log(err);
+    console.log("hm");
   })
 
-  console.log("hm");
 
 }
 
