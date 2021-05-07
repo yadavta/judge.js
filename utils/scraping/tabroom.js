@@ -20,7 +20,7 @@
 // go to #login-box
 // email: #username, password: #password
 // submit: <input type="submit" value="Login" class="button">
-
+/*
 const puppeteer = require('puppeteer');
 const $ = require('jquery');
 
@@ -72,7 +72,7 @@ const $ = require('jquery');
       if ($(tournaments[i].innerHTML.includes("IHS"))) {
         $(tournaments[i]).click();
       }
-    }*/
+    }
     //elements = document.querySelectorAll('.white.padmore');
   });
   //await page.click('td=]');
@@ -85,4 +85,4 @@ const $ = require('jquery');
 
 
   await browser.close();
-})();
+})(); */

@@ -11,7 +11,6 @@
     "test": "node test.cjs"
   },
   "dependencies": {
-    "@okta/oidc-middleware": "^4.0.3",
     "aws-sdk": "^2.845.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
@@ -29,7 +28,6 @@
     "jquery": "^3.6.0",
     "mongoose": "^5.12.5",
     "node-cron": "^3.0.0",
-    "puppeteer": "^9.0.0",
     "sib-api-v3-sdk": "8.2.0",
     "ws": "7.4.3"
   },
