@@ -131,6 +131,9 @@ router.post('/login', async (req, res) => {
 
                 const savedEmailConfirmation = await newEmailConfirmation.save();
 
+                console.log(savedEmailConfirmation);
+                console.log("email saved to mongo");
+
                 await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('https://judge-js.herokuapp.com/' + 'auth/confirmEmail/' + currentUser._id + '/' + newToken)).then(res => console.log(res));
 
               }
