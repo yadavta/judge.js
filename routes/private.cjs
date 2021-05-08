@@ -85,7 +85,7 @@ router.post('/blog/create', (req, res) => {
             _id: countedId,
             postTitle: req.body.postTitle,
             postContent: req.body.postContent,
-            postImage: "blank",
+            postImage: req.body.postImage,
             postImageAlt: req.body.postImageAlt,
             postAuthorName: results.fullName,
             postAuthorId: res.locals.userId,
