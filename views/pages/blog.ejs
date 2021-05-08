@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include("../partials/header.ejs") %>
+  <script src="https://kit.fontawesome.com/c65a03b059.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <%- include("../partials/nav.ejs") %>
+    <div class="columns">
+      
+      <div class="column is-one-fifth"></div>
+
+      <div class="column is-three-fifths">
+        <div class="section">
+          <div class="box" style="padding:2rem">
+            <!--div class="section"-->
+            <div class="container" style="padding-bottom:2rem">
+              <h2 class="title is-2" style="text-align: left"> <%=postTitle%> </h2>
+              <!--/div-->
+            </div>
+
+            <figure class="image is-16by9" style="margin-bottom:1rem">
+              <%- postImage %>
+            </figure>
+
+            <span class="icon-text">
+              
+              <span class="icon">
+                <i class="fas fa-user"></i>
+              </span>
+              <span> <%=postAuthor%> </span>
+  
+              <span class="icon">
+                <i class="fas fa-clock"></i>
+              </span>
+              <span> <%=postDate%> </span>
+
+            </span>
+
+            
+
+            <div class="content" style="margin-top: 1rem"> <%- postContent%> </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-one-fifth"></div>
+
+    </div>
+
+
+    <script>
+
+    </script>
+
+</body>
+
+<%- include("../partials/footer.ejs") %>
+
+</html>

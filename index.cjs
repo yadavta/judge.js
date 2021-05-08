@@ -55,6 +55,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var app = express();
 const authRoute = require('./routes/auth.cjs');
 const privateRoute = require('./routes/private.cjs');
+const blogRoute = require('./routes/blog');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -63,6 +64,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/auth', authRoute);
 app.use('/private', privateRoute);
+app.use('/blog', blogRoute);
 app.get('/', (req, res) => res.render('pages/index'))
 
 
