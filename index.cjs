@@ -24,6 +24,8 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const blogRoute = require('./routes/blog');
+
 
 //local node modules
 const reminderEmails = require('./utils/emails/reminder.cjs');
