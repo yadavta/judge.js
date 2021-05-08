@@ -20,6 +20,8 @@ const router = require('express').Router();
 const cookieParser = require('cookie-parser');
 var dayjs = require('dayjs')
 const Session = require('../utils/models/Session.js');
+const Blog = require('../utils/models/Blog.js');
+const User = require('../utils/models/User.js');
 
 router.use(async function isAuthenticated(req, res, next) {
   let providedToken = req.cookies.sessionToken;
@@ -57,6 +59,68 @@ router.get('/testing', (req, res) => {
 
 router.get('/homepage', (req, res) => {
   res.render('../views/pages/privates/homepage')
+});
+
+router.get('/createPost', (req, res) => {
+  res.render('../views/pages/privates/createPost');
+})
+
+router.post('/blog/create', (req, res) => {
+
+  async function createPost() {
+    await User.findOne({ _id: res.locals.userId }, 'fullName').then(results => {
+      if (results === null) {
+        res.send(500);
+      }
+      else { // first, get the author's name
+
+        let countedId;
+
+        Blog.estimatedDocumentCount().then(docCount => { // second, get the estimated doc count to congiure id
+
+          docCount ++;
+          countedId = docCount.toString();
+
+          let newBlog = new Blog({
+            _id: countedId,
+            postTitle: req.body.postTitle,
+            postContent: req.body.postContent,
+            postImage: "blank",
+            postImageAlt: req.body.postImageAlt,
+            postAuthorName: results.fullName,
+            postAuthorId: res.locals.userId,
+            postDate: req.body.postDate
+          });
+  
+          async function savePost() {
+            let savedBlog = await newBlog.save().catch(err => { // then save it!
+              console.log("error in saving");
+              console.log(err);
+            });
+            if (savedBlog === newBlog) {
+              res.send(200);
+            } else {
+              res.send(500);
+            }
+          }
+  
+          savePost();
+
+        }).catch(error => {
+          console.log("error in estimating document count");
+          console.log(error);
+          res.send(500);
+        })
+
+      }
+    }).catch(error => {
+      console.log(error);
+      res.send(500);
+    });
+  }
+
+  createPost();
+
 });
 
 module.exports = router;
