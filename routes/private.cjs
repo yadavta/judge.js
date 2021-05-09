@@ -66,7 +66,7 @@ router.get('/create/blog', (req, res) => {
 })
 
 router.get('/create/tournament', (req, res) => {
-  res.render('..views/pages/privates/create')
+  res.render('../views/pages/privates/createTournament')
 });
 
 router.post('/blog/create', (req, res) => {
