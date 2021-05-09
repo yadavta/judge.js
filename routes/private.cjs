@@ -61,9 +61,13 @@ router.get('/homepage', (req, res) => {
   res.render('../views/pages/privates/homepage')
 });
 
-router.get('/createPost', (req, res) => {
+router.get('/create/blog', (req, res) => {
   res.render('../views/pages/privates/createPost');
 })
+
+router.get('/create/tournament', (req, res) => {
+  res.render('..views/pages/privates/create')
+});
 
 router.post('/blog/create', (req, res) => {
 

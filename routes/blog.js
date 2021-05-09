@@ -27,6 +27,10 @@ const marked = require('marked');
 var md = require('markdown-it')();
 const DOMPurify = require('dompurify');
 
+router.get('/', (req,res) => {
+  res.render('../views/pages/blogGeneric.ejs');
+});
+
 router.get('/post/:postId', (req, res) => {
 
  /* async function addBlog() {

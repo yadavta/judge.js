@@ -71,7 +71,6 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/login', (req, res) => res.render('pages/login'));
 app.get('/signup', (req, res) => res.render('pages/signup')); 
 app.get('/about', (req, res) => res.render('pages/about'))
-app.get('/create', (req, res) => res.render('pages/create'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
 app.get('/event', (req, res) => res.render('pages/event'));

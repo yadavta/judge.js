@@ -19,12 +19,19 @@
     <div class="navbar-start">
       <a class="navbar-item" href="/">Home</a>
       <a class="navbar-item" href="/tournaments">Tournaments</a>
-      <a class="navbar-item" href="/create">Create</a>
       <a class="navbar-item" href="/calendar">Calendar</a>
+      <a href="/blog" class="navbar-item">Blog</a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Create</a>
+        <div class="navbar-dropdown">
+          <a href="/private/create/tournament" class="navbar-item">Tournament</a>
+          <a href="/private/create/blog" class="navbar-item">Blog Post</a>
+        </div>
+      </div>
     </div>
     <!-- sticks to the right side -->
     <div class="navbar-end">
-      <a class="navbar-item">YourName</a>
+      <a class="navbar-item"></a>
     </div>
   </div>
 </nav>
