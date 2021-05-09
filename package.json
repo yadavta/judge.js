@@ -1,14 +1,18 @@
 {
-  "name": "judge-js-app",
+  "name": "judgejs",
   "version": "0.2.0",
-  "description": "The easiest way for schools to internally manage tournaments.",
+  "author": {
+    "name": "Tanush Yadav"
+  },
+  "description": "A free and open-sourced tool for school speech and debate clubs to manage tournaments and club activities.",
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/yadavta/judge.js",
   "engines": {
     "node": "14.x"
   },
   "main": "index.cjs",
   "scripts": {
-    "start": "node index.cjs",
-    "test": "node test.cjs"
+    "start": "node index.cjs"
   },
   "dependencies": {
     "aws-sdk": "^2.845.0",
