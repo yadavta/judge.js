@@ -82,7 +82,7 @@ router.post('/blog/create', (req, res) => {
             postImageAlt: req.body.postImageAlt,
             postAuthorName: results.fullName,
             postAuthorId: res.locals.userId,
-            postDate: req.body.postDate
+            postDate: dayjs().format('YYYY-MM-DD HH:mm:ss')
           });
   
           async function savePost() {
