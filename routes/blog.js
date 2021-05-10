@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
       //  <a href="/blog/post/' + results[(i-1)]._id + '/">
 
       function addBlogInfo() {
-        toAppend = toAppend + ('<div class="tile is-4 is-parent"> <div class="tile is-child card"> <div class="card-content"> <p class="title is-4">' + results[(i - 1)].postTitle + '</p> <p>' + results[(i - 1)].postAuthorName + ' | ' + dayjs(results[(i - 1)].postDate).format('MMM D, YYYY') + '</p>' + '</div> </div> </div>');
+        toAppend = toAppend + ('<div class="tile is-4 is-parent"> <div class="tile is-child card"> <a rel="noreferrer noopener" target="_blank" href="/blog/post/' + results[(i-1)]._id + '/"> <div class="card-content"> <p class="title is-4">' + results[(i - 1)].postTitle + '</p> <p style="color:darkslategray">' + results[(i - 1)].postAuthorName + ' | ' + dayjs(results[(i - 1)].postDate).format('MMM D, YYYY') + '</p>' + '</div> </div> </div>');
       }
 
       if ((i + 2) % 3 === 0) {
