@@ -82,6 +82,13 @@ TO-DO LIST:
             </div>
           </div>
 
+          <div class="field">
+            <label class="label">Your Student ID (only enter if you are a student)</label>
+            <div class="control">
+              <input type="text" class="input" placeholder="Enter your student ID without spaces" id="userStudentId">
+            </div>
+          </div>
+
         </div>
         <button class="button is-dark" id="signupButton" onclick="attemptSignUp()">Sign Up</button>
       </div>
@@ -100,6 +107,7 @@ TO-DO LIST:
         let userPassword = document.getElementById('userPassword').value;
         let userConfirmPassword = document.getElementById('userConfirmPassword').value;
         let userType = document.getElementById('userType').value;
+        let userStudentId = document.getElementById('userStudentId').value;
 
         // validate all inputs, throwing error if invalid
         if (userFirstName.length === 0) {
@@ -124,7 +132,8 @@ TO-DO LIST:
             lastName: userLastName,
             email: userEmail,
             password: userPassword,
-            group: userType
+            group: userType,
+            studentId: userStudentId
           })
             .then(response => {
               if (response.status === 200) {
@@ -144,7 +153,7 @@ TO-DO LIST:
               } else {
                 $('#signupButton').after('<article id="unknownError" class="message is-danger is-normal signup-error" style="margin-top: 2rem"> <div class="message-header"><p>Server Error</p></div><div class="message-body">Our servers had some unknown issues. Please try again in a few minutes. If the issue persists, contact support.</div></article>');
               }
-          })
+            })
         }
       }
     </script>

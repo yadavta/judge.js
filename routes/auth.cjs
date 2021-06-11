@@ -30,7 +30,8 @@ const joiUserSchema = Joi.object({
   lastName: Joi.string().alphanum().min(1).max(100).required(),
   email: Joi.string().email().min(3).required(),
   password: Joi.string().min(8).required(),
-  group: Joi.string().required()
+  group: Joi.string().required(),
+  studentId: Joi.string().required()
 });
 
 router.post('/register', async (req, res) => {
@@ -62,6 +63,7 @@ router.post('/register', async (req, res) => {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
+          studentId: req.body.studentId,
           password: hashedPassword,
           emailConfirmed: false,
           approved: false,
