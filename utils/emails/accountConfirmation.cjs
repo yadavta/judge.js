@@ -16,8 +16,8 @@ async function sendConfirmationEmail(recipientEmail, recipientName, tokenURI) {
     from: `JudgeJS <accounts@${process.env.MAILGUN_DOMAIN}>`,
     to: recipientEmail,
     subject: "JudgeJS Account Confirmation",
-    html: `<p style=\"color:black\"> Dear ${recipientName}, <br><br> Please navigate to the following link in your browser to confirm your email: ${tokenURI}.</p>`,
-    text: `Dear ${recipientName} \nPlease navigate to the following link in your browser to confirm your email: ${tokenURI}.`
+    html: `<p style=\"color:black\"> Dear ${recipientName}, <br><br> Please navigate to the following link in your browser to confirm your email: ${tokenURI}</p>`,
+    text: `Dear ${recipientName} \nPlease navigate to the following link in your browser to confirm your email: ${tokenURI}`
   };
 
   mailgun.messages().send(data, (error, body) => {
