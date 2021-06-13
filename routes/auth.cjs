@@ -22,6 +22,7 @@ const User = require('../utils/models/User');
 const Session = require('../utils/models/Session');
 const EmailConfirmation = require('../utils/models/EmailConfirmation');
 const Confirmations = require('../utils/emails/accountConfirmation.cjs');
+const siteDomain = "https://judge-js.herokuapp.com";
 
 //validation function
 const joiUserSchema = Joi.object({
@@ -125,7 +126,7 @@ router.post('/login', async (req, res) => {
                 console.log(savedEmailConfirmation);
                 console.log("email saved to mongo");
 
-                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('http://judge-js.herokuapp.com/auth/confirmEmail/' + currentUser._id + '/' + newToken));
+                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, (siteDomain + '/auth/confirmEmail/' + currentUser._id + '/' + newToken));
 
               }
 
@@ -139,7 +140,7 @@ router.post('/login', async (req, res) => {
                 let updatedToken = cryptoRandomString({ length: 32, type: 'url-safe' });
                 let updatedConfirmation = await EmailConfirmation.findOneAndUpdate({ _id: results._id }, { confirmationToken: updatedToken, expires: dayjs(new Date()).add(20, 'minute').toDate() });
                 console.log(currentUser);
-                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, ('http://localhost:5000/auth/confirmEmail/' + currentUser._id + '/' + updatedToken));
+                let confirmationEmailSent = await Confirmations.confirmationEmail(currentUser.email, currentUser.firstName, (siteDomain + '/auth/confirmEmail/' + currentUser._id + '/' + updatedToken));
 
               }
 
