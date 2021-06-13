@@ -5,35 +5,24 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-let AWS = require('aws-sdk');
 const User = require('../models/User');
 const EmailConfirmation = require('../models/EmailConfirmation');
 
 async function sendConfirmationEmail(recipientEmail, recipientName, tokenURI) {
 
-  let params = {
-    Destination: {
-      ToAddresses: [recipientEmail]
-    },
-    Source: 'accounts@tanushyadav.me',
-    Template: 'ConfirmationEmail',
-    TemplateData: '{\"userName\": \"' + recipientName + '\", \"confirmationLink\": \"' + tokenURI + '\"}'
-  }
+  let mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN });
 
-  let sendPromise = new AWS.SES({apiVersion: '2010-12-01', region:'us-west-2'}).sendTemplatedEmail(params).promise();
-  sendPromise.then(data => {
-    //return(true);
-    console.log("params");
-    console.log(params);
-    console.log("--------");
-    console.log()
-    console.log(data);
-  }).catch(err => {
-    //return(false);
-    console.log(err);
-    console.log("hm");
-  })
+  const data = {
+    from: `JudgeJS <accounts@${process.env.MAILGUN_DOMAIN}>`,
+    to: recipientEmail,
+    subject: "JudgeJS Account Confirmation",
+    html: `<p style=\"color:black\"> Dear ${recipientName}, <br><br> Please navigate to the following link in your browser to confirm your email: ${tokenURI}.</p>`,
+    text: `Dear ${recipientName} \nPlease navigate to the following link in your browser to confirm your email: ${tokenURI}.`
+  };
 
+  mailgun.messages().send(data, (error, body) => {
+    console.log(body);
+  });
 
 }
 
