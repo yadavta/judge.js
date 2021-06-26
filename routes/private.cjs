@@ -11,6 +11,8 @@ var dayjs = require('dayjs')
 const Session = require('../utils/models/Session.js');
 const Blog = require('../utils/models/Blog.js');
 const User = require('../utils/models/User.js');
+const Entry = require('../utils/models/Entry');
+const Tournament = require('../utils/models/Tournament');
 
 router.use(async function isAuthenticated(req, res, next) {
   let providedToken = req.cookies.sessionToken;
@@ -27,7 +29,14 @@ router.use(async function isAuthenticated(req, res, next) {
       if (dayjs().isBefore(dayjs(currentToken.expires))) {
         res.locals.authenticated = true;
         res.locals.userId = currentToken.userId;
-        next();
+
+        await User.findOne({ _id: res.locals.userId }, 'fullName').then(results => {
+          if (results === null) {
+            res.send(500);
+          }
+          res.locals.userName = results.fullName;
+          next();
+        })
       }
       else {
         res.redirect('/login/' + requestedURL);
@@ -58,6 +67,20 @@ router.get('/create/tournament', (req, res) => {
   res.render('../views/pages/privates/createTournament')
 });
 
+router.get('/create/entry', (req, res) => {
+  Tournament.find({ internalSignupDeadline: { $gte: dayjs().format('YYYY-MM-DD') } }).select('tournamentName tournamentId').exec((err, docs) => {
+    if (err) {
+      res.send(500);
+    } else {
+      let tourneyOptionsHTML = "";
+      for (tourney of docs) {
+        tourneyOptionsHTML += `<option value="${tourney.tournamentId}">${tourney.tournamentName}</option>`;
+      }
+      res.render('../views/pages/privates/createEntry', { tournamentOptions: tourneyOptionsHTML });
+    }
+  });
+});
+
 router.post('/blog/create', (req, res) => {
 
   async function createPost() {
@@ -71,7 +94,7 @@ router.post('/blog/create', (req, res) => {
 
         Blog.estimatedDocumentCount().then(docCount => { // second, get the estimated doc count to congiure id
 
-          docCount ++;
+          docCount++;
           countedId = docCount.toString();
 
           let newBlog = new Blog({
@@ -114,6 +137,70 @@ router.post('/blog/create', (req, res) => {
 
   createPost();
 
+});
+
+router.post('/entry/create', (req, res) => {
+  
+  async function createEntry() {
+
+    const newEntry = new Entry({
+      entryStudentId: res.locals.userId,
+      entryStudentName: res.locals.userName,
+      entryTournamentId: req.body.tournamentId,
+      entryTournamentName: req.body.tournamentName,
+      entryEvent: req.body.event,
+      entryStatus: "requested",
+      entryNotes: req.body.additionalNotes,
+      entryApplicationDate: dayjs().toISOString()
+    });
+
+    let savedEntry = await newEntry.save().catch(err => { // then save it!
+      console.log("error in saving");
+      console.log(err);
+    });
+    if (savedEntry === newEntry) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(500);
+    }
+  }
+
+  createEntry();
+
+});
+
+
+router.get('/tournament/create', (req, res) => {
+  async function createTournament() {}
+    /*const newTournament = new Tournament({
+      "circuits": [
+        "local",
+        "national"
+      ],
+      "endDate": "2021-02-08",
+      "location": "Stanford, CA",
+      "schoolApproved": false,
+      "slots": {
+        "cx": 3,
+        "ld": 1,
+        "pf": 2
+      },
+      "startDate": "2021-02-06",
+      "tabroomName": "Stanford Regents",
+      "tournamentId": "stanford2021",
+      "tournamentName": "Stanford"
+    });
+
+    try {
+      const savedTournament = await newTournament.save();
+      res.status(200).send("New tournament created successfully");
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error: Unable to save user to database");
+    }
+
+  }
+  createTournament();*/
 });
 
 module.exports = router;
