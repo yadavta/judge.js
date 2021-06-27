@@ -6,7 +6,7 @@ const entrySchema = new mongoose.Schema({
   entryTournamentId: {type: String},
   entryTournamentName: {type: String},
   entryEvent: {type: String},
-  entryStatus: {type: String}, // "requested", "approved"
+  entryStatus: {type: String}, // "requested", "approved", "denied"
   entryNotes: {type: String},
   entryApplicationDate: {type: String}
 });

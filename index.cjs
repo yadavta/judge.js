@@ -18,7 +18,7 @@ const cookieParser = require('cookie-parser');
 const reminderEmails = require('./utils/emails/reminder.cjs');
 
 //set up npm modules
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("DB Connected!"));
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, () => console.log("DB Connected!"));
 
 const Heroku = require("heroku-client");
 const heroku = new Heroku({ token: process.env.HEROKU_API_TOKEN });
@@ -45,6 +45,7 @@ var app = express();
 const authRoute = require('./routes/auth.cjs');
 const privateRoute = require('./routes/private.cjs');
 const blogRoute = require('./routes/blog');
+const adminRoute = require('./routes/admin');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +55,7 @@ app.use(cookieParser());
 app.use('/auth', authRoute);
 app.use('/private', privateRoute);
 app.use('/blog', blogRoute);
+app.use('/admin', adminRoute);
 app.get('/', (req, res) => res.render('pages/index'))
 
 
