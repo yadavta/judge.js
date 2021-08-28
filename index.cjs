@@ -78,7 +78,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 async function listTournaments() {
   let returnableDocs;
-  await Tournament.find({}, 'tournamentName circuits clubApproved startDate endDate slots location internalSignupDeadline', function(err,docs) {
+  await Tournament.find({}, 'tournamentName circuits clubApproved startDate endDate slots location internalSignupDeadline feesFreeze', function(err,docs) {
     returnableDocs = docs;
   });
   return returnableDocs;

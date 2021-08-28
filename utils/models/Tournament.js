@@ -14,7 +14,7 @@ const tournamentSchema = new mongoose.Schema({
   tournamentId: {type: String},
   tournamentName: {type: String},
   internalSignupDeadline: {type: String},
-  externalSignupDeadlin: {type: String}
+  feesFreeze: {type: String}
 });
 
 module.exports = mongoose.model('Tournament', tournamentSchema);
