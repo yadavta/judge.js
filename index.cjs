@@ -14,6 +14,9 @@ var jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
+//mongoose imports
+const Tournament = require('./utils/models/Tournament');
+
 //local node modules
 const reminderEmails = require('./utils/emails/reminder.cjs');
 
@@ -74,6 +77,14 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 //CURRENTLY SWITCHING FROM AMAZON TO MONGO
 
 async function listTournaments() {
+  let returnableDocs;
+  await Tournament.find({}, 'tournamentName circuits clubApproved startDate endDate slots location internalSignupDeadline', function(err,docs) {
+    returnableDocs = docs;
+  });
+  return returnableDocs;
+
+}
+  /*
   let x;
   var params = {
     TableName: "tournaments"
@@ -82,8 +93,7 @@ async function listTournaments() {
     //console.log(data);
     x = data.Items;
   });
-  return x;
-}
+  return x;*/
 
 async function calendarTournaments() {
   let c;
