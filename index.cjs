@@ -16,6 +16,7 @@ const cookieParser = require('cookie-parser');
 
 //mongoose imports
 const Tournament = require('./utils/models/Tournament');
+const Entry = require('./utils/models/Entry');
 
 //local node modules
 const reminderEmails = require('./utils/emails/reminder.cjs');
@@ -69,6 +70,19 @@ app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
 app.get('/event', (req, res) => res.render('pages/event'));
 app.get('/socket', (req, res) => res.render('pages/socket'))
+app.get('/view/entry', (req, res) => {
+  Tournament.find().select('tournamentName tournamentId').exec((err, docs) => {
+    if (err) {
+      res.send(500);
+    } else {
+      let tourneyOptionsHTML = "";
+      for (tourney of docs) {
+        tourneyOptionsHTML += `<option value="${tourney.tournamentId}">${tourney.tournamentName}</option>`;
+      }
+      res.render('pages/viewEntries', { tournamentOptions: tourneyOptionsHTML });
+    }
+  });
+});
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
@@ -172,6 +186,25 @@ async function alertTournament(specificTourneyData) {
   return a;
 }
 
+async function viewEntries(entryQueryData) {
+  
+  let returnableEntries;
+
+  for (let key in entryQueryData) {
+    if (entryQueryData[key] === "all") {
+      //console.log(`Must delete ${key}`);
+      delete entryQueryData[key];  
+    }
+  };
+  
+  await Entry.find(entryQueryData, '-_id entryStudentName entryTournamentId entryTournamentName entryEvent entryStatus', function (err, docs) {
+    returnableEntries = docs;
+  });
+
+  return returnableEntries;
+
+}
+
 //const transitionMessage = "currently transitioning to Mongo, this service unavailable";
 
 /*async function createTournaments(){
@@ -230,6 +263,12 @@ app.post('/api/tournaments/cards', jsonParser, function (req, res) {
   console.log(req.body);
   alertTournament(req.body).then(function (data) {
     console.log(data);
+    res.send(data);
+  });
+});
+
+app.post('/api/view/entry', jsonParser, function(req,res) {
+  viewEntries(req.body).then(function(data){
     res.send(data);
   });
 });
