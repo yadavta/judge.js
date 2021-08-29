@@ -119,7 +119,7 @@
               </table>
             </div>*/
 
-  let startHTML = '<div id="listOfEntries" style="margin-top: 1.5rem"><table class="table is-striped"><thead><th>Approve</th><th>Deny</th><th>Name</th><th>Tournament</th><th>Event</th></thead><tbody>';
+  let startHTML = '<div id="listOfEntries" style="margin-top: 1.5rem"><table class="table is-striped"><thead><th>Approve</th><th>Deny</th><th>Name</th><th>Tournament</th><th>Event</th><th>Entry Notes</th></thead><tbody>';
   let endHTML = '</tbody></table></div>';
   let bulkHTML = ``;
 
@@ -174,7 +174,7 @@
       
       for (entry of response.data) {
         //console.log(entry._id);
-        bulkHTML += `<tr id="${entry._id}"> <td><button id="a ${entry._id}" onclick="approveEntry('${entry._id}')" class="button is-small approve" style="color:green">Approve</button></td> <td><button id="d ${entry._id}" onclick="denyEntry('${entry._id}')" class="button is-small deny" style="color: maroon;">Deny</button></td><td>${entry.entryStudentName}</td><td>${entry.entryTournamentName}</td><td>${entry.entryEvent.toUpperCase()}</td></tr>`
+        bulkHTML += `<tr id="${entry._id}"> <td><button id="a ${entry._id}" onclick="approveEntry('${entry._id}')" class="button is-small approve" style="color:green">Approve</button></td> <td><button id="d ${entry._id}" onclick="denyEntry('${entry._id}')" class="button is-small deny" style="color: maroon;">Deny</button></td><td>${entry.entryStudentName}</td><td>${entry.entryTournamentName}</td><td>${entry.entryEvent.toUpperCase()}</td><td>${entry.entryNotes}</td></tr>`
       }
 
       let finalHTML = startHTML + bulkHTML + endHTML;
