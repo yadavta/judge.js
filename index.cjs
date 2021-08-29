@@ -84,29 +84,15 @@ async function listTournaments() {
   return returnableDocs;
 
 }
-  /*
-  let x;
-  var params = {
-    TableName: "tournaments"
-  }
-  await docClient.scan(params).promise().then(data => {
-    //console.log(data);
-    x = data.Items;
-  });
-  return x;*/
 
 async function calendarTournaments() {
-  let c;
-  var params = {
-    TableName: "tournaments",
-    Select: "SPECIFIC_ATTRIBUTES",
-    ProjectionExpression: "tournamentId, tournamentName, startDate, endDate"
-  };
-  await docClient.scan(params).promise().then(data => {
-    //console.log(data);
-    c = data.Items;
+
+  let returnableDocs;
+  await Tournament.find({}, 'tournamentName tournamentId startDate endDate internalSignupDeadline feesFreeze', function(err,docs) {
+    returnableDocs = docs;
   });
-  return c;
+  return returnableDocs;
+
 }
 
 async function eventTournaments(specificTourneyData) {

@@ -34,15 +34,41 @@
           let i = 0;
           while (i < result.data.length) {
             let tData = result.data[i];
-            let appendable = {
-              title: tData.tournamentName,
+
+            let tournamentEventAppendable = {
+              title: (tData.tournamentName + " Tournament"),
               start: tData.startDate,
               end: dayjs(tData.endDate).add(1, 'day').format('YYYY-MM-DD'),
+              backgroundColor: "RoyalBlue",
               allDay: true,
               display: 'auto',
               url: ('https://judge-js.herokuapp.com/event?&tournamentId=' + tData.tournamentId)
             };
-            dbEvents.push(appendable);
+
+            let tournamentRegDeadlineAppendable = {
+              title: (tData.tournamentName + " Signups Due"),
+              start: tData.internalSignupDeadline,
+              end: tData.internalSignupDeadline,
+              backgroundColor: "FireBrick",
+              allDay: true,
+              display: 'auto',
+              url: ('https://judge-js.herokuapp.com/event?&tournamentId=' + tData.tournamentId)
+            };
+
+            let tournamentFeesFreezeAppendable = {
+              title: (tData.tournamentName + " Fees Freeze"),
+              start: tData.feesFreeze,
+              end: tData.feesFreeze,
+              backgroundColor: "LightCoral",
+              allDay: true,
+              display: 'auto',
+              url: ('https://judge-js.herokuapp.com/event?&tournamentId=' + tData.tournamentId)
+            };
+
+            dbEvents.push(tournamentEventAppendable);
+            dbEvents.push(tournamentRegDeadlineAppendable);
+            dbEvents.push(tournamentFeesFreezeAppendable);
+            
             i++;
           }
 
