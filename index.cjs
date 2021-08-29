@@ -70,19 +70,7 @@ app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
 app.get('/calendar', (req, res) => res.render('pages/calendar'))
 app.get('/event', (req, res) => res.render('pages/event'));
 app.get('/socket', (req, res) => res.render('pages/socket'))
-app.get('/view/entry', (req, res) => {
-  Tournament.find().select('tournamentName tournamentId').exec((err, docs) => {
-    if (err) {
-      res.send(500);
-    } else {
-      let tourneyOptionsHTML = "";
-      for (tourney of docs) {
-        tourneyOptionsHTML += `<option value="${tourney.tournamentId}">${tourney.tournamentName}</option>`;
-      }
-      res.render('pages/viewEntries', { tournamentOptions: tourneyOptionsHTML });
-    }
-  });
-});
+
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 

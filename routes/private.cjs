@@ -81,6 +81,20 @@ router.get('/create/entry', (req, res) => {
   });
 });
 
+router.get('/view/entry', (req, res) => {
+  Tournament.find().select('tournamentName tournamentId').exec((err, docs) => {
+    if (err) {
+      res.send(500);
+    } else {
+      let tourneyOptionsHTML = "";
+      for (tourney of docs) {
+        tourneyOptionsHTML += `<option value="${tourney.tournamentId}">${tourney.tournamentName}</option>`;
+      }
+      res.render('../views/pages/privates/viewEntries', { tournamentOptions: tourneyOptionsHTML });
+    }
+  });
+});
+
 router.post('/blog/create', (req, res) => {
 
   async function createPost() {
