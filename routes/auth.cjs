@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const cryptoRandomString = require('crypto-random-string');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const env = require('dotenv');
 
 //datetime
 var dayjs = require('dayjs');
@@ -22,7 +23,7 @@ const User = require('../utils/models/User');
 const Session = require('../utils/models/Session');
 const EmailConfirmation = require('../utils/models/EmailConfirmation');
 const Confirmations = require('../utils/emails/accountConfirmation.cjs');
-const siteDomain = "https://judge-js.herokuapp.com";
+const siteDomain = env.SITE_DOMAIN;
 
 //validation function
 const joiUserSchema = Joi.object({

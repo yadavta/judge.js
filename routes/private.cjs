@@ -56,7 +56,31 @@ router.get('/testing', (req, res) => {
 });
 
 router.get('/homepage', (req, res) => {
-  res.render('../views/pages/privates/homepage')
+
+  async function searchAndRender() {
+
+  await Entry.find({entryStudentId: res.locals.userId}, 'entryTournamentName entryEvent entryStatus', function(err, docs){
+    let entryTableHTML=''
+
+    docs.forEach((entry) => {
+      tempHTML= `<tr><td>${entry.entryTournamentName}</td><td>${entry.entryEvent}</td><td>${entry.entryStatus}</td></tr>`
+      entryTableHTML += tempHTML;
+    });
+
+    res.render('../views/pages/privates/homepage', {
+      userInfo: {
+        fullName: res.locals.userName
+      },
+      html: {
+        entryTableHTML: entryTableHTML
+      }
+    });
+  });
+
+  }
+
+  searchAndRender();
+
 });
 
 router.get('/create/blog', (req, res) => {
