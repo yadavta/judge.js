@@ -13,6 +13,7 @@ const Blog = require('../utils/models/Blog.js');
 const User = require('../utils/models/User.js');
 const Entry = require('../utils/models/Entry');
 const Tournament = require('../utils/models/Tournament');
+const { WellArchitected } = require('aws-sdk');
 
 router.use(async function isAuthenticated(req, res, next) {
   let providedToken = req.cookies.sessionToken;
@@ -22,7 +23,7 @@ router.use(async function isAuthenticated(req, res, next) {
   try {
 
     currentToken = await Session.findOne({ token: providedToken }).exec();
-    
+
     if (currentToken === null) {
       res.redirect(('/login?redirect=' + requestedURL));
     } else {
@@ -59,23 +60,23 @@ router.get('/homepage', (req, res) => {
 
   async function searchAndRender() {
 
-  await Entry.find({entryStudentId: res.locals.userId}, 'entryTournamentName entryEvent entryStatus', function(err, docs){
-    let entryTableHTML=''
+    await Entry.find({ entryStudentId: res.locals.userId }, 'entryTournamentName entryEvent entryStatus', function (err, docs) {
+      let entryTableHTML = ''
 
-    docs.forEach((entry) => {
-      tempHTML= `<tr><td>${entry.entryTournamentName}</td><td>${entry.entryEvent}</td><td>${entry.entryStatus}</td></tr>`
-      entryTableHTML += tempHTML;
-    });
+      docs.forEach((entry) => {
+        tempHTML = `<tr><td>${entry.entryTournamentName}</td><td>${entry.entryEvent}</td><td>${entry.entryStatus}</td></tr>`
+        entryTableHTML += tempHTML;
+      });
 
-    res.render('../views/pages/privates/homepage', {
-      userInfo: {
-        fullName: res.locals.userName
-      },
-      html: {
-        entryTableHTML: entryTableHTML
-      }
+      res.render('../views/pages/privates/homepage', {
+        userInfo: {
+          fullName: res.locals.userName
+        },
+        html: {
+          entryTableHTML: entryTableHTML
+        }
+      });
     });
-  });
 
   }
 
@@ -145,7 +146,7 @@ router.post('/blog/create', (req, res) => {
             postAuthorId: res.locals.userId,
             postDate: dayjs().format('YYYY-MM-DD HH:mm:ss')
           });
-  
+
           async function savePost() {
             let savedBlog = await newBlog.save().catch(err => { // then save it!
               console.log("error in saving");
@@ -157,7 +158,7 @@ router.post('/blog/create', (req, res) => {
               res.send(500);
             }
           }
-  
+
           savePost();
 
         }).catch(error => {
@@ -178,8 +179,10 @@ router.post('/blog/create', (req, res) => {
 });
 
 router.post('/entry/create', (req, res) => {
-  
+
   async function createEntry() {
+    let returnable;
+    // proccess frontend data 
 
     const newEntry = new Entry({
       entryStudentId: res.locals.userId,
@@ -191,54 +194,80 @@ router.post('/entry/create', (req, res) => {
       entryNotes: req.body.additionalNotes,
       entryApplicationDate: dayjs().toISOString()
     });
+    // check for duplicates
+    await Entry.findOne({ entryStudentId: newEntry.entryStudentId, entryTournamentId: newEntry.entryTournamentId, entryEvent: newEntry.entryEvent }, function (err, docs) {
+      if (err == null) {
+        if (docs == null) {
 
-    let savedEntry = await newEntry.save().catch(err => { // then save it!
-      console.log("error in saving");
-      console.log(err);
+          async function saveEntry() {
+            // save the new entry to DB if not duplicate
+            await newEntry.save().then((savedEntry) => {
+              if (savedEntry === newEntry) {
+                returnable = "success";
+              } else {
+                returnable = "error";
+              }
+            }).catch(err => { // then save it!
+              console.log("error in saving");
+              console.log(err);
+            });
+          }
+
+          saveEntry();
+
+        } else {
+          // otherwise handle error
+          returnable = "duplicate";
+        }
+      } else {
+        returnable = "error";
+      }
+
     });
-    if (savedEntry === newEntry) {
-      res.sendStatus(200);
+    if (returnable == undefined) {
     } else {
-      res.sendStatus(500);
+      return returnable;
     }
   }
 
-  createEntry();
+  createEntry().then(rep => {
+    res.send(rep);
+  });
 
 });
 
 
 router.get('/tournament/create', (req, res) => {
-  async function createTournament() {}
-    /*const newTournament = new Tournament({
-      "circuits": [
-        "local",
-        "national"
-      ],
-      "endDate": "2021-02-08",
-      "location": "Stanford, CA",
-      "schoolApproved": false,
-      "slots": {
-        "cx": 3,
-        "ld": 1,
-        "pf": 2
-      },
-      "startDate": "2021-02-06",
-      "tabroomName": "Stanford Regents",
-      "tournamentId": "stanford2021",
-      "tournamentName": "Stanford"
-    });
+  async function createTournament() { }
+  /*const newTournament = new Tournament({
+    "circuits": [
+      "local",
+      "national"
+    ],
+    "endDate": "2021-02-08",
+    "location": "Stanford, CA",
+    "schoolApproved": false,
+    "slots": {
+      "cx": 3,
+      "ld": 1,
+      "pf": 2
+    },
+    "startDate": "2021-02-06",
+    "tabroomName": "Stanford Regents",
+    "tournamentId": "stanford2021",
+    "tournamentName": "Stanford"
+  });
 
-    try {
-      const savedTournament = await newTournament.save();
-      res.status(200).send("New tournament created successfully");
-    } catch (err) {
-      console.log(err);
-      res.status(500).send("Error: Unable to save user to database");
-    }
-
+  try {
+    const savedTournament = await newTournament.save();
+    res.status(200).send("New tournament created successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error: Unable to save user to database");
   }
-  createTournament();*/
+
+}
+createTournament();*/
 });
 
 module.exports = router;

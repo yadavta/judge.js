@@ -65,6 +65,7 @@
 </body>
 
 <script>
+
   async function attemptEventCreate() {
 
     let nameDom = document.getElementById("userTournamentName");
@@ -80,10 +81,16 @@
       additionalNotes: userAdditionalNotes
     }).then(response => {
 
-      $('#createPostButton').after('<article id="creationSuccess" class="message is-success is-normal" style="margin-top: 2rem"> <div class="message-header"><p>Entry Request Successfully Created</p></div><div class="message-body">Your entry request has been created! An admin will review it shortly.</div></article>');
+      if (response.data == "duplicate") {
+        $('#createPostButton').after('<article id="duplicationError" class="message is-danger is-normal post-error" style="margin-top: 2rem"> <div class="message-header"><p>Error: Duplicates Detected</p></div><div class="message-body">You have already requested an entry for this event at this tournament. Duplicate requests are not allowed.</div></article>');
+      } else {
+
+        $('#createPostButton').after('<article id="creationSuccess" class="message is-success is-normal" style="margin-top: 2rem"> <div class="message-header"><p>Entry Request Successfully Created</p></div><div class="message-body">Your entry request has been created! PLEASE DOUBLE-CHECK THIS on the dashboard page to ensure that the entry went through. An admin will review it shortly.</div></article>');
+
+        $('.post-error').remove();
+      };
 
       $('#createPostButton').prop("disabled", true);
-      $('.post-error').remove();
 
     }).catch(error => {
 
