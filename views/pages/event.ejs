@@ -41,7 +41,7 @@
     <script>
       const urlParams = new URLSearchParams(window.location.search);
 
-      if (!urlParams.has('tournamentId')) {
+      if (!(urlParams.has('tournamentId'))) {
         console.log("there are no cards");
         toastr.warning("no tournament was found. please go to the calendar page and click on a tournament to see the relevant event page.", "Request Error", {
           "closeButton": true,
@@ -77,7 +77,7 @@
             }
 
             // add generic tournament data
-            let appendable = '<h2 id="tournament-name">Tournament Name: ' + tData.tournamentName + '</h2> <h2 id="tournament-dates">Tournament Dates: ' + (dayjs(tData.startDate).format("M/D") + ' - ' + dayjs(tData.endDate).format("M/D")) + '</h2> <h3 id="judging-information">Judging Information</h3> <ul> ' + '<li> hi </li>' + '</ul> <h3 id = "competitor-slots" > Competitor Slots</h3> <ul> <li>LD - 4</li> </ul> <h3 id="bid-information">Bid Information</h3> <h3 id="general-information">General Tournament Information</h3>';
+            let appendable = '<h2 id="tournament-name">Tournament Name: ' + tData.tournamentName + '</h2> <h2 id="tournament-dates">Tournament Dates: ' + (dayjs(tData.startDate).format("M/D") + ' - ' + dayjs(tData.endDate).format("M/D")) + '</h2> <h3 id="judging-information">Judging Information</h3> <ul> ' + '<li> hi </li>' + '</ul> <h3 id = "competitor-slots" > Competitor Slots</h3>' + `<ul> <li>LD - ${tData.slots.ld}</li> <li>CX - ${tData.slots.cx}</li> <li>PF - ${tData.slots.pf}</li> <li>Congress - ${tData.slots.cg}</li> <li>Speech - ${tData.slots.ie}</li> </ul>` + `<h3 id="bid-information">Bid Information</h3> <ul> <li>LD - ${tData.bids.ld}</li> <li>CX - ${tData.bids.cx}</li> <li>PF - ${tData.bids.pf}</li> <li>Congress - ${tData.bids.cg}</li></ul> <h3 id="general-information">General Tournament Information</h3>`;
 
             $('#tournament-information-title').after(appendable);
             console.log("added");

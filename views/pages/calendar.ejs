@@ -18,6 +18,7 @@
     <div id='calendar'></div>
   </div>
   <script>
+    const tournamentRedirectURL = "<%=redirectURL%>";
     document.addEventListener('DOMContentLoaded', function() {
       function addDay(str) {
         /*let x = str.split("-");
@@ -34,7 +35,6 @@
           let i = 0;
           while (i < result.data.length) {
             let tData = result.data[i];
-
             let tournamentEventAppendable = {
               title: (tData.tournamentName + " Tournament"),
               start: tData.startDate,
@@ -42,7 +42,7 @@
               backgroundColor: "RoyalBlue",
               allDay: true,
               display: 'auto',
-              url: ('https://judge-js.herokuapp.com/event?&tournamentId=' + tData.tournamentId)
+              url: (tournamentRedirectURL + tData.tournamentId)
             };
 
             let tournamentRegDeadlineAppendable = {
@@ -52,7 +52,7 @@
               backgroundColor: "FireBrick",
               allDay: true,
               display: 'auto',
-              url: ('https://judge-js.herokuapp.com/event?&tournamentId=' + tData.tournamentId)
+              url: (tournamentRedirectURL + tData.tournamentId)
             };
 
             let tournamentFeesFreezeAppendable = {
@@ -62,7 +62,7 @@
               backgroundColor: "LightCoral",
               allDay: true,
               display: 'auto',
-              url: ('https://judge-js.herokuapp.com/event?&tournamentId=' + tData.tournamentId)
+              url: (tournamentRedirectURL + tData.tournamentId)
             };
 
             dbEvents.push(tournamentEventAppendable);

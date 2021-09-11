@@ -69,12 +69,23 @@ app.get('/login', (req, res) => {
     redirectURL: `${process.env.SITE_DOMAIN}/private/homepage`,
     bro: "hi"
   });
+
 });
 app.get('/signup', (req, res) => res.render('pages/signup')); 
 app.get('/about', (req, res) => res.render('pages/about'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
-app.get('/calendar', (req, res) => res.render('pages/calendar'))
-app.get('/event', (req, res) => res.render('pages/event'));
+app.get('/calendar', (req, res) => {
+  res.render(('pages/calendar'), {
+    redirectURL: `${process.env.SITE_DOMAIN}/event?tournamentId=`
+  });
+});
+app.get('/event', (req, res) => {
+
+  res.render(('pages/event'), {
+    redirectURL: `${process.env.SITE_DOMAIN}/event?tournamentId=`
+  });
+
+});
 app.get('/socket', (req, res) => res.render('pages/socket'))
 
 //app.get('/protected/testing', (req,res)=>res.render('pages/testing'))
@@ -139,45 +150,12 @@ async function createTournaments(newTourneyData) {
 }
 
 async function alertTournament(specificTourneyData) {
-  let a;
-  var params = {
-    TableName: "tournaments",
-    //Select: "SPECIFIC_ATTRIBUTES",
-    //ProjectionExpression: "tournamentId, tournamentName, startDate, endDate, adminAlerts", 
-    KeyConditionExpression: '#tournId = :tourneyId',
-    ExpressionAttributeNames: {
-      "#tournId": "tournamentId"
-    },
-    ExpressionAttributeValues: {
-      ":tourneyId": specificTourneyData.tournamentId
-    }
-  };
-  await docClient.query(params).promise().then(data => {
-    //console.log(data);
-    a = data.Items;
-  });
-  return a;
-}
 
-async function alertTournament(specificTourneyData) {
-  let a;
-  var params = {
-    TableName: "tournaments",
-    //Select: "SPECIFIC_ATTRIBUTES",
-    //ProjectionExpression: "tournamentId, tournamentName, startDate, endDate, adminAlerts",
-    KeyConditionExpression: '#tournId = :tourneyId',
-    ExpressionAttributeNames: {
-      "#tournId": "tournamentId"
-    },
-    ExpressionAttributeValues: {
-      ":tourneyId": specificTourneyData.tournamentId
-    }
-  };
-  await docClient.query(params).promise().then(data => {
-    //console.log(data);
-    a = data.Items;
+  let returnableDocs;
+  await Tournament.find({tournamentId: specificTourneyData.tournamentId}, '-_id -_v', function(err,docs) {
+    returnableDocs = docs;
   });
-  return a;
+  return returnableDocs;
 }
 
 async function viewEntries(entryQueryData) {
