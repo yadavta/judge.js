@@ -66,7 +66,7 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/login', (req, res) => {
   
   res.render('pages/login', {
-    redirectURL: `${process.env.SITE_DOMAIN}private/homepage`,
+    redirectURL: `${process.env.SITE_DOMAIN}/private/homepage`,
     bro: "hi"
   });
 });
