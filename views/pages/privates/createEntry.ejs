@@ -41,6 +41,7 @@
                     <option value="pf">Public Forum</option>
                     <option value="ld">Lincoln Douglas</option>
                     <option value="cx">Policy</option>
+                    <option value="cg">Congress</option>
                   </select>
                 </div>
               </div>
@@ -48,9 +49,12 @@
 
             <div class="field">
               <label class="label">Additional Notes</label>
+              <article class="message">
+                <div class="message-body">If you are in PF or CX, please put your partner's name here. If you are in a speech event, please enter the event name, the piece title, the piece's author, and any additional information a tournament may want.</div>
+              </article>
               <textarea class="textarea"
-                placeholder="Anything you want the person reviewing your entry to see (ex: your PF partner)"
-                id="userAdditionalNotes" rows="1" maxlength="50"></textarea>
+                placeholder="Enter required information (see above) here. You can also include anything that you want the person reviewing your entry to see (ex: extenuating circumstances)."
+                id="userAdditionalNotes" rows="3" maxlength="500"></textarea>
             </div>
 
             <button class="button is-dark" id="createPostButton" onclick="attemptEventCreate()"
