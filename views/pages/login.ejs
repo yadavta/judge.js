@@ -53,6 +53,8 @@ TO-DO LIST:
 
     <script>
       function attemptAuth() {
+        var redirectURL = "<%=redirectURL%>";
+        console.log(redirectURL);
         $('.login-error').remove();
         let userEmail = $('#userEmail').val();
         let userPassword = $('#userPassword').val();
@@ -90,7 +92,7 @@ TO-DO LIST:
           }).then(response => {
             $('.login-error').remove();
             $('#loginButton').after(successHTML);
-            window.location.replace("https://judge-js.herokuapp.com/private/homepage");
+            window.location.replace(redirectURL);
           }).catch(error => {
             
             console.log(error.response);

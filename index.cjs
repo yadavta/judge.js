@@ -63,7 +63,13 @@ app.use('/admin', adminRoute);
 app.get('/', (req, res) => res.render('pages/index'))
 
 
-app.get('/login', (req, res) => res.render('pages/login'));
+app.get('/login', (req, res) => {
+  
+  res.render('pages/login', {
+    redirectURL: `${process.env.SITE_DOMAIN}private/homepage`,
+    bro: "hi"
+  });
+});
 app.get('/signup', (req, res) => res.render('pages/signup')); 
 app.get('/about', (req, res) => res.render('pages/about'))
 app.get('/tournaments', (req, res) => res.render('pages/tournaments'))
