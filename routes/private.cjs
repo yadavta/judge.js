@@ -31,11 +31,14 @@ router.use(async function isAuthenticated(req, res, next) {
         res.locals.authenticated = true;
         res.locals.userId = currentToken.userId;
 
-        await User.findOne({ _id: res.locals.userId }, 'fullName').then(results => {
+        await User.findOne({ _id: res.locals.userId }, 'fullName firstName lastName email').then(results => {
           if (results === null) {
             res.send(500);
           }
           res.locals.userName = results.fullName;
+          res.locals.userFirstName = results.firstName;
+          res.locals.userLastName = results.lastName;
+          res.locals.userEmail = results.email;
           next();
         })
       }
