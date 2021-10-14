@@ -26,26 +26,25 @@ const Confirmations = require('../utils/emails/accountConfirmation.cjs');
 // const siteDomain = "https://interlakesharks.org";
 
 //validation function
-const joiUserSchema = Joi.object({
-  fullName: Joi.string().min(2).max(100).required(),
+/*const joiUserSchema = Joi.object({
   firstName: Joi.string().alphanum().min(1).max(100).required(),
   lastName: Joi.string().alphanum().min(1).max(100).required(),
   email: Joi.string().email().min(3).required(),
   password: Joi.string().min(8).required(),
   group: Joi.string().required(),
-});
+});*/
 
 router.post('/register', async (req, res) => {
 
   // first validate request body
-  const joiValidation = joiUserSchema.validate(req.body);
+  //const joiValidation = joiUserSchema.validate(req.body);
 
   //if there's an error, send that to client
-  if (joiValidation.hasOwnProperty("error")) {
-    res.status(400).send(joiValidation.error.details[0].message);
-  }
+ // if (joiValidation.hasOwnProperty("error")) {
+    //res.status(400).send(joiValidation.error.details[0].message);
+  //}
   //otherwise add user to mongo
-  else {
+  //else {
 
     //search for duplicate user
     try {
