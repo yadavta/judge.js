@@ -32,6 +32,8 @@ const joiUserSchema = Joi.object({
   email: Joi.string().email().min(3).required(),
   password: Joi.string().min(8).required(),
   group: Joi.string().required(),
+  fullName: Joi.string(),
+  studentId: Joi.string()
 });
 
 router.post('/register', async (req, res) => {
