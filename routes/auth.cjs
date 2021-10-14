@@ -23,7 +23,7 @@ const User = require('../utils/models/User');
 const Session = require('../utils/models/Session');
 const EmailConfirmation = require('../utils/models/EmailConfirmation');
 const Confirmations = require('../utils/emails/accountConfirmation.cjs');
-const siteDomain = env.SITE_DOMAIN;
+const siteDomain = "https://interlakesharks.org";
 
 //validation function
 const joiUserSchema = Joi.object({
