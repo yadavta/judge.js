@@ -13,9 +13,9 @@ async function sendConfirmationEmail(recipientEmail, recipientName, tokenURI) {
   let mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN });
 
   const data = {
-    from: `JudgeJS <accounts@${process.env.MAILGUN_DOMAIN}>`,
+    from: `Interlake Speech & Debate <accounts@${process.env.MAILGUN_DOMAIN}>`,
     to: recipientEmail,
-    subject: "JudgeJS Account Confirmation",
+    subject: "Interlake Sharks Account Confirmation",
     html: `<p style=\"color:black\"> Dear ${recipientName}, <br><br> Please navigate to the following link in your browser to confirm your email: ${tokenURI}</p>`,
     text: `Dear ${recipientName} \nPlease navigate to the following link in your browser to confirm your email: ${tokenURI}`
   };
