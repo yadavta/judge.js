@@ -17,7 +17,7 @@ async function sendConfirmationEmail(recipientEmail, recipientName, tokenURI) {
     to: recipientEmail,
     subject: "Interlake Sharks Account Confirmation",
     html: `<p style=\"color:black\"> Dear ${recipientName}, <br><br> Please navigate to the following link in your browser to confirm your email: ${tokenURI}</p>`,
-    text: `Dear ${recipientName} \nPlease navigate to the following link in your browser to confirm your email: ${tokenURI}`
+    text: `Dear ${recipientName} \nPlease navigate to the following link in your browser to confirm your email: ${tokenURI} \nThanks,\nInterlake Speech & Debate Team`
   };
 
   mailgun.messages().send(data, (error, body) => {
