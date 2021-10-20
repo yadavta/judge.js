@@ -96,7 +96,7 @@ router.get('/create/tournament', (req, res) => {
 });
 
 router.get('/create/entry', (req, res) => {
-  Tournament.find({ internalSignupDeadline: { $gte: dayjs().add(1, 'd').format('YYYY-MM-DD') } }).select('tournamentName tournamentId').exec((err, docs) => {
+  Tournament.find({ internalSignupDeadline: { $gte: dayjs().subtract(1, 'd').format('YYYY-MM-DD') } }).select('tournamentName tournamentId').exec((err, docs) => {
     if (err) {
       res.send(500);
     } else {
